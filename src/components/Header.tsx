@@ -3,16 +3,19 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { CLINIC_CONTACT } from "@/data/content";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 150, damping: 28, mass: 0.35 });
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 28);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -27,81 +30,110 @@ export default function Header() {
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/92 backdrop-blur-xl border-b border-zinc-200/70 shadow-sm"
-          : "bg-white/75 backdrop-blur-md"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-        <Link href="/" className="relative z-10 flex items-center gap-3 group" aria-label="Ir para a página inicial">
-          <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-zinc-200 shadow-sm bg-white">
-            <Image src="/images/logo-icon.png" alt="Símbolo da marca Cristiano Ávila" fill sizes="40px" className="object-cover" priority />
-          </div>
-          <div className="flex flex-col text-left">
-            <span className="text-[10px] uppercase font-semibold tracking-[0.18em] text-zinc-500 leading-none">
-              Psicólogo • {PROFESSIONAL_REGISTRATION}
-            </span>
-            <span className="font-semibold text-base tracking-tight text-black leading-tight">
-              Cristiano Ávila
-            </span>
-          </div>
-        </Link>
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+      <motion.div
+        layout
+        className={`relative mx-auto max-w-7xl overflow-visible rounded-[22px] border transition-all duration-500 ${
+          isScrolled
+            ? "border-white/80 bg-white/88 shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-2xl"
+            : "border-white/55 bg-white/58 shadow-[0_10px_35px_rgba(0,0,0,0.055)] backdrop-blur-xl"
+        }`}
+      >
+        <div className="flex items-center justify-between gap-4 px-3 py-2.5 sm:px-4 lg:px-5">
+          <Link href="/" className="group relative z-10 flex min-w-0 items-center gap-3" aria-label="Ir para a página inicial">
+            <motion.div
+              whileHover={{ rotate: 3, scale: 1.04 }}
+              transition={{ type: "spring", stiffness: 320, damping: 20 }}
+              className="relative h-10 w-10 shrink-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-sm"
+            >
+              <Image src="/images/logo-icon.png" alt="Símbolo da marca Cristiano Ávila" fill sizes="40px" className="object-cover" priority />
+            </motion.div>
 
-        <nav className="hidden lg:flex items-center gap-7" aria-label="Navegação principal">
-          {navLinks.map((link) => (
-            <Link key={link.name} href={link.href} className="text-xs font-medium text-zinc-600 hover:text-black transition-colors">
-              {link.name}
-            </Link>
-          ))}
-        </nav>
+            <div className="min-w-0 text-left">
+              <span className="block truncate text-[9px] font-semibold uppercase leading-none tracking-[0.18em] text-zinc-400 sm:text-[10px]">
+                Psicólogo • {PROFESSIONAL_REGISTRATION}
+              </span>
+              <span className="mt-1 block truncate text-[15px] font-semibold leading-tight tracking-[-0.025em] text-black sm:text-base">
+                Cristiano Ávila
+              </span>
+            </div>
+          </Link>
 
-        <div className="hidden lg:flex items-center gap-4">
-          <span className="hidden xl:inline text-[10px] font-medium tracking-wider text-zinc-500 uppercase">
-            Presencial e online
-          </span>
-          <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary py-2.5 px-5 text-xs shadow-sm">
-            Agendar consulta
-          </a>
+          <nav className="hidden items-center rounded-full border border-zinc-200/75 bg-white/72 px-1.5 py-1 shadow-sm backdrop-blur-xl lg:flex" aria-label="Navegação principal">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="rounded-full px-3.5 py-2 text-[11px] font-medium text-zinc-500 transition-all duration-300 hover:bg-zinc-100 hover:text-black xl:px-4"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="hidden items-center gap-3 lg:flex">
+            <span className="hidden text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400 2xl:inline">
+              Presencial & online
+            </span>
+            <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary px-5 py-2.5 text-[11px] shadow-none">
+              Agendar consulta
+              <span className="ml-2" aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <button
+            type="button"
+            className="relative z-10 -mr-1 flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200/80 bg-white/80 text-black shadow-sm lg:hidden"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            <div className="flex h-4 w-5 flex-col justify-between">
+              <span className={`block h-[1.5px] w-full bg-current transition-transform duration-300 ${mobileMenuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+              <span className={`block h-[1.5px] w-full bg-current transition-opacity duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`block h-[1.5px] w-full bg-current transition-transform duration-300 ${mobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+            </div>
+          </button>
         </div>
 
-        <button
-          type="button"
-          className="lg:hidden relative z-10 p-2 -mr-2 text-black"
-          onClick={() => setMobileMenuOpen((open) => !open)}
-          aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={mobileMenuOpen}
-        >
-          <div className="w-5 h-4 flex flex-col justify-between">
-            <span className={`block w-full h-[1.5px] bg-current transition-transform duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block w-full h-[1.5px] bg-current transition-opacity duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-full h-[1.5px] bg-current transition-transform duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
-          </div>
-        </button>
-      </div>
+        <motion.div className="absolute inset-x-4 bottom-0 h-px origin-left bg-gradient-to-r from-black via-zinc-500 to-transparent" style={{ scaleX: progress }} />
 
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }} className="absolute top-full left-0 right-0 bg-white border-b border-zinc-200 shadow-xl lg:hidden">
-            <nav className="flex flex-col p-5 gap-1" aria-label="Navegação móvel">
-              {navLinks.map((link) => (
-                <Link key={link.name} href={link.href} onClick={() => setMobileMenuOpen(false)} className="px-4 py-3 text-sm font-medium text-black rounded-xl hover:bg-zinc-100 transition-colors">
-                  {link.name}
-                </Link>
-              ))}
-              <div className="pt-4 mt-2 border-t border-zinc-100 px-2 pb-2 space-y-2">
-                <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-center py-3.5 text-xs font-semibold">
-                  Agendar pelo WhatsApp
-                </a>
-                <p className="text-[11px] text-center text-zinc-500">
-                  {CLINIC_CONTACT.fullName} • {PROFESSIONAL_REGISTRATION}
-                </p>
-              </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.985 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.985 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-x-0 top-[calc(100%+8px)] overflow-hidden rounded-[22px] border border-white/80 bg-white/95 p-3 shadow-[0_28px_80px_rgba(0,0,0,0.16)] backdrop-blur-2xl lg:hidden"
+            >
+              <nav className="grid gap-1" aria-label="Navegação móvel">
+                {navLinks.map((link, index) => (
+                  <motion.div key={link.name} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.035 }}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-medium text-black transition-colors hover:bg-zinc-100"
+                    >
+                      <span>{link.name}</span>
+                      <span className="text-zinc-300" aria-hidden="true">↗</span>
+                    </Link>
+                  </motion.div>
+                ))}
+
+                <div className="mt-2 border-t border-zinc-100 p-2 pt-4">
+                  <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary w-full py-3.5 text-center text-xs font-semibold">
+                    Agendar pelo WhatsApp
+                  </a>
+                  <p className="mt-3 text-center text-[10px] text-zinc-400">
+                    {CLINIC_CONTACT.fullName} • {PROFESSIONAL_REGISTRATION}
+                  </p>
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </header>
   );
 }
