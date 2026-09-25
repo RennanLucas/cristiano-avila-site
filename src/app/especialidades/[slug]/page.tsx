@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SPECIALTIES_DATA, CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
+import { CURRENT_UNITS } from "@/data/units";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingDock from "@/components/FloatingDock";
@@ -24,7 +25,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: "website", images: specialty.imageUrl ? [specialty.imageUrl] : undefined },
+    openGraph: { title, description, url, type: "website", images: [`${SITE_URL}${CLINIC_CONTACT.avatarUrl}`] },
   };
 }
 
@@ -34,99 +35,112 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
 
   const otherSpecialties = SPECIALTIES_DATA.filter((s) => s.slug !== specialty.slug && isPublicSpecialty(s.id)).slice(0, 3);
   const whatsappMessage = `Olá, Dr. Cristiano. Li a página sobre ${specialty.title} e gostaria de verificar a disponibilidade para uma consulta.`;
+  const currentCities = CURRENT_UNITS.map((unit) => unit.city).join(", ");
 
   return (
-    <main className="min-h-screen bg-white text-[#111111] overflow-x-hidden selection:bg-black selection:text-white pb-20 sm:pb-0">
+    <main className="min-h-screen overflow-x-hidden bg-white pb-20 text-[#111111] selection:bg-black selection:text-white sm:pb-0">
       <Header />
 
-      <section className="pt-36 sm:pt-44 pb-16 px-4 sm:px-6 border-b border-zinc-100 bg-gradient-to-b from-zinc-50/70 to-white">
-        <div className="max-w-5xl mx-auto">
-          <nav className="flex items-center gap-2 text-xs text-zinc-400 mb-8 flex-wrap" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-black transition-colors">Início</Link><span>/</span>
-            <Link href="/#especialidades" className="hover:text-black transition-colors">Formas de atendimento</Link><span>/</span>
-            <span className="text-black font-semibold">{specialty.title}</span>
+      <section className="relative overflow-hidden border-b border-zinc-100 bg-gradient-to-b from-zinc-50/80 to-white px-4 pb-16 pt-36 sm:px-6 sm:pt-44">
+        <div className="pointer-events-none absolute right-[8%] top-24 h-64 w-64 rounded-full border border-zinc-200 bg-white/60 shadow-sm" />
+        <div className="pointer-events-none absolute right-[13%] top-36 h-40 w-40 rounded-full border border-zinc-100 bg-zinc-50" />
+
+        <div className="relative z-10 mx-auto max-w-5xl">
+          <nav className="mb-8 flex flex-wrap items-center gap-2 text-xs text-zinc-400" aria-label="Breadcrumb">
+            <Link href="/" className="transition-colors hover:text-black">Início</Link><span>/</span>
+            <Link href="/#especialidades" className="transition-colors hover:text-black">Formas de atendimento</Link><span>/</span>
+            <span className="font-semibold text-black">{specialty.title}</span>
           </nav>
 
-          <span className="inline-block text-[11px] uppercase tracking-[0.16em] font-semibold text-zinc-500 mb-5">{specialty.badge}</span>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.045em] text-black leading-[1.05] mb-4">{specialty.title}</h1>
-          <p className="text-lg sm:text-2xl text-zinc-500 font-light leading-relaxed mb-6">{specialty.subtitle}</p>
-          <p className="text-base sm:text-lg text-zinc-600 font-light leading-relaxed max-w-3xl mb-9">{specialty.shortDesc}</p>
+          <span className="mb-5 inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">{specialty.badge}</span>
+          <h1 className="mb-4 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-black sm:text-6xl md:text-7xl">{specialty.title}</h1>
+          <p className="mb-6 text-lg font-light leading-relaxed text-zinc-500 sm:text-2xl">{specialty.subtitle}</p>
+          <p className="mb-9 max-w-3xl text-base font-light leading-relaxed text-zinc-600 sm:text-lg">{specialty.shortDesc}</p>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary shadow-apple text-center py-3.5 px-7">Ver disponibilidade</a>
-            <Link href="/#especialidades" className="btn-outline text-center py-3.5 px-7">Ver outras opções</Link>
+          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary px-7 py-3.5 text-center shadow-apple">Ver disponibilidade</a>
+            <Link href="/#especialidades" className="btn-outline px-7 py-3.5 text-center">Ver outras opções</Link>
           </div>
         </div>
       </section>
 
-      <section className="py-20 sm:py-28 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid lg:grid-cols-3 gap-12 sm:gap-16 items-start">
-            <div className="lg:col-span-2 space-y-10">
-              {specialty.imageUrl && (
-                <div className="relative rounded-3xl overflow-hidden border border-zinc-200 aspect-[16/9]">
-                  <Image src={specialty.imageUrl} alt={`Imagem relacionada a ${specialty.title}`} fill sizes="(max-width: 1024px) 100vw, 680px" className="object-cover" />
+      <section className="bg-white py-20 sm:py-28">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="grid items-start gap-12 sm:gap-16 lg:grid-cols-3">
+            <div className="space-y-10 lg:col-span-2">
+              <div className="relative overflow-hidden rounded-[28px] border border-zinc-200 bg-zinc-950 p-7 text-white shadow-[0_24px_70px_rgba(0,0,0,0.10)] sm:p-10">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_34%)]" />
+                <div className="relative z-10 grid gap-8 sm:grid-cols-[auto_1fr] sm:items-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 font-mono text-xl font-semibold text-white/80">
+                    {specialty.num}
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">Abordagem individualizada</span>
+                    <p className="mt-3 text-base font-light leading-relaxed text-white/75">
+                      O enquadre, a frequência e os recursos utilizados são definidos após avaliação profissional. Esta página é informativa e não representa promessa de resultado ou indicação automática de técnica.
+                    </p>
+                  </div>
                 </div>
-              )}
+              </div>
 
-              <div className="space-y-6 text-base sm:text-lg text-zinc-600 font-light leading-relaxed">
-                <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-black">Como o acompanhamento pode ser conduzido</h2>
+              <div className="space-y-6 text-base font-light leading-relaxed text-zinc-600 sm:text-lg">
+                <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">Como o acompanhamento pode ser conduzido</h2>
                 {specialty.fullDesc.map((paragraph, idx) => <p key={idx}>{paragraph}</p>)}
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-8 pt-8 border-t border-zinc-100">
-                <div className="bg-zinc-50 rounded-2xl p-6 border border-zinc-200">
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-black mb-4">Demandas que podem ser avaliadas</h3>
+              <div className="grid gap-8 border-t border-zinc-100 pt-8 sm:grid-cols-2">
+                <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
+                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Demandas que podem ser avaliadas</h3>
                   <ul className="space-y-3">
                     {specialty.indications.map((item, i) => <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-600"><span aria-hidden="true">•</span><span>{item}</span></li>)}
                   </ul>
                 </div>
 
-                <div className="bg-zinc-50 rounded-2xl p-6 border border-zinc-200">
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-black mb-4">Objetivos possíveis do processo</h3>
+                <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
+                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Objetivos possíveis do processo</h3>
                   <ul className="space-y-3">
                     {specialty.benefits.map((item, i) => <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-600"><span aria-hidden="true">•</span><span>{item}</span></li>)}
                   </ul>
-                  <p className="text-[11px] text-zinc-500 mt-5 leading-relaxed">Objetivos e estratégias variam conforme avaliação profissional e não constituem promessa de resultado.</p>
+                  <p className="mt-5 text-[11px] leading-relaxed text-zinc-500">Objetivos e estratégias variam conforme avaliação profissional e não constituem promessa de resultado.</p>
                 </div>
               </div>
             </div>
 
             <aside className="space-y-6 lg:sticky lg:top-28">
-              <div className="p-6 rounded-3xl bg-zinc-50 border border-zinc-200 text-left">
-                <div className="flex items-center gap-3.5 mb-5">
-                  <div className="relative w-14 h-14 rounded-2xl overflow-hidden border border-zinc-200 bg-white shrink-0">
+              <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-6 text-left">
+                <div className="mb-5 flex items-center gap-3.5">
+                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-zinc-200 bg-white">
                     <Image src={CLINIC_CONTACT.avatarUrl} alt="Cristiano Ávila" fill sizes="56px" className="object-cover object-top" />
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold text-black">{CLINIC_CONTACT.fullName}</h4>
-                    <p className="text-xs text-zinc-500 mt-0.5">Psicólogo Clínico</p>
-                    <p className="text-[11px] text-zinc-500 mt-1">{PROFESSIONAL_REGISTRATION}</p>
+                    <p className="mt-0.5 text-xs text-zinc-500">Psicólogo Clínico</p>
+                    <p className="mt-1 text-[11px] text-zinc-500">{PROFESSIONAL_REGISTRATION}</p>
                   </div>
                 </div>
 
-                <div className="space-y-3 pt-4 border-t border-zinc-200 text-xs text-zinc-600">
+                <div className="space-y-3 border-t border-zinc-200 pt-4 text-xs text-zinc-600">
                   <p><strong className="text-black">Modalidade:</strong> presencial e online</p>
-                  <p><strong className="text-black">Unidades:</strong> São Paulo, Atibaia, Santos e São Bernardo do Campo</p>
+                  <p><strong className="text-black">Presencial:</strong> {currentCities}</p>
                   <p><strong className="text-black">Privacidade:</strong> atendimento sujeito ao dever de sigilo profissional e às normas aplicáveis.</p>
                 </div>
 
-                <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-center text-xs py-3 mt-6 block">Falar sobre disponibilidade</a>
+                <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 block w-full py-3 text-center text-xs">Falar sobre disponibilidade</a>
               </div>
             </aside>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-zinc-50 border-t border-zinc-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl font-semibold tracking-tight text-black mb-8">Outras formas de atendimento</h2>
-          <div className="grid sm:grid-cols-3 gap-6">
+      <section className="border-t border-zinc-200 bg-zinc-50 py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <h2 className="mb-8 text-2xl font-semibold tracking-tight text-black">Outras formas de atendimento</h2>
+          <div className="grid gap-6 sm:grid-cols-3">
             {otherSpecialties.map((item) => (
-              <Link key={item.id} href={`/especialidades/${item.slug}`} className="group p-6 rounded-2xl bg-white border border-zinc-200 hover:border-zinc-400 transition-all">
-                <h3 className="text-base font-semibold text-black mb-2">{item.title}</h3>
-                <p className="text-xs text-zinc-600 line-clamp-3 leading-relaxed">{item.shortDesc}</p>
-                <span className="inline-block mt-5 text-xs font-semibold text-black">Conhecer →</span>
+              <Link key={item.id} href={`/especialidades/${item.slug}`} className="group rounded-2xl border border-zinc-200 bg-white p-6 transition-all hover:-translate-y-1 hover:border-zinc-400 hover:shadow-sm">
+                <h3 className="mb-2 text-base font-semibold text-black">{item.title}</h3>
+                <p className="line-clamp-3 text-xs leading-relaxed text-zinc-600">{item.shortDesc}</p>
+                <span className="mt-5 inline-block text-xs font-semibold text-black">Conhecer →</span>
               </Link>
             ))}
           </div>
