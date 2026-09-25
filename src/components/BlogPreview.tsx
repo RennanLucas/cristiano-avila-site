@@ -8,99 +8,67 @@ export default function BlogPreview() {
   const articles = ARTICLES_DATA.slice(0, 3);
 
   return (
-    <section id="blog" className="py-24 lg:py-32 bg-surface relative">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-3">
-              <span className="w-6 h-[1.5px] bg-zinc-200" />
-              <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-3">BLOG & ARTIGOS CLÍNICOS</span>
-            </div>
-
-            <h2 className="tracking-tight text-3xl sm:text-4xl lg:text-5xl text-black tracking-tight">
-              Conteúdos sobre Mente e Comportamento
+    <section id="blog" className="relative overflow-hidden bg-[#F7F7F5] py-24 lg:py-32">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(0,0,0,0.04),transparent_28%)]" />
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12">
+        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-2xl">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">Blog & conteúdo</span>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.035em] text-black sm:text-4xl lg:text-5xl">
+              Leituras sobre mente, comportamento e saúde emocional.
             </h2>
-
-            <p className="text-textMuted text-base lg:text-lg font-light leading-relaxed">
-              Reflexões baseadas em psicologia, neurociência e prática clínica para auxiliar na compreensão das suas emoções.
+            <p className="mt-4 text-base font-light leading-relaxed text-zinc-600 lg:text-lg">
+              Conteúdo editorial em formato limpo, sem fotografias genéricas ou imagens artificiais que possam sugerir cenas clínicas reais.
             </p>
           </div>
 
-          <div>
-            <Link
-              href="/blog"
-              className="btn-outline text-xs inline-flex items-center gap-2"
-            >
-              <span>Acessar todo o blog</span>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-          </div>
+          <Link href="/blog" className="btn-outline inline-flex items-center gap-2 text-xs">
+            Ver todos os artigos <span aria-hidden="true">→</span>
+          </Link>
         </div>
 
-        {/* 3 Editorial Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {articles.map((article, idx) => (
             <motion.article
               key={article.slug}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: idx * 0.1, ease: 'easeOut' }}
-              className="group bg-white rounded-2xl overflow-hidden border border-zinc-200/8 shadow-sm hover:shadow-apple-hover hover:-translate-y-1.5 transition-all duration-400 flex flex-col justify-between"
+              transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6 }}
+              className="group relative flex min-h-[390px] flex-col justify-between overflow-hidden rounded-[28px] border border-zinc-200 bg-white p-7 shadow-sm transition-shadow hover:shadow-[0_28px_70px_rgba(0,0,0,0.08)]"
             >
-              <div>
-                {/* Article Image */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
-                  <img
-                    src={article.imageUrl}
-                    alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <span className="absolute top-4 left-4 text-[10px] uppercase tracking-wider font-semibold bg-white/95 text-black px-3 py-1 rounded-full shadow-sm">
-                    {article.category}
-                  </span>
+              <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full border border-zinc-100 bg-zinc-50 transition-transform duration-700 group-hover:scale-125" />
+              <div className="relative z-10">
+                <div className="flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400">
+                  <span>{article.category}</span>
+                  <span>{String(idx + 1).padStart(2, '0')}</span>
                 </div>
 
-                {/* Article Text */}
-                <div className="p-7 space-y-4">
-                  <div className="flex items-center justify-between text-xs text-textMuted">
-                    <span>{article.date}</span>
-                    <span>{article.readTime}</span>
-                  </div>
+                <h3 className="mt-10 text-2xl font-semibold leading-tight tracking-[-0.025em] text-black">
+                  <Link href={`/blog/${article.slug}`}>{article.title}</Link>
+                </h3>
 
-                  <h3 className="tracking-tight text-xl sm:text-2xl text-black font-semibold leading-snug group-hover:text-zinc-500 transition-colors">
-                    <Link href={`/blog/${article.slug}`}>
-                      {article.title}
-                    </Link>
-                  </h3>
-
-                  <p className="text-textMuted text-sm leading-relaxed font-light line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                </div>
+                <p className="mt-4 line-clamp-4 text-sm font-light leading-relaxed text-zinc-600">
+                  {article.excerpt}
+                </p>
               </div>
 
-              {/* Read More Link */}
-              <div className="px-7 pb-7 pt-2">
+              <div className="relative z-10 mt-10 border-t border-zinc-100 pt-5">
+                <div className="flex items-center justify-between gap-4 text-xs text-zinc-500">
+                  <span>{article.date}</span>
+                  <span>{article.readTime}</span>
+                </div>
                 <Link
                   href={`/blog/${article.slug}`}
-                  className="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-black group-hover:text-zinc-500 transition-colors"
+                  className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-black transition-all group-hover:gap-3"
                 >
-                  <span>Ler artigo completo</span>
-                  <svg className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                  Ler artigo <span aria-hidden="true">→</span>
                 </Link>
               </div>
             </motion.article>
           ))}
         </div>
-
       </div>
     </section>
   );
