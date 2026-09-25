@@ -38,6 +38,8 @@ export interface Unit {
   mapEmbedUrl: string;
   mapsExternalLink: string;
   hours: string;
+  imageUrl: string;
+  tagline?: string;
 }
 
 export interface Testimonial {
@@ -89,7 +91,9 @@ export const UNITS_DATA: Unit[] = [
     whatsapp: "5511995235839",
     mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.8876483526543!2d-46.5684725!3d-23.1195159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cec160e1d5a7d3%3A0xc3f1f7253503f8f!2sAv.%20Dona%20Gertrudes%2C%20857%20-%20Alvin%C3%B3polis%2C%20Atibaia%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000",
     mapsExternalLink: "https://maps.google.com/?q=Avenida+Dona+Gertrudes,+857,+Alvinopolis,+Atibaia+-+SP",
-    hours: "Segunda a Sexta: 08h às 20h | Sábados: 08h às 13h"
+    hours: "Segunda a Sexta: 08h às 20h | Sábados: 08h às 13h",
+    imageUrl: "/images/clinic_room.jpg",
+    tagline: "Ambiente reservado e tranquilo para acolhimento terapêutico com total sigilo."
   },
   {
     id: "sao-paulo",
@@ -104,7 +108,9 @@ export const UNITS_DATA: Unit[] = [
     whatsapp: "5511995235839",
     mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.278546597771!2d-46.6268846!3d-23.4984241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cef633f81e37ff%3A0x6bfe76e73685bc94!2sR.%20Ana%20Bemvinda%20de%20Andrade%2C%2051%20-%20Santana%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000001",
     mapsExternalLink: "https://maps.google.com/?q=Rua+Ana+Bem-vinda+de+Andrade,+51,+Santana,+Sao+Paulo+-+SP",
-    hours: "Segunda a Sexta: 08h às 21h"
+    hours: "Segunda a Sexta: 08h às 21h",
+    imageUrl: "/images/clinic_santana.jpg",
+    tagline: "Complexo médico Santana Corporate com infraestrutura executiva e segurança 24h."
   },
   {
     id: "santos",
@@ -119,7 +125,9 @@ export const UNITS_DATA: Unit[] = [
     whatsapp: "5511995235839",
     mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3646.108427748197!2d-46.3323048!3d-23.9554605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce030b62b77247%3A0xc3f6d5ef0a5528c7!2sAv.%20Sen.%20Feij%C3%B3%2C%20686%20-%20Vila%20Matias%2C%20Santos%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000002",
     mapsExternalLink: "https://maps.google.com/?q=Av.+Senador+Feijo,+686,+Santos+-+SP",
-    hours: "Atendimento presencial programado"
+    hours: "Atendimento presencial programado",
+    imageUrl: "/images/clinic_reception.jpg",
+    tagline: "Torre corporativa The Blue no coração de Santos, com recepção e lounge premium."
   },
   {
     id: "sbc",
@@ -134,7 +142,9 @@ export const UNITS_DATA: Unit[] = [
     whatsapp: "5511995235839",
     mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3653.2504938634964!2d-46.5492472!3d-23.6938363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce4232338f98c7%3A0x6a2ea1295fcad15a!2sR.%20Jos%C3%A9%20Versolato%2C%20111%20-%20Centro%2C%20S%C3%A3o%20Bernardo%20do%20Campo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000003",
     mapsExternalLink: "https://maps.google.com/?q=Rua+Jose+Versolato,+111,+Sao+Bernardo+do+Campo+-+SP",
-    hours: "Segunda a Sexta: 08h às 20h"
+    hours: "Segunda a Sexta: 08h às 20h",
+    imageUrl: "/images/clinic_sbc.jpg",
+    tagline: "Consultório moderno no Edifício Domo Business com acústica e vista de alto padrão."
   }
 ];
 

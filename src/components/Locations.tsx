@@ -6,6 +6,7 @@ import { UNITS_DATA, CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 
 export default function Locations() {
   const [selectedUnit, setSelectedUnit] = useState(UNITS_DATA[0]);
+  const [viewMode, setViewMode] = useState<"photo" | "map">("photo");
 
   return (
     <section id="unidades" className="py-24 lg:py-32 bg-white relative border-t border-zinc-100">
@@ -56,15 +57,20 @@ export default function Locations() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.25 }}
-            className="bg-surface rounded-3xl p-8 sm:p-12 border border-zinc-200/80 shadow-apple max-w-4xl mx-auto grid md:grid-cols-2 gap-10 items-center"
+            className="bg-surface rounded-3xl p-8 sm:p-12 border border-zinc-200/80 shadow-apple max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center"
           >
             <div>
               <span className="text-[10px] font-bold tracking-widest text-zinc-400 uppercase block mb-2">
-                Unidade {selectedUnit.city}
+                Unidade {selectedUnit.city} • {selectedUnit.state}
               </span>
-              <h3 className="text-2xl sm:text-3xl font-bold text-black tracking-tight mb-4">
+              <h3 className="text-2xl sm:text-3xl font-bold text-black tracking-tight mb-2">
                 {selectedUnit.title}
               </h3>
+              {selectedUnit.tagline && (
+                <p className="text-xs text-zinc-500 font-normal mb-6">
+                  {selectedUnit.tagline}
+                </p>
+              )}
               
               <div className="space-y-4 text-sm text-textMuted font-light mb-8">
                 <div className="flex items-start gap-3">
@@ -75,7 +81,7 @@ export default function Locations() {
                   <div>
                     <strong className="text-black font-medium block">Endereço:</strong>
                     <span>{selectedUnit.address}</span>
-                    {selectedUnit.complement && <span className="block text-xs">{selectedUnit.complement}</span>}
+                    {selectedUnit.complement && <span className="block text-xs text-zinc-500">{selectedUnit.complement}</span>}
                   </div>
                 </div>
 
@@ -105,25 +111,83 @@ export default function Locations() {
                     href={selectedUnit.mapsExternalLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-outline text-xs py-3 px-6 text-center"
+                    className="btn-outline text-xs py-3 px-6 text-center inline-flex items-center justify-center gap-1.5"
                   >
-                    Ver rotas no mapa
+                    <span>Abrir no mapa</span>
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
                   </a>
                 )}
               </div>
             </div>
 
-            {/* Visual Mini Map / Photo */}
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-zinc-200 border border-zinc-200">
-              <iframe
-                title={`Mapa ${selectedUnit.city}`}
-                src={selectedUnit.mapEmbedUrl || "https://maps.google.com/maps?q=Atibaia&t=&z=13&ie=UTF8&iwloc=&output=embed"}
-                className="w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500"
-                loading="lazy"
-              />
+            {/* Visual Photo or Mini Map with switcher */}
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-end gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setViewMode("photo")}
+                  className={`px-3 py-1 rounded-full text-[11px] font-medium transition-all ${
+                    viewMode === "photo"
+                      ? "bg-black text-white shadow-sm"
+                      : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                  }`}
+                >
+                  Foto do Consultório
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode("map")}
+                  className={`px-3 py-1 rounded-full text-[11px] font-medium transition-all ${
+                    viewMode === "map"
+                      ? "bg-black text-white shadow-sm"
+                      : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                  }`}
+                >
+                  Mapa Interativo
+                </button>
+              </div>
+
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-zinc-900 border border-zinc-200 shadow-sm">
+                {viewMode === "photo" ? (
+                  <div className="relative w-full h-full">
+                    <img
+                      src={selectedUnit.imageUrl}
+                      alt={`Consultório de ${selectedUnit.city}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-3 left-4 right-4">
+                      <span className="text-[11px] font-medium text-white/90">
+                        {selectedUnit.title} — {selectedUnit.city}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <iframe
+                    title={`Mapa ${selectedUnit.city}`}
+                    src={selectedUnit.mapEmbedUrl || "https://maps.google.com/maps?q=Atibaia&t=&z=13&ie=UTF8&iwloc=&output=embed"}
+                    className="w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500"
+                    loading="lazy"
+                  />
+                )}
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>
+
+        <div className="mt-10 text-center">
+          <a
+            href="/unidades"
+            className="inline-flex items-center text-xs font-semibold text-zinc-700 hover:text-black transition-colors"
+          >
+            <span>Ver detalhes arquitetônicos e fotos de todas as 4 unidades</span>
+            <svg className="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );
