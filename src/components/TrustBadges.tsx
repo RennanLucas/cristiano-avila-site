@@ -1,64 +1,74 @@
-import Image from "next/image";
-import { CLINIC_CONTACT } from "@/data/content";
+"use client";
+
+import { motion } from "framer-motion";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
+
+const CREDENTIALS = [
+  {
+    label: "Registro profissional",
+    value: PROFESSIONAL_REGISTRATION,
+    detail: "Psicologia clínica",
+    icon: "01",
+  },
+  {
+    label: "Experiência",
+    value: "+10 anos",
+    detail: "Atuação clínica e institucional",
+    icon: "02",
+  },
+  {
+    label: "Atendimento presencial",
+    value: "4 cidades",
+    detail: "Praia Grande • Atibaia • SBC • Santos",
+    icon: "03",
+  },
+  {
+    label: "Formação complementar",
+    value: "OMNI",
+    detail: "Hipnoterapia clínica",
+    icon: "04",
+  },
+];
 
 export default function TrustBadges() {
   return (
-    <div className="w-full max-w-6xl mx-auto">
-      <div className="relative overflow-hidden rounded-[28px] border border-zinc-200/90 bg-white/95 shadow-[0_18px_55px_rgba(0,0,0,0.08)] backdrop-blur">
-        <div className="absolute left-0 top-0 h-px w-28 bg-gradient-to-r from-fuchsia-500 via-orange-400 to-transparent" />
-        <div className="absolute left-0 bottom-0 h-px w-28 bg-gradient-to-r from-fuchsia-500 via-orange-400 to-transparent" />
+    <div className="mx-auto w-full max-w-6xl">
+      <div className="relative overflow-hidden rounded-[30px] premium-dark text-white">
+        <div className="pointer-events-none absolute -left-16 -top-20 h-56 w-56 rounded-full bg-fuchsia-500/10 blur-[70px]" />
+        <div className="pointer-events-none absolute -bottom-24 right-0 h-64 w-64 rounded-full bg-amber-300/10 blur-[80px]" />
+        <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.08]" />
 
-        <div className="grid gap-7 px-5 py-6 sm:px-8 sm:py-7 lg:grid-cols-[1.7fr_1fr] lg:items-center lg:gap-10">
-          <div className="flex min-w-0 items-center gap-4 sm:gap-5">
-            <Image
-              src={CLINIC_CONTACT.avatarUrl}
-              alt="Cristiano Ávila da Silva"
-              width={84}
-              height={84}
-              className="h-[70px] w-[70px] sm:h-[82px] sm:w-[82px] shrink-0 rounded-[20px] object-cover object-top shadow-sm"
-            />
+        <div className="relative z-10 border-b border-white/10 px-6 py-6 sm:px-8 lg:flex lg:items-center lg:justify-between">
+          <div>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">Perfil profissional</span>
+            <h2 className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl">Credenciais e formas de atendimento</h2>
+          </div>
+          <p className="mt-3 max-w-xl text-xs font-light leading-relaxed text-white/50 lg:mt-0 lg:text-right">
+            Informações objetivas sobre registro, experiência, presença física e formação complementar.
+          </p>
+        </div>
 
-            <div className="min-w-0">
-              <h2 className="text-lg sm:text-2xl font-bold tracking-tight text-black">
-                Cristiano Ávila da Silva
-              </h2>
-              <p className="mt-0.5 text-xs sm:text-sm text-zinc-500">
-                Psicólogo Clínico & Hipnoterapeuta
-              </p>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-zinc-600">
-                  Certificação OMNI
-                </span>
-                <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-zinc-600">
-                  {PROFESSIONAL_REGISTRATION}
-                </span>
+        <div className="relative z-10 grid sm:grid-cols-2 lg:grid-cols-4">
+          {CREDENTIALS.map((item, index) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -5 }}
+              className="group relative min-h-[175px] border-white/10 p-6 sm:p-7 [&:not(:first-child)]:border-t sm:[&:nth-child(even)]:border-l sm:[&:nth-child(n+3)]:border-t lg:[&:not(:first-child)]:border-l lg:[&:nth-child(n+3)]:border-t-0"
+            >
+              <div className="mb-7 flex items-center justify-between">
+                <span className="text-[10px] font-mono text-white/25">{item.icon}</span>
+                <span className="h-8 w-8 rounded-full border border-white/10 bg-white/[0.04] transition-all duration-500 group-hover:scale-110 group-hover:bg-white/[0.08]" />
               </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 border-t border-zinc-200 pt-5 lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0">
-            <div className="pr-3 sm:pr-5">
-              <span className="block text-[9px] sm:text-[10px] font-bold uppercase tracking-wide text-zinc-500">
-                Experiência
-              </span>
-              <strong className="mt-1 block text-sm sm:text-lg font-bold text-black">+10 anos</strong>
-            </div>
-
-            <div className="border-l border-zinc-200 px-3 sm:px-5">
-              <span className="block text-[9px] sm:text-[10px] font-bold uppercase tracking-wide text-zinc-500">
-                Consultórios
-              </span>
-              <strong className="mt-1 block text-sm sm:text-lg font-bold text-black">4 cidades</strong>
-            </div>
-
-            <div className="border-l border-zinc-200 pl-3 sm:pl-5">
-              <span className="block text-[9px] sm:text-[10px] font-bold uppercase tracking-wide text-zinc-500">
-                Atendimento
-              </span>
-              <strong className="mt-1 block text-xs sm:text-base font-bold leading-snug text-black">Presencial & Online</strong>
-            </div>
-          </div>
+              <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-white/40">{item.label}</span>
+              <strong className="mt-2 block text-xl font-semibold tracking-tight text-white">{item.value}</strong>
+              <span className="mt-2 block text-[11px] leading-relaxed text-white/45">{item.detail}</span>
+              <div className="absolute inset-x-6 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-fuchsia-400 via-amber-300 to-transparent transition-transform duration-500 group-hover:scale-x-100 sm:inset-x-7" />
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
