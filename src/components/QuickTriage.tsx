@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import { buildWhatsAppLink } from "@/data/content";
+import { CURRENT_UNITS } from "@/data/units";
 import { FIRST_CONTACT_PRIVACY_NOTE } from "@/lib/site-policy";
 
 const LOCATIONS = [
   { id: "online", label: "Online" },
-  { id: "sp", label: "São Paulo" },
-  { id: "atibaia", label: "Atibaia" },
-  { id: "santos", label: "Santos" },
-  { id: "sbc", label: "São Bernardo do Campo" },
+  ...CURRENT_UNITS.map((unit) => ({ id: unit.id, label: unit.city })),
 ];
 
 const PERIODS = [
