@@ -1,17 +1,6 @@
-import { CLINIC_CONTACT, UNITS_DATA } from "@/data/content";
+import { CLINIC_CONTACT } from "@/data/content";
+import { CURRENT_UNITS } from "@/data/units";
 import { PROFESSIONAL_REGISTRATION, SITE_URL } from "@/lib/site-policy";
-
-function openingHoursSpecification(hours: string) {
-  const match = hours.match(/(\d{2})h\s?às\s?(\d{2})h/);
-  if (!match) return undefined;
-
-  return {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: `${match[1]}:00`,
-    closes: `${match[2]}:00`,
-  };
-}
 
 export default function JsonLd() {
   const schema = {
@@ -48,23 +37,21 @@ export default function JsonLd() {
           "Regulação Emocional",
         ],
       },
-      ...UNITS_DATA.map((unit) => ({
+      ...CURRENT_UNITS.map((unit) => ({
         "@type": "LocalBusiness",
         "@id": `${SITE_URL}/#unit-${unit.id}`,
         name: `Consultório Cristiano Ávila - ${unit.city}`,
         description: `Atendimento psicológico presencial em ${unit.city}, ${unit.state}.`,
         telephone: CLINIC_CONTACT.phone,
         url: `${SITE_URL}/unidades#${unit.id}`,
-        image: `${SITE_URL}${unit.imageUrl}`,
         address: {
           "@type": "PostalAddress",
-          streetAddress: unit.address,
+          streetAddress: unit.complement ? `${unit.address}, ${unit.complement}` : unit.address,
           addressLocality: unit.city,
           addressRegion: unit.state,
           postalCode: unit.zip,
           addressCountry: "BR",
         },
-        openingHoursSpecification: openingHoursSpecification(unit.hours),
       })),
     ],
   };
