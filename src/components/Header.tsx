@@ -35,8 +35,8 @@ export default function Header() {
         layout
         className={`relative mx-auto max-w-7xl overflow-visible rounded-[22px] border transition-all duration-500 ${
           isScrolled
-            ? "border-white/80 bg-white/88 shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-2xl"
-            : "border-white/55 bg-white/58 shadow-[0_10px_35px_rgba(0,0,0,0.055)] backdrop-blur-xl"
+            ? "border-zinc-200/90 bg-white/95 shadow-[0_18px_55px_rgba(0,0,0,0.12)] backdrop-blur-2xl"
+            : "border-zinc-200/75 bg-white/90 shadow-[0_10px_35px_rgba(0,0,0,0.07)] backdrop-blur-xl"
         }`}
       >
         <div className="flex items-center justify-between gap-4 px-3 py-2.5 sm:px-4 lg:px-5">
@@ -59,12 +59,12 @@ export default function Header() {
             </div>
           </Link>
 
-          <nav className="hidden items-center rounded-full border border-zinc-200/75 bg-white/72 px-1.5 py-1 shadow-sm backdrop-blur-xl lg:flex" aria-label="Navegação principal">
+          <nav className="hidden items-center rounded-full border border-zinc-200/80 bg-white/95 px-1.5 py-1 shadow-sm backdrop-blur-xl lg:flex" aria-label="Navegação principal">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="rounded-full px-3.5 py-2 text-[11px] font-medium text-zinc-500 transition-all duration-300 hover:bg-zinc-100 hover:text-black xl:px-4"
+                className="rounded-full px-3.5 py-2 text-[11px] font-medium text-zinc-600 transition-all duration-300 hover:bg-zinc-100 hover:text-black xl:px-4"
               >
                 {link.name}
               </Link>
@@ -72,7 +72,7 @@ export default function Header() {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <span className="hidden text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400 2xl:inline">
+            <span className="hidden text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-500 2xl:inline">
               Presencial & online
             </span>
             <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary px-5 py-2.5 text-[11px] shadow-none">
@@ -83,7 +83,7 @@ export default function Header() {
 
           <button
             type="button"
-            className="relative z-10 -mr-1 flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200/80 bg-white/80 text-black shadow-sm lg:hidden"
+            className="relative z-10 -mr-1 flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200/80 bg-white text-black shadow-sm lg:hidden"
             onClick={() => setMobileMenuOpen((open) => !open)}
             aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={mobileMenuOpen}
@@ -105,7 +105,7 @@ export default function Header() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.985 }}
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-x-0 top-[calc(100%+8px)] overflow-hidden rounded-[22px] border border-white/80 bg-white/95 p-3 shadow-[0_28px_80px_rgba(0,0,0,0.16)] backdrop-blur-2xl lg:hidden"
+              className="absolute inset-x-0 top-[calc(100%+8px)] overflow-hidden rounded-[22px] border border-zinc-200/80 bg-white/95 p-3 shadow-[0_28px_80px_rgba(0,0,0,0.16)] backdrop-blur-2xl lg:hidden"
             >
               <nav className="grid gap-1" aria-label="Navegação móvel">
                 {navLinks.map((link, index) => (
