@@ -1,12 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import MagneticButton from "./MagneticButton";
+import CountUp from "./CountUp";
 import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
+
+const CYCLING_WORDS = [
+  "superar a ansiedade.",
+  "vencer o esgotamento.",
+  "dominar o foco e TDAH.",
+  "transformar seus padrões.",
+  "viver com autonomia.",
+];
 
 export default function Hero() {
   const [greeting, setGreeting] = useState("Bem-vindo");
+  const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -17,6 +27,12 @@ export default function Hero() {
     } else {
       setGreeting("Boa noite");
     }
+
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % CYCLING_WORDS.length);
+    }, 3200);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -40,22 +56,28 @@ export default function Hero() {
             <span>{greeting} • Consultórios em SP, Atibaia, Santos & Online</span>
           </motion.div>
 
-          {/* Heading */}
+          {/* Heading with Kinetic Word Cycler */}
           <motion.h1
             initial={{ opacity: 0, y: 25, scale: 0.96, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.1, type: "spring", bounce: 0.2 }}
-            className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter text-black leading-[1.08] mb-6"
+            className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tighter text-black leading-[1.08] mb-6 min-h-[140px] sm:min-h-[160px] md:min-h-[180px] flex flex-col items-center justify-center"
           >
-            Compreender a mente é o <br className="hidden md:block" />
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-zinc-400"
-            >
-              primeiro passo.
-            </motion.span>
+            <span>Compreender a mente é o</span>
+            <span className="inline-flex items-center justify-center h-[1.2em] overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={wordIndex}
+                  initial={{ y: 35, opacity: 0, filter: "blur(4px)" }}
+                  animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                  exit={{ y: -35, opacity: 0, filter: "blur(4px)" }}
+                  transition={{ duration: 0.45, ease: "easeInOut" }}
+                  className="text-zinc-400 block"
+                >
+                  {CYCLING_WORDS[wordIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -83,7 +105,7 @@ export default function Hero() {
             </MagneticButton>
           </motion.div>
 
-          {/* Profile Card Minimalist Apple Style */}
+          {/* Profile Card Minimalist Apple Style with CountUp */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -116,17 +138,23 @@ export default function Hero() {
             <div className="flex items-center gap-6 pt-4 md:pt-0 border-t md:border-t-0 border-zinc-200/60 w-full md:w-auto justify-between md:justify-end text-xs">
               <div className="text-left">
                 <span className="text-textMuted block text-[10px] uppercase font-semibold">Experiência</span>
-                <span className="font-bold text-black text-sm">+10 Anos</span>
+                <span className="font-bold text-black text-sm">
+                  +<CountUp end={10} duration={1.5} /> Anos
+                </span>
               </div>
               <div className="h-8 w-px bg-zinc-200" />
               <div className="text-left">
                 <span className="text-textMuted block text-[10px] uppercase font-semibold">Consultórios</span>
-                <span className="font-bold text-black text-sm">4 Cidades</span>
+                <span className="font-bold text-black text-sm">
+                  <CountUp end={4} duration={1} /> Cidades
+                </span>
               </div>
               <div className="h-8 w-px bg-zinc-200" />
               <div className="text-left">
-                <span className="text-textMuted block text-[10px] uppercase font-semibold">Atendimento</span>
-                <span className="font-bold text-black text-sm">Presencial & Online</span>
+                <span className="text-textMuted block text-[10px] uppercase font-semibold">Sigilo Ético</span>
+                <span className="font-bold text-black text-sm">
+                  <CountUp end={100} duration={1.8} suffix="%" />
+                </span>
               </div>
             </div>
           </motion.div>

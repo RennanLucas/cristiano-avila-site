@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CLINIC_CONTACT, SPECIALTIES_DATA, UNITS_DATA } from "@/data/content";
+import BreatheExercise from "./BreatheExercise";
 
 export default function Footer() {
   return (
@@ -115,11 +116,14 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Bar: Copyright & LGPD */}
+        {/* Bottom Bar: Copyright, Breathe & LGPD */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-textMuted font-light">
           <p>
             © {new Date().getFullYear()} Cristiano Ávila da Silva. Todos os direitos reservados.
           </p>
+
+          <BreatheExercise />
+
           <div className="flex items-center gap-6">
             <Link href="/contato" className="hover:text-black transition-colors">
               Política de Privacidade (LGPD)
