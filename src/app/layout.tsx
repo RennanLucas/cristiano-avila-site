@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import JsonLd from "@/components/JsonLd";
+import { CURRENT_CITIES_TEXT } from "@/data/units";
 import { SITE_URL } from "@/lib/site-policy";
 
 const inter = Inter({
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     default: "Cristiano Ávila | Psicólogo Clínico",
     template: "%s | Cristiano Ávila",
   },
-  description: "Atendimento psicológico presencial e online com Cristiano Ávila, Psicólogo Clínico. Consultórios em São Paulo, Atibaia, Santos e São Bernardo do Campo.",
+  description: `Atendimento psicológico presencial e online com Cristiano Ávila, Psicólogo Clínico. Atendimento presencial em ${CURRENT_CITIES_TEXT}.`,
   applicationName: "Cristiano Ávila Psicólogo",
   alternates: { canonical: "/" },
   icons: {
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Cristiano Ávila",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "/images/cristiano_avila.jpg", width: 1200, height: 630, alt: "Cristiano Ávila, psicólogo clínico" }],
+    images: [{ url: "/images/cristiano_avila.jpg", alt: "Cristiano Ávila, psicólogo clínico" }],
   },
   twitter: {
     card: "summary_large_image",
