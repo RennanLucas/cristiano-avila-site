@@ -66,7 +66,7 @@ export const CLINIC_CONTACT = {
   youtube: "https://www.youtube.com/channel/UCWcebMAHDQzQ0PCQx_Fl_NQ",
   experienceYears: "+10 anos de experiência clínica",
   certifications: "Certificação Internacional OMNI Training Center",
-  avatarUrl: "https://cristianoavilapsicologo.com.br/assets/images/avatar.png",
+  avatarUrl: "/images/cristiano_avila.jpg",
 };
 
 export function buildWhatsAppLink(customMessage: string): string {
