@@ -3,16 +3,30 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-textMain antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #111111;
+    outline-offset: 3px;
   }
 }
 
 @layer components {
-  /* Minimalist Apple/Figma style buttons */
   .btn-primary {
-    @apply relative overflow-hidden inline-flex items-center justify-center px-6 py-3 rounded-full bg-black text-white text-sm font-medium transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-apple-hover active:scale-[0.98];
+    @apply relative overflow-hidden inline-flex items-center justify-center px-6 py-3 rounded-full bg-black text-white text-sm font-medium transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-apple-hover active:translate-y-0 active:scale-[0.985];
   }
 
   .btn-primary::after {
@@ -29,39 +43,52 @@
       transparent 70%
     );
     transform: rotate(25deg);
-    animation: button-shimmer 6s infinite ease-in-out;
+    animation: button-shimmer 7s infinite ease-in-out;
     pointer-events: none;
   }
-  
+
   .btn-outline {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black border border-border text-sm font-medium transition-all duration-300 ease-out hover:bg-surface hover:border-zinc-300 active:scale-[0.98];
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black border border-border text-sm font-medium transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-surface hover:border-zinc-400 hover:shadow-sm active:translate-y-0 active:scale-[0.985];
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-full text-textMuted text-sm font-medium transition-colors hover:text-black hover:bg-surface;
+    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-full text-textMuted text-sm font-medium transition-all duration-300 hover:text-black hover:bg-surface;
+  }
+
+  .premium-card {
+    @apply border border-zinc-200/90 bg-white shadow-sm transition-all duration-500;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.035);
+  }
+
+  .premium-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.085);
+  }
+
+  .editorial-label {
+    @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500;
   }
 }
 
-/* Very subtle scrollbar for webkit */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent; 
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #EAEAEA; 
+  background: #EAEAEA;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #CCCCCC; 
+  background: #CCCCCC;
 }
 
 @keyframes button-shimmer {
   0% {
     transform: translate(-100%, -100%) rotate(25deg);
   }
-  20%, 100% {
+  16%, 100% {
     transform: translate(100%, 100%) rotate(25deg);
   }
 }
@@ -74,4 +101,19 @@
 
 .animate-border-beam {
   animation: border-beam var(--duration) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
