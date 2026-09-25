@@ -5,84 +5,64 @@ import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import SpotlightCard from "./SpotlightCard";
 import { SPECIALTIES_DATA } from "@/data/content";
+import { isPublicSpecialty } from "@/lib/site-policy";
 
 const container: Variants = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
+  show: { opacity: 1, transition: { staggerChildren: 0.06 } },
 };
 
 const itemAnim: Variants = {
-  hidden: { opacity: 0, y: 25 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 15 },
-  },
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
 };
 
 export default function Specialties() {
   const [filter, setFilter] = useState("todos");
+  const publicData = SPECIALTIES_DATA.filter((item) => isPublicSpecialty(item.id));
 
   const categories = [
-    { id: "todos", label: "Todas as Especialidades" },
+    { id: "todos", label: "Todas" },
     { id: "clinica", label: "Psicoterapia & Neuro" },
-    { id: "hipnose", label: "Hipnoterapia OMNI" },
-    { id: "relacional", label: "Sistêmica & Grupos" },
-    { id: "integrativa", label: "Online & Integrativas" },
+    { id: "hipnose", label: "Hipnoterapia" },
+    { id: "online", label: "Atendimento online" },
   ];
 
-  const filteredData = SPECIALTIES_DATA.filter((item) => {
+  const filteredData = publicData.filter((item) => {
     if (filter === "todos") return true;
     if (filter === "clinica") return ["psicoterapia", "neuropsicologia", "pnl"].includes(item.id);
     if (filter === "hipnose") return item.id === "hipnoterapia";
-    if (filter === "relacional") return ["constelacao-sistemica-familiar", "terapia-em-grupo"].includes(item.id);
-    if (filter === "integrativa") return ["psicologia-sem-fronteiras", "massagem-relaxante"].includes(item.id);
+    if (filter === "online") return item.id === "psicologia-sem-fronteiras";
     return true;
   });
 
   return (
-    <section id="especialidades" className="py-24 lg:py-32 bg-surface border-t border-zinc-200/50">
+    <section id="especialidades" className="py-24 lg:py-32 bg-zinc-50 border-t border-zinc-200/60">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl">
-            <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-600 uppercase mb-3">
-              Áreas de Domínio Clínico
+            <span className="inline-block text-[11px] font-semibold tracking-[0.16em] text-zinc-500 uppercase mb-3">
+              Formas de atendimento
             </span>
-            <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-5xl font-bold tracking-tight text-black mb-4"
-            >
-              Abordagens & Especialidades
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-base sm:text-lg text-textMuted font-light leading-relaxed"
-            >
-              Intervenções planejadas com rigor científico para alívio de sintomas agudos e reestruturação duradoura da saúde mental.
-            </motion.p>
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-black mb-4">
+              Acompanhamento clínico individualizado
+            </h2>
+            <p className="text-base sm:text-lg text-zinc-600 font-light leading-relaxed">
+              O plano terapêutico é definido após avaliação profissional, considerando a história, as necessidades e os objetivos de cada pessoa.
+            </p>
           </div>
 
-          {/* Categorias / Filtro Rápido */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar formas de atendimento">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 type="button"
                 onClick={() => setFilter(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                aria-pressed={filter === cat.id}
+                className={`px-3.5 py-2 rounded-full text-xs font-medium transition-all ${
                   filter === cat.id
-                    ? "bg-black text-white shadow-sm"
-                    : "bg-white text-zinc-600 border border-zinc-200 hover:border-black"
+                    ? "bg-black text-white"
+                    : "bg-white text-zinc-600 border border-zinc-200 hover:border-zinc-400"
                 }`}
               >
                 {cat.label}
@@ -91,49 +71,18 @@ export default function Specialties() {
           </div>
         </div>
 
-        {/* Grid de Especialidades com Spotlight e 3D Tilt em JavaScript */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {filteredData.map((item, idx) => (
+        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredData.map((item) => (
             <motion.div key={item.id} variants={itemAnim} className="h-full">
               <SpotlightCard className="p-8 h-full">
-                {/* Top Row: Icon + Number */}
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-zinc-50 border border-zinc-100 flex items-center justify-center text-black group-hover:bg-black group-hover:text-white transition-all duration-300">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <span className="font-mono text-xs font-bold text-zinc-300">
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-black tracking-tight mb-2">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-xs text-textMuted leading-relaxed font-light mb-6">
-                    {item.shortDesc}
-                  </p>
+                  <span className="text-[10px] uppercase tracking-widest font-semibold text-zinc-400">{item.badge}</span>
+                  <h3 className="text-xl font-semibold text-black tracking-tight mt-4 mb-2">{item.title}</h3>
+                  <p className="text-sm text-zinc-600 leading-relaxed font-light mb-6">{item.shortDesc}</p>
                 </div>
-
-                {/* Bottom Action */}
-                <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-semibold text-black">
-                  <Link
-                    href={`/especialidades/${item.slug}`}
-                    className="inline-flex items-center gap-1.5 hover:translate-x-1 transition-transform"
-                  >
-                    <span>Conhecer detalhes do tratamento</span>
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
+                <div className="pt-4 border-t border-zinc-100">
+                  <Link href={`/especialidades/${item.slug}`} className="inline-flex items-center gap-2 text-xs font-semibold text-black hover:gap-3 transition-all">
+                    Conhecer esta forma de atendimento <span aria-hidden="true">→</span>
                   </Link>
                 </div>
               </SpotlightCard>
