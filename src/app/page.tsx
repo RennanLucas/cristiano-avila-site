@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import TrustBadges from "@/components/TrustBadges";
 import Intro from "@/components/Intro";
 import Specialties from "@/components/Specialties";
 import QuickTriage from "@/components/QuickTriage";
@@ -21,7 +20,6 @@ export default function Home() {
     <main className="min-h-screen bg-white text-[#111111] overflow-x-hidden selection:bg-black selection:text-white relative pb-16 sm:pb-0">
       <Header />
       <Hero />
-      <TrustBadges />
       <Intro />
       <Specialties />
       <QuickTriage />
