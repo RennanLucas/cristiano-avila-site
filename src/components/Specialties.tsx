@@ -30,15 +30,18 @@ export default function Specialties() {
 
   const categories = [
     { id: "todos", label: "Todas as Especialidades" },
-    { id: "cognicao", label: "Ansiedade & TDAH" },
-    { id: "hipnose", label: "Hipnoterapia" },
-    { id: "comportamento", label: "Neurociência & Casais" },
+    { id: "clinica", label: "Psicoterapia & Neuro" },
+    { id: "hipnose", label: "Hipnoterapia OMNI" },
+    { id: "relacional", label: "Sistêmica & Grupos" },
+    { id: "integrativa", label: "Online & Integrativas" },
   ];
 
   const filteredData = SPECIALTIES_DATA.filter((item) => {
     if (filter === "todos") return true;
-    if (filter === "cognicao") return item.slug.includes("ansiedade") || item.slug.includes("tdah") || item.slug.includes("neuro");
-    if (filter === "hipnose") return item.slug.includes("hipno");
+    if (filter === "clinica") return ["psicoterapia", "neuropsicologia", "pnl"].includes(item.id);
+    if (filter === "hipnose") return item.id === "hipnoterapia";
+    if (filter === "relacional") return ["constelacao-sistemica-familiar", "terapia-em-grupo"].includes(item.id);
+    if (filter === "integrativa") return ["psicologia-sem-fronteiras", "massagem-relaxante"].includes(item.id);
     return true;
   });
 

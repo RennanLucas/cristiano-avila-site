@@ -198,7 +198,7 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-zinc-500">Unidades Físicas</span>
-                    <span className="font-semibold text-black">SP, Atibaia, Santos</span>
+                    <span className="font-semibold text-black">SP, Atibaia, Santos, SBC</span>
                   </div>
                 </div>
 

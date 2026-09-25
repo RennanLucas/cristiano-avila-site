@@ -62,8 +62,9 @@ export default function UnidadesPage() {
             {UNITS_DATA.map((unit) => (
               <motion.article
                 key={unit.id}
+                id={unit.id}
                 variants={itemAnim}
-                className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-zinc-200/70 shadow-sm hover:shadow-apple transition-all duration-500"
+                className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-zinc-200/70 shadow-sm hover:shadow-apple transition-all duration-500 scroll-mt-28"
               >
                 {/* Clinic Photo */}
                 <div className="relative h-72 sm:h-80 w-full overflow-hidden bg-zinc-900">

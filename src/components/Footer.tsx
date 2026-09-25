@@ -153,10 +153,10 @@ export default function Footer() {
           <BreatheExercise />
 
           <div className="flex items-center gap-6">
-            <Link href="/contato" className="hover:text-black transition-colors">
+            <Link href="/politica-de-privacidade" className="hover:text-black transition-colors">
               Política de Privacidade (LGPD)
             </Link>
-            <Link href="/contato" className="hover:text-black transition-colors">
+            <Link href="/politica-de-privacidade" className="hover:text-black transition-colors">
               Termos de Atendimento
             </Link>
           </div>

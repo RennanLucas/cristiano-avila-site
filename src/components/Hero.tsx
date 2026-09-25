@@ -71,7 +71,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.1, type: "spring", bounce: 0.2 }}
             className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-black leading-[1.1] mb-5 sm:mb-6 min-h-[105px] sm:min-h-[140px] md:min-h-[170px] flex flex-col items-center justify-center"
           >
-            <span>Compreender a mente é o</span>
+            <span>Compreender a mente para</span>
             <span className="inline-flex items-center justify-center h-[1.2em] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.span

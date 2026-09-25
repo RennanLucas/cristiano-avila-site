@@ -89,7 +89,7 @@ export default function SobrePage() {
                 className="w-full h-[400px] object-cover object-top rounded-2xl mb-8 grayscale hover:grayscale-0 transition-all duration-700 shadow-apple"
               />
               <p className="text-sm text-center">
-                Atendimentos presenciais nos consultórios de <strong className="text-black">São Paulo, Atibaia e Santos</strong>, ou sessões online globais com a mesma eficácia metodológica.
+                Atendimentos presenciais nos consultórios de <strong className="text-black">São Paulo, Atibaia, Santos e São Bernardo do Campo</strong>, ou sessões online globais com a mesma eficácia metodológica.
               </p>
             </div>
 

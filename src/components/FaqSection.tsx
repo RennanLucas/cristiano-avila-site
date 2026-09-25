@@ -39,7 +39,7 @@ const FAQ_ITEMS = [
     category: "Presencial",
     question: "Onde ficam localizados os consultórios presenciais?",
     answer:
-      "Dr. Cristiano atende em 4 cidades do Estado de São Paulo: Capital (bairro Santana, Zona Norte), Atibaia (Jardim Alvinópolis), Santos (Boqueirão) e São Bernardo do Campo (Centro). Todos os locais contam com fácil acesso e total privacidade.",
+      "Dr. Cristiano atende em 4 cidades do Estado de São Paulo: Capital (Santana Corporate, Zona Norte), Atibaia (Alvinópolis), Santos (Edifício The Blue, Vila Matias) e São Bernardo do Campo (Edifício Domo Business, Centro). Todos os locais contam com fácil acesso, estacionamento e total privacidade.",
   },
 ];
 

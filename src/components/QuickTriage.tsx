@@ -15,10 +15,10 @@ const GOALS = [
 
 const LOCATIONS = [
   { id: "online", label: "Online (Brasil & Exterior)", tag: "Mais flexível" },
-  { id: "sp", label: "São Paulo (Santana)", tag: "Presencial" },
-  { id: "atibaia", label: "Atibaia (Jardim Alvinópolis)", tag: "Presencial" },
-  { id: "santos", label: "Santos (Boqueirão)", tag: "Presencial" },
-  { id: "sbc", label: "São Bernardo do Campo", tag: "Presencial" },
+  { id: "sp", label: "São Paulo (Santana Corporate)", tag: "Presencial" },
+  { id: "atibaia", label: "Atibaia (Alvinópolis)", tag: "Presencial" },
+  { id: "santos", label: "Santos (The Blue - Vila Matias)", tag: "Presencial" },
+  { id: "sbc", label: "São Bernardo do Campo (Domo Business)", tag: "Presencial" },
 ];
 
 const PERIODS = [
