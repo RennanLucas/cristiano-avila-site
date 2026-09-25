@@ -8,34 +8,40 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "#F8F8F5",
-        surface: "#FFFFFF",
+        background: "#FFFFFF",
+        surface: "#FAFAFA",
+        border: "#EAEAEA",
+        textMain: "#111111",
+        textMuted: "#666666",
+        textLighter: "#999999",
+        accent: "#000000",
+        // Keeping primary just in case for subtle colored elements, but muting it
         primary: {
-          DEFAULT: "#18363B",
-          dark: "#0F262B",
+          DEFAULT: "#18363B", // Kept for brand consistency, but used much less
           light: "#224A50",
-          deep: "#0B1D20",
-        },
-        accent: {
-          DEFAULT: "#B7925A",
-          light: "#CCA972",
-          dark: "#96753E",
-          gold: "#D4B478",
-          subtle: "rgba(183, 146, 90, 0.12)",
-        },
-        textMuted: "#667174",
-        textMain: "#1C2628",
-        cream: "#F3EFE6",
-        creamLight: "#FAF8F4",
+        }
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Cormorant Garamond", "Georgia", "serif"],
       },
       boxShadow: {
-        luxury: "0 20px 45px -15px rgba(24, 54, 59, 0.08)",
-        "luxury-hover": "0 30px 65px -15px rgba(24, 54, 59, 0.16)",
-        gold: "0 12px 30px -5px rgba(183, 146, 90, 0.3)",
+        'apple': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+        'apple-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04)',
+        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.05)',
+      },
+      letterSpacing: {
+        tighter: '-.04em',
+        tight: '-.02em',
+        normal: '0',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-33.333333%)' },
+        }
+      },
+      animation: {
+        marquee: 'marquee 30s linear infinite',
       },
     },
   },

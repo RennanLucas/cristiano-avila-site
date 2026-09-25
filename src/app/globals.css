@@ -3,75 +3,38 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
   body {
-    background-color: #F8F8F5;
-    color: #1C2628;
-    overflow-x: hidden;
-  }
-
-  ::selection {
-    background-color: #18363B;
-    color: #FFFFFF;
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #F8F8F5;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #B7925A;
-    border-radius: 9999px;
+    @apply bg-background text-textMain antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
 @layer components {
-  .tag-gold {
-    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#B7925A];
-  }
-
+  /* Minimalist Apple/Figma style buttons */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-[13px] font-semibold tracking-wider uppercase transition-all duration-300 ease-out bg-[#18363B] text-white hover:bg-[#0F262B] hover:-translate-y-0.5 hover:shadow-luxury-hover active:translate-y-0;
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full bg-black text-white text-sm font-medium transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-apple-hover active:scale-[0.98];
   }
-
-  .btn-gold {
-    @apply inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-[13px] font-semibold tracking-wider uppercase transition-all duration-300 ease-out bg-[#B7925A] text-white hover:bg-[#96753E] hover:-translate-y-0.5 hover:shadow-gold active:translate-y-0;
-  }
-
+  
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-[13px] font-semibold tracking-wider uppercase transition-all duration-300 ease-out border border-[#18363B]/20 text-[#18363B] hover:border-[#18363B] hover:bg-[#18363B] hover:text-white hover:-translate-y-0.5 active:translate-y-0;
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black border border-border text-sm font-medium transition-all duration-300 ease-out hover:bg-surface hover:border-zinc-300 active:scale-[0.98];
   }
 
-  .glass-card {
-    @apply bg-white/90 backdrop-blur-md border border-white/60 shadow-luxury;
-  }
-
-  .divider-accent {
-    @apply h-[1.5px] w-12 bg-gradient-to-r from-[#B7925A] to-transparent;
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-full text-textMuted text-sm font-medium transition-colors hover:text-black hover:bg-surface;
   }
 }
 
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.55; transform: scale(1.08); }
+/* Very subtle scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 8px;
 }
-
-@keyframes subtleFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+::-webkit-scrollbar-track {
+  background: transparent; 
 }
-
-.animate-pulse-glow {
-  animation: pulseGlow 7s ease-in-out infinite;
+::-webkit-scrollbar-thumb {
+  background: #EAEAEA; 
+  border-radius: 4px;
 }
-
-.animate-subtle-float {
-  animation: subtleFloat 6s ease-in-out infinite;
+::-webkit-scrollbar-thumb:hover {
+  background: #CCCCCC; 
 }

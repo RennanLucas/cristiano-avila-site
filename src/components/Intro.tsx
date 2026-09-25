@@ -21,16 +21,16 @@ export default function Intro() {
             className="lg:col-span-7 space-y-8"
           >
             <div className="space-y-3">
-              <span className="tag-gold">UMA ABORDAGEM INTEGRADA</span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#18363B] leading-[1.18] tracking-tight">
+              <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-3">UMA ABORDAGEM INTEGRADA</span>
+              <h2 className="tracking-tight text-3xl sm:text-4xl lg:text-5xl text-black leading-[1.18] tracking-tight">
                 Cada pessoa possui uma história.{' '}
-                <span className="text-[#B7925A] block sm:inline">
+                <span className="text-zinc-500 block sm:inline">
                   O tratamento também deve ser individual.
                 </span>
               </h2>
             </div>
 
-            <div className="space-y-5 text-[#667174] text-base lg:text-lg leading-relaxed font-light">
+            <div className="space-y-5 text-textMuted text-base lg:text-lg leading-relaxed font-light">
               <p>
                 O processo terapêutico parte da compreensão aprofundada das experiências, emoções, comportamentos e particularidades de cada pessoa. Não existem fórmulas prontas para dores humanas singulares.
               </p>
@@ -49,8 +49,8 @@ export default function Intro() {
               >
                 Conheça a trajetória profissional
               </Link>
-              <div className="flex items-center gap-3 text-xs text-[#667174]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#B7925A]" />
+              <div className="flex items-center gap-3 text-xs text-textMuted">
+                <span className="w-1.5 h-1.5 rounded-full bg-zinc-200" />
                 <span>Base científica e ética profissional</span>
               </div>
             </div>
@@ -64,9 +64,9 @@ export default function Intro() {
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
             className="lg:col-span-5 relative"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-luxury border border-[#18363B]/10">
+            <div className="relative rounded-2xl overflow-hidden shadow-apple border border-zinc-200/10">
               {/* Image of warm therapeutic setting */}
-              <div className="aspect-[4/3] sm:aspect-[1/1] w-full overflow-hidden bg-[#F8F8F5]">
+              <div className="aspect-[4/3] sm:aspect-[1/1] w-full overflow-hidden bg-surface">
                 <img
                   src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=85&fit=crop"
                   alt="Espaço terapêutico acolhedor e humanizado"
@@ -75,11 +75,11 @@ export default function Intro() {
               </div>
 
               {/* Inset Quote Pill */}
-              <div className="p-6 bg-[#18363B] text-white">
-                <p className="font-serif italic text-lg leading-snug text-[#F8F8F5]">
+              <div className="p-6 bg-black text-white">
+                <p className="tracking-tight italic text-lg leading-snug text-[#F8F8F5]">
                   &ldquo;A escuta atenta revela caminhos onde antes só existiam bloqueios.&rdquo;
                 </p>
-                <div className="mt-3 flex items-center justify-between text-xs text-[#B7925A]">
+                <div className="mt-3 flex items-center justify-between text-xs text-zinc-500">
                   <span className="font-semibold tracking-wider uppercase">Cristiano Ávila</span>
                   <span className="text-white/60">Atendimento Humanizado</span>
                 </div>
@@ -87,7 +87,7 @@ export default function Intro() {
             </div>
 
             {/* Subtle decorative offset border */}
-            <div className="absolute -bottom-4 -right-4 w-full h-full rounded-2xl border border-[#B7925A]/20 -z-10 hidden sm:block" />
+            <div className="absolute -bottom-4 -right-4 w-full h-full rounded-2xl border border-zinc-200/20 -z-10 hidden sm:block" />
           </motion.div>
 
         </div>

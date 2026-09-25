@@ -33,19 +33,19 @@ export default function CookieBanner() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 30 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="fixed bottom-6 left-6 right-6 sm:left-6 sm:right-auto sm:max-w-md z-50 bg-white rounded-2xl p-5 shadow-2xl border border-[#18363B]/10"
+          className="fixed bottom-6 left-6 right-6 sm:left-6 sm:right-auto sm:max-w-md z-50 bg-white rounded-2xl p-5 shadow-2xl border border-zinc-200/10"
         >
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#B7925A]" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#18363B]">
+              <span className="w-2 h-2 rounded-full bg-zinc-200" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-black">
                 Privacidade & Cookies (LGPD)
               </span>
             </div>
 
-            <p className="text-xs text-[#667174] leading-relaxed">
+            <p className="text-xs text-textMuted leading-relaxed">
               Utilizamos cookies essenciais para garantir o correto funcionamento e segurança da sua navegação. Respeitamos sua privacidade conforme as diretrizes da LGPD.{' '}
-              <Link href="/politica-de-privacidade" className="text-[#18363B] font-medium underline">
+              <Link href="/politica-de-privacidade" className="text-black font-medium underline">
                 Saiba mais
               </Link>.
             </p>
@@ -53,13 +53,13 @@ export default function CookieBanner() {
             <div className="flex items-center gap-2.5 pt-1">
               <button
                 onClick={accept}
-                className="flex-1 py-2 px-3 rounded-lg text-xs font-semibold bg-[#18363B] text-white hover:bg-[#0F262B] transition-colors"
+                className="flex-1 py-2 px-3 rounded-lg text-xs font-semibold bg-black text-white hover:bg-[#0F262B] transition-colors"
               >
                 Aceitar todos
               </button>
               <button
                 onClick={decline}
-                className="flex-1 py-2 px-3 rounded-lg text-xs font-medium border border-gray-200 text-[#667174] hover:text-[#18363B] hover:bg-gray-50 transition-colors"
+                className="flex-1 py-2 px-3 rounded-lg text-xs font-medium border border-gray-200 text-textMuted hover:text-black hover:bg-gray-50 transition-colors"
               >
                 Apenas necessários
               </button>

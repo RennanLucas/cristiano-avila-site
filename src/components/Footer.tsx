@@ -3,28 +3,28 @@ import { CLINIC_CONTACT, SPECIALTIES_DATA, UNITS_DATA } from '@/data/content';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#F8F8F5] pt-20 pb-12 border-t border-[#18363B]/10 text-[#1C2628]">
+    <footer className="bg-surface pt-20 pb-12 border-t border-zinc-200/10 text-black">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-[#18363B]/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-zinc-200/10">
           
           {/* Col 1: Brand & Credibility (4 cols) */}
           <div className="lg:col-span-4 space-y-5">
             <div>
               <Link href="/" className="inline-block">
-                <span className="font-serif text-2xl lg:text-3xl text-[#18363B] font-semibold tracking-tight">
-                  Cristiano <span className="text-[#B7925A]">Ávila</span>
+                <span className="tracking-tight text-2xl lg:text-3xl text-black font-semibold tracking-tight">
+                  Cristiano <span className="text-zinc-500">Ávila</span>
                 </span>
               </Link>
-              <p className="text-xs uppercase tracking-widest text-[#B7925A] font-semibold mt-1">
+              <p className="text-xs uppercase tracking-widest text-zinc-500 font-semibold mt-1">
                 Psicólogo & Hipnoterapeuta Clínico
               </p>
             </div>
 
-            <p className="text-[#667174] text-sm leading-relaxed max-w-sm font-light">
+            <p className="text-textMuted text-sm leading-relaxed max-w-sm font-light">
               Atendimento psicológico clínico fundamentado em evidências científicas, escuta humanizada e estratégias integradas para a saúde mental e o desenvolvimento pessoal.
             </p>
 
-            <div className="space-y-1.5 text-xs text-[#667174]">
+            <div className="space-y-1.5 text-xs text-textMuted">
               <p>• Certificação Internacional pela <strong>OMNI Training Center</strong></p>
               <p>• Atuação presencial em 4 cidades do Estado de São Paulo</p>
               <p>• Atendimento online para pacientes no Brasil e exterior</p>
@@ -36,7 +36,7 @@ export default function Footer() {
                 href={CLINIC_CONTACT.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white border border-[#18363B]/15 flex items-center justify-center text-[#18363B] hover:border-[#B7925A] hover:text-[#B7925A] transition-colors shadow-sm"
+                className="w-9 h-9 rounded-full bg-white border border-zinc-200/15 flex items-center justify-center text-black hover:border-zinc-200 hover:text-zinc-500 transition-colors shadow-sm"
                 aria-label="Instagram"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -48,7 +48,7 @@ export default function Footer() {
                 href={CLINIC_CONTACT.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white border border-[#18363B]/15 flex items-center justify-center text-[#18363B] hover:border-[#B7925A] hover:text-[#B7925A] transition-colors shadow-sm"
+                className="w-9 h-9 rounded-full bg-white border border-zinc-200/15 flex items-center justify-center text-black hover:border-zinc-200 hover:text-zinc-500 transition-colors shadow-sm"
                 aria-label="Facebook"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -60,7 +60,7 @@ export default function Footer() {
                 href={CLINIC_CONTACT.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white border border-[#18363B]/15 flex items-center justify-center text-[#18363B] hover:border-[#B7925A] hover:text-[#B7925A] transition-colors shadow-sm"
+                className="w-9 h-9 rounded-full bg-white border border-zinc-200/15 flex items-center justify-center text-black hover:border-zinc-200 hover:text-zinc-500 transition-colors shadow-sm"
                 aria-label="YouTube"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -87,7 +87,7 @@ export default function Footer() {
                 href={CLINIC_CONTACT.doctoraliaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[11px] font-semibold text-[#18363B] bg-white border border-[#18363B]/15 px-3 py-1.5 rounded-full hover:border-[#B7925A] transition-colors"
+                className="text-[11px] font-semibold text-black bg-white border border-zinc-200/15 px-3 py-1.5 rounded-full hover:border-zinc-200 transition-colors"
               >
                 Perfil Doctoralia
               </a>
@@ -95,7 +95,7 @@ export default function Footer() {
                 href={CLINIC_CONTACT.zenklubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[11px] font-semibold text-[#18363B] bg-white border border-[#18363B]/15 px-3 py-1.5 rounded-full hover:border-[#B7925A] transition-colors"
+                className="text-[11px] font-semibold text-black bg-white border border-zinc-200/15 px-3 py-1.5 rounded-full hover:border-zinc-200 transition-colors"
               >
                 Perfil Zenklub
               </a>
@@ -104,29 +104,29 @@ export default function Footer() {
 
           {/* Col 2: Navegação (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="font-serif text-lg text-[#18363B] font-semibold">
+            <h4 className="tracking-tight text-lg text-black font-semibold">
               Navegação
             </h4>
-            <ul className="space-y-2.5 text-sm text-[#667174]">
-              <li><Link href="/" className="hover:text-[#B7925A] transition-colors">Início</Link></li>
-              <li><Link href="/sobre" className="hover:text-[#B7925A] transition-colors">Sobre Cristiano Ávila</Link></li>
-              <li><Link href="/especialidades" className="hover:text-[#B7925A] transition-colors">Especialidades</Link></li>
-              <li><Link href="/#metodo" className="hover:text-[#B7925A] transition-colors">Método Clínico</Link></li>
-              <li><Link href="/unidades" className="hover:text-[#B7925A] transition-colors">Unidades Presenciais</Link></li>
-              <li><Link href="/blog" className="hover:text-[#B7925A] transition-colors">Blog & Artigos</Link></li>
-              <li><Link href="/contato" className="hover:text-[#B7925A] transition-colors">Fale Conosco</Link></li>
+            <ul className="space-y-2.5 text-sm text-textMuted">
+              <li><Link href="/" className="hover:text-zinc-500 transition-colors">Início</Link></li>
+              <li><Link href="/sobre" className="hover:text-zinc-500 transition-colors">Sobre Cristiano Ávila</Link></li>
+              <li><Link href="/especialidades" className="hover:text-zinc-500 transition-colors">Especialidades</Link></li>
+              <li><Link href="/#metodo" className="hover:text-zinc-500 transition-colors">Método Clínico</Link></li>
+              <li><Link href="/unidades" className="hover:text-zinc-500 transition-colors">Unidades Presenciais</Link></li>
+              <li><Link href="/blog" className="hover:text-zinc-500 transition-colors">Blog & Artigos</Link></li>
+              <li><Link href="/contato" className="hover:text-zinc-500 transition-colors">Fale Conosco</Link></li>
             </ul>
           </div>
 
           {/* Col 3: Especialidades (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="font-serif text-lg text-[#18363B] font-semibold">
+            <h4 className="tracking-tight text-lg text-black font-semibold">
               Especialidades
             </h4>
-            <ul className="space-y-2.5 text-sm text-[#667174]">
+            <ul className="space-y-2.5 text-sm text-textMuted">
               {SPECIALTIES_DATA.map((s) => (
                 <li key={s.id}>
-                  <Link href={`/especialidades/${s.slug}`} className="hover:text-[#B7925A] transition-colors">
+                  <Link href={`/especialidades/${s.slug}`} className="hover:text-zinc-500 transition-colors">
                     {s.title}
                   </Link>
                 </li>
@@ -136,32 +136,32 @@ export default function Footer() {
 
           {/* Col 4: Contato & Unidades (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="font-serif text-lg text-[#18363B] font-semibold">
+            <h4 className="tracking-tight text-lg text-black font-semibold">
               Contato & Agendamento
             </h4>
             
-            <div className="space-y-3 text-sm text-[#667174]">
+            <div className="space-y-3 text-sm text-textMuted">
               <p className="flex items-center gap-2">
-                <span className="font-semibold text-[#18363B]">WhatsApp:</span>
-                <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#B7925A] font-medium text-[#18363B]">
+                <span className="font-semibold text-black">WhatsApp:</span>
+                <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-zinc-500 font-medium text-black">
                   {CLINIC_CONTACT.phone}
                 </a>
               </p>
               <p className="text-xs break-all">
-                <span className="font-semibold text-[#18363B] block mb-0.5">E-mail:</span>
-                <a href={`mailto:${CLINIC_CONTACT.email}`} className="hover:text-[#B7925A]">
+                <span className="font-semibold text-black block mb-0.5">E-mail:</span>
+                <a href={`mailto:${CLINIC_CONTACT.email}`} className="hover:text-zinc-500">
                   {CLINIC_CONTACT.email}
                 </a>
               </p>
             </div>
 
             <div className="pt-3 border-t border-gray-200">
-              <h5 className="text-xs font-semibold uppercase tracking-wider text-[#18363B] mb-2">
+              <h5 className="text-xs font-semibold uppercase tracking-wider text-black mb-2">
                 Consultórios Presenciais:
               </h5>
-              <div className="grid grid-cols-2 gap-2 text-xs text-[#667174]">
+              <div className="grid grid-cols-2 gap-2 text-xs text-textMuted">
                 {UNITS_DATA.map((u) => (
-                  <Link key={u.id} href="/unidades" className="hover:text-[#B7925A] transition-colors">
+                  <Link key={u.id} href="/unidades" className="hover:text-zinc-500 transition-colors">
                     • {u.city} ({u.state})
                   </Link>
                 ))}
@@ -172,15 +172,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright & LGPD */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#667174]">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-textMuted">
           <p>
             © {new Date().getFullYear()} Cristiano Ávila da Silva. Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/politica-de-privacidade" className="hover:text-[#B7925A] transition-colors">
+            <Link href="/politica-de-privacidade" className="hover:text-zinc-500 transition-colors">
               Política de Privacidade (LGPD)
             </Link>
-            <Link href="/contato" className="hover:text-[#B7925A] transition-colors">
+            <Link href="/contato" className="hover:text-zinc-500 transition-colors">
               Termos de Atendimento
             </Link>
           </div>

@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import InfiniteMarquee from '@/components/InfiniteMarquee';
 import Intro from '@/components/Intro';
 import Specialties from '@/components/Specialties';
 import Demands from '@/components/Demands';
@@ -16,9 +17,10 @@ import CookieBanner from '@/components/CookieBanner';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#F8F8F5] text-[#1C2628] overflow-x-hidden">
+    <main className="min-h-screen bg-white text-[#111111] overflow-x-hidden selection:bg-black selection:text-white">
       <Header />
       <Hero />
+      <InfiniteMarquee />
       <Intro />
       <Specialties />
       <Demands />

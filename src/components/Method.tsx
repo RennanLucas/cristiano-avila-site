@@ -11,16 +11,16 @@ export default function Method() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
           <div className="inline-flex items-center gap-3">
-            <span className="w-6 h-[1.5px] bg-[#B7925A]" />
-            <span className="tag-gold text-xs">MÉTODO CLÍNICO</span>
-            <span className="w-6 h-[1.5px] bg-[#B7925A]" />
+            <span className="w-6 h-[1.5px] bg-zinc-200" />
+            <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-3">MÉTODO CLÍNICO</span>
+            <span className="w-6 h-[1.5px] bg-zinc-200" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#18363B] tracking-tight">
+          <h2 className="tracking-tight text-3xl sm:text-4xl lg:text-5xl text-black tracking-tight">
             Como funciona o acompanhamento
           </h2>
 
-          <p className="text-[#667174] text-base lg:text-lg font-light leading-relaxed">
+          <p className="text-textMuted text-base lg:text-lg font-light leading-relaxed">
             Uma jornada transparente, pautada no respeito aos seus limites e focada em resultados progressivos e duradouros.
           </p>
         </div>
@@ -42,22 +42,22 @@ export default function Method() {
               >
                 {/* Step Circle Header */}
                 <div className="relative mb-6">
-                  <div className="w-[104px] h-[104px] rounded-full bg-white border-2 border-[#18363B]/15 group-hover:border-[#B7925A] shadow-luxury flex items-center justify-center transition-all duration-400 group-hover:scale-105">
-                    <span className="font-serif text-3xl font-normal text-[#18363B] group-hover:text-[#B7925A] transition-colors">
+                  <div className="w-[104px] h-[104px] rounded-full bg-white border-2 border-zinc-200/15 group-hover:border-zinc-200 shadow-apple flex items-center justify-center transition-all duration-400 group-hover:scale-105">
+                    <span className="tracking-tight text-3xl font-normal text-black group-hover:text-zinc-500 transition-colors">
                       {step.num}
                     </span>
                   </div>
                   {/* Micro Badge */}
-                  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 lg:left-2 lg:translate-x-0 text-[10px] font-semibold uppercase tracking-wider bg-[#18363B] text-white px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-sm">
+                  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 lg:left-2 lg:translate-x-0 text-[10px] font-semibold uppercase tracking-wider bg-black text-white px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-sm">
                     {step.badge}
                   </span>
                 </div>
 
                 {/* Step Text */}
-                <h3 className="font-serif text-xl text-[#18363B] font-semibold mb-3">
+                <h3 className="tracking-tight text-xl text-black font-semibold mb-3">
                   {step.title}
                 </h3>
-                <p className="text-[#667174] text-sm leading-relaxed font-light">
+                <p className="text-textMuted text-sm leading-relaxed font-light">
                   {step.desc}
                 </p>
               </motion.div>
@@ -67,7 +67,7 @@ export default function Method() {
 
         {/* Footnote CTA */}
         <div className="mt-16 pt-10 border-t border-gray-100 text-center">
-          <p className="text-sm text-[#667174] mb-5">
+          <p className="text-sm text-textMuted mb-5">
             Deseja compreender qual abordagem é mais indicada para a sua situação?
           </p>
           <a
