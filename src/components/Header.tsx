@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
@@ -9,16 +9,36 @@ import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [headerVisible, setHeaderVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const lastScrollY = useRef(0);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 150, damping: 28, mass: 0.35 });
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 16);
+    lastScrollY.current = window.scrollY;
+
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY.current;
+
+      setIsScrolled(currentY > 16);
+
+      if (mobileMenuOpen || currentY < 90) {
+        setHeaderVisible(true);
+      } else if (delta > 6) {
+        setHeaderVisible(false);
+      } else if (delta < -6) {
+        setHeaderVisible(true);
+      }
+
+      lastScrollY.current = currentY;
+    };
+
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { name: "Especialidades", href: "/#especialidades" },
@@ -30,7 +50,14 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+    <header
+      className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4"
+      style={{
+        transform: headerVisible ? "translateY(0)" : "translateY(calc(-100% - 20px))",
+        transition: "transform 360ms cubic-bezier(0.16, 1, 0.3, 1)",
+        pointerEvents: headerVisible ? "auto" : "none",
+      }}
+    >
       <motion.div
         layout
         className="relative mx-auto max-w-7xl overflow-visible rounded-[22px] border transition-all duration-500"
