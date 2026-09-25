@@ -10,10 +10,10 @@ export default function Method() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 22 }}
+          initial={{ opacity: 0.45, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-35px" }}
+          transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mb-20 max-w-3xl text-center"
         >
           <span className="editorial-label">Organização do acompanhamento</span>
@@ -26,10 +26,10 @@ export default function Method() {
         <div className="relative">
           <div className="absolute left-[7%] right-[7%] top-8 hidden h-px bg-gradient-to-r from-transparent via-zinc-300 to-transparent lg:block" />
           <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
+            initial={{ scaleX: 0.25, opacity: 0.4 }}
             whileInView={{ scaleX: 1, opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 1.15, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="absolute left-[12%] right-[12%] top-8 hidden h-px origin-left bg-black lg:block"
           />
 
@@ -37,10 +37,10 @@ export default function Method() {
             {METHOD_STEPS.map((step, idx) => (
               <motion.article
                 key={step.num}
-                initial={{ opacity: 0, y: 35, scale: 0.97 }}
+                initial={{ opacity: 0.5, y: 16, scale: 0.99 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.58, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, margin: "-35px" }}
+                transition={{ duration: 0.4, delay: idx * 0.055, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -8 }}
                 className="group relative"
               >
@@ -69,10 +69,10 @@ export default function Method() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0.55, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55, delay: 0.2 }}
+          viewport={{ once: true, margin: "-25px" }}
+          transition={{ duration: 0.35, delay: 0.08 }}
           className="mt-16 text-center"
         >
           <a href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de esclarecer dúvidas sobre como funciona o acompanhamento psicológico.")} target="_blank" rel="noopener noreferrer" className="btn-primary px-8 py-3.5 text-xs">
