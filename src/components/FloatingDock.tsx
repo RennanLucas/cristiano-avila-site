@@ -11,6 +11,7 @@ export default function FloatingDock() {
 
   useEffect(() => {
     const handleScroll = () => setVisible(window.scrollY > 500);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -23,18 +24,18 @@ export default function FloatingDock() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 30 }}
           transition={{ duration: 0.25 }}
-          className="fixed bottom-0 sm:bottom-6 left-0 right-0 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-40 bg-white/95 sm:rounded-full backdrop-blur-xl border-t sm:border border-zinc-200 shadow-2xl px-4 py-2.5 sm:py-2"
+          className="fixed inset-x-3 bottom-3 z-40 rounded-2xl border border-zinc-200 bg-white/95 px-3 py-2.5 shadow-2xl backdrop-blur-xl sm:hidden"
           style={{ paddingBottom: "max(10px, env(safe-area-inset-bottom))" }}
           aria-label="Atalho para agendamento"
         >
-          <div className="flex items-center justify-between sm:justify-start gap-4 sm:gap-5">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="relative w-9 h-9 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-zinc-200 bg-zinc-100 shrink-0">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-2.5">
+              <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-zinc-200 bg-zinc-100">
                 <Image src={CLINIC_CONTACT.avatarUrl} alt="Cristiano Ávila" fill sizes="36px" className="object-cover object-top" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-black truncate">Cristiano Ávila</p>
-                <p className="text-[10px] text-zinc-500 truncate">Psicólogo • {PROFESSIONAL_REGISTRATION}</p>
+                <p className="truncate text-xs font-semibold text-black">Cristiano Ávila</p>
+                <p className="truncate text-[10px] text-zinc-500">Psicólogo • {PROFESSIONAL_REGISTRATION}</p>
               </div>
             </div>
 
@@ -42,9 +43,9 @@ export default function FloatingDock() {
               href={buildWhatsAppLink("Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma consulta.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 inline-flex items-center justify-center bg-black text-white px-4 py-2.5 sm:py-2 rounded-full text-xs font-semibold hover:bg-zinc-800 transition-colors"
+              className="inline-flex shrink-0 items-center justify-center rounded-full bg-black px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-zinc-800"
             >
-              Ver disponibilidade
+              Disponibilidade
             </a>
           </div>
         </motion.aside>
