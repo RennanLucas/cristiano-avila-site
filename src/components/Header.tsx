@@ -57,7 +57,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           <span className="hidden xl:inline text-[10px] font-medium tracking-wider text-zinc-500 uppercase">
             Presencial e online
           </span>
@@ -68,7 +68,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="md:hidden relative z-10 p-2 -mr-2 text-black"
+          className="lg:hidden relative z-10 p-2 -mr-2 text-black"
           onClick={() => setMobileMenuOpen((open) => !open)}
           aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
           aria-expanded={mobileMenuOpen}
@@ -83,7 +83,7 @@ export default function Header() {
 
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }} className="absolute top-full left-0 right-0 bg-white border-b border-zinc-200 shadow-xl md:hidden">
+          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }} className="absolute top-full left-0 right-0 bg-white border-b border-zinc-200 shadow-xl lg:hidden">
             <nav className="flex flex-col p-5 gap-1" aria-label="Navegação móvel">
               {navLinks.map((link) => (
                 <Link key={link.name} href={link.href} onClick={() => setMobileMenuOpen(false)} className="px-4 py-3 text-sm font-medium text-black rounded-xl hover:bg-zinc-100 transition-colors">
