@@ -1,44 +1,50 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { UNITS_DATA, buildWhatsAppLink } from "@/data/content";
+import { CURRENT_UNITS } from "@/data/units";
+import { buildWhatsAppLink } from "@/data/content";
 
 export default function Locations() {
-  const [selectedUnit, setSelectedUnit] = useState(UNITS_DATA[0]);
-  const [viewMode, setViewMode] = useState<"photo" | "map">("photo");
+  const [selectedUnit, setSelectedUnit] = useState(CURRENT_UNITS[0]);
 
   return (
-    <section id="unidades" className="py-24 lg:py-32 bg-white relative border-t border-zinc-100">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-600 uppercase mb-3">
-            Atendimento Presencial
+    <section id="unidades" className="relative overflow-hidden border-t border-zinc-100 bg-white py-24 lg:py-32">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-zinc-100 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        <div className="mx-auto mb-14 max-w-3xl text-center">
+          <span className="inline-flex rounded-full border border-zinc-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500 shadow-sm">
+            Atendimento presencial
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black mb-4">
-            Consultórios em 4 Cidades
+          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-black md:text-5xl">
+            Endereços atuais em 4 cidades
           </h2>
-          <p className="text-textMuted text-base font-light leading-relaxed">
-            Ambientes privativos, seguros e confortáveis para atendimento psicológico presencial com hora marcada.
+          <p className="mx-auto mt-4 max-w-2xl text-base font-light leading-relaxed text-zinc-600">
+            As unidades abaixo foram revisadas a partir das informações públicas atuais do profissional. Para evitar mostrar fotos incorretas de consultórios, o site prioriza endereço verificado e mapa.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-12">
-          {UNITS_DATA.map((unit) => {
-            const isActive = selectedUnit.id === unit.id;
+        <div className="mx-auto mb-10 flex max-w-4xl flex-wrap items-center justify-center gap-2.5">
+          {CURRENT_UNITS.map((unit) => {
+            const active = selectedUnit.id === unit.id;
             return (
-              <button
+              <motion.button
                 key={unit.id}
                 type="button"
                 onClick={() => setSelectedUnit(unit)}
-                className={`px-5 py-2.5 rounded-full text-xs font-semibold transition-all ${isActive ? "bg-black text-white shadow-apple scale-[1.02]" : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 border border-zinc-200/50"}`}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className={`rounded-full px-4 py-2.5 text-xs font-semibold transition-all ${
+                  active
+                    ? "bg-black text-white shadow-lg"
+                    : "border border-zinc-200 bg-white text-zinc-600 hover:border-zinc-400"
+                }`}
               >
-                <span>{unit.city}</span>
-                <span className={`text-[10px] ml-1.5 opacity-60 ${isActive ? "text-white" : "text-zinc-500"}`}>
-                  ({unit.state})
-                </span>
-              </button>
+                {unit.city}
+              </motion.button>
             );
           })}
         </div>
@@ -46,98 +52,75 @@ export default function Locations() {
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedUnit.id}
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.25 }}
-            className="bg-surface rounded-3xl p-8 sm:p-12 border border-zinc-200/80 shadow-apple max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center"
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto grid max-w-6xl overflow-hidden rounded-[30px] border border-zinc-200 bg-zinc-950 shadow-[0_30px_90px_rgba(0,0,0,0.12)] lg:grid-cols-[0.88fr_1.12fr]"
           >
-            <div>
-              <span className="text-[10px] font-bold tracking-widest text-zinc-400 uppercase block mb-2">
-                Unidade {selectedUnit.city} • {selectedUnit.state}
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-bold text-black tracking-tight mb-2">
-                {selectedUnit.title}
-              </h3>
-              {selectedUnit.tagline && <p className="text-xs text-zinc-500 font-normal mb-6">{selectedUnit.tagline}</p>}
+            <div className="relative flex flex-col justify-between p-7 text-white sm:p-10 lg:p-12">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.11),transparent_36%)]" />
+              <div className="relative z-10">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/50">
+                  Unidade {selectedUnit.city}
+                </span>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+                  {selectedUnit.title}
+                </h3>
+                <p className="mt-3 max-w-md text-sm font-light leading-relaxed text-white/65">
+                  {selectedUnit.tagline}
+                </p>
 
-              <div className="space-y-4 text-sm text-textMuted font-light mb-8">
-                <div>
-                  <strong className="text-black font-medium block">Endereço:</strong>
-                  <span>{selectedUnit.address}</span>
-                  {selectedUnit.complement && <span className="block text-xs text-zinc-500">{selectedUnit.complement}</span>}
-                </div>
-                <div>
-                  <strong className="text-black font-medium block">Horários:</strong>
-                  <span>{selectedUnit.hours || "Atendimento com hora marcada"}</span>
+                <div className="mt-8 space-y-5 border-t border-white/10 pt-7">
+                  <div>
+                    <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">Endereço</span>
+                    <p className="mt-1.5 text-sm leading-relaxed text-white/90">
+                      {selectedUnit.address}
+                      {selectedUnit.complement ? <><br />{selectedUnit.complement}</> : null}
+                      {selectedUnit.neighborhood ? <><br />{selectedUnit.neighborhood} • {selectedUnit.city}/{selectedUnit.state}</> : <><br />{selectedUnit.city}/{selectedUnit.state}</>}
+                      <br />CEP {selectedUnit.zip}
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">Disponibilidade</span>
+                    <p className="mt-1.5 text-sm text-white/90">{selectedUnit.availability}</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="relative z-10 mt-9 flex flex-col gap-3 sm:flex-row">
                 <a
-                  href={buildWhatsAppLink(`Olá, Dr. Cristiano! Gostaria de verificar a disponibilidade de agenda presencial na unidade de ${selectedUnit.city}.`)}
+                  href={buildWhatsAppLink(`Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade de atendimento presencial em ${selectedUnit.city}.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary text-xs py-3 px-6 text-center"
+                  className="rounded-full bg-white px-5 py-3 text-center text-xs font-semibold text-black transition-transform hover:-translate-y-0.5"
                 >
-                  Agendar em {selectedUnit.city}
+                  Ver disponibilidade
                 </a>
-                {selectedUnit.mapsExternalLink && (
-                  <a
-                    href={selectedUnit.mapsExternalLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-outline text-xs py-3 px-6 text-center"
-                  >
-                    Abrir no mapa
-                  </a>
-                )}
+                <a
+                  href={selectedUnit.mapsExternalLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/15 bg-white/5 px-5 py-3 text-center text-xs font-semibold text-white transition-colors hover:bg-white/10"
+                >
+                  Abrir no Google Maps
+                </a>
               </div>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-end gap-1.5">
-                <button type="button" onClick={() => setViewMode("photo")} className={`px-3 py-1 rounded-full text-[11px] font-medium transition-all ${viewMode === "photo" ? "bg-black text-white shadow-sm" : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"}`}>
-                  Foto do Consultório
-                </button>
-                <button type="button" onClick={() => setViewMode("map")} className={`px-3 py-1 rounded-full text-[11px] font-medium transition-all ${viewMode === "map" ? "bg-black text-white shadow-sm" : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"}`}>
-                  Mapa Interativo
-                </button>
-              </div>
-
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-zinc-900 border border-zinc-200 shadow-sm">
-                {viewMode === "photo" ? (
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={selectedUnit.imageUrl}
-                      alt={`Consultório de ${selectedUnit.city}`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute bottom-3 left-4 right-4">
-                      <span className="text-[11px] font-medium text-white/90">{selectedUnit.title} — {selectedUnit.city}</span>
-                    </div>
-                  </div>
-                ) : (
-                  <iframe
-                    title={`Mapa ${selectedUnit.city}`}
-                    src={selectedUnit.mapEmbedUrl || "https://maps.google.com/maps?q=Atibaia&t=&z=13&ie=UTF8&iwloc=&output=embed"}
-                    className="w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500"
-                    loading="lazy"
-                  />
-                )}
-              </div>
+            <div className="relative min-h-[360px] border-t border-zinc-800 bg-zinc-900 lg:min-h-[520px] lg:border-l lg:border-t-0">
+              <iframe
+                title={`Mapa da unidade de ${selectedUnit.city}`}
+                src={selectedUnit.mapEmbedUrl}
+                className="absolute inset-0 h-full w-full border-0 grayscale-[0.35] contrast-[0.95]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-zinc-950/20 to-transparent" />
             </div>
           </motion.div>
         </AnimatePresence>
-
-        <div className="mt-10 text-center">
-          <a href="/unidades" className="inline-flex items-center text-xs font-semibold text-zinc-700 hover:text-black transition-colors">
-            Ver detalhes e fotos de todas as 4 unidades
-          </a>
-        </div>
       </div>
     </section>
   );
