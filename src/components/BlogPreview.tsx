@@ -8,66 +8,80 @@ export default function BlogPreview() {
   const articles = ARTICLES_DATA.slice(0, 3);
 
   return (
-    <section id="blog" className="relative overflow-hidden bg-[#F7F7F5] py-24 lg:py-32">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(0,0,0,0.04),transparent_28%)]" />
+    <section id="blog" className="relative overflow-hidden bg-[#F2F2F0] py-24 lg:py-32">
+      <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.34] [mask-image:radial-gradient(circle_at_center,black,transparent_85%)]" />
+      <div className="aurora-orb absolute -left-20 top-8 h-64 w-64 rounded-full bg-sky-100/60 blur-[90px]" />
+      <div className="aurora-orb aurora-orb-delayed absolute -right-20 bottom-8 h-72 w-72 rounded-full bg-fuchsia-100/45 blur-[95px]" />
+
       <div className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12">
-        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end"
+        >
           <div className="max-w-2xl">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">Blog & conteúdo</span>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.035em] text-black sm:text-4xl lg:text-5xl">
-              Leituras sobre mente, comportamento e saúde emocional.
+            <span className="editorial-label">Blog & conteúdo</span>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-black sm:text-4xl lg:text-5xl">
+              Leituras para aprofundar a compreensão sobre mente e comportamento.
             </h2>
             <p className="mt-4 text-base font-light leading-relaxed text-zinc-600 lg:text-lg">
-              Conteúdo editorial em formato limpo, sem fotografias genéricas ou imagens artificiais que possam sugerir cenas clínicas reais.
+              Conteúdo informativo em uma apresentação editorial, sem fotografias genéricas que simulem situações clínicas.
             </p>
           </div>
 
-          <Link href="/blog" className="btn-outline inline-flex items-center gap-2 text-xs">
-            Ver todos os artigos <span aria-hidden="true">→</span>
-          </Link>
-        </div>
+          <Link href="/blog" className="btn-outline inline-flex items-center gap-2 text-xs">Ver todos os artigos <span aria-hidden="true">→</span></Link>
+        </motion.div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {articles.map((article, idx) => (
-            <motion.article
-              key={article.slug}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -6 }}
-              className="group relative flex min-h-[390px] flex-col justify-between overflow-hidden rounded-[28px] border border-zinc-200 bg-white p-7 shadow-sm transition-shadow hover:shadow-[0_28px_70px_rgba(0,0,0,0.08)]"
-            >
-              <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full border border-zinc-100 bg-zinc-50 transition-transform duration-700 group-hover:scale-125" />
-              <div className="relative z-10">
-                <div className="flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400">
-                  <span>{article.category}</span>
-                  <span>{String(idx + 1).padStart(2, '0')}</span>
+        <div className="grid gap-6 lg:grid-cols-12">
+          {articles.map((article, idx) => {
+            const featured = idx === 0;
+            return (
+              <motion.article
+                key={article.slug}
+                initial={{ opacity: 0, y: 30, scale: 0.985 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.62, delay: idx * 0.09, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -7 }}
+                className={`${featured ? 'lg:col-span-7 lg:row-span-2' : 'lg:col-span-5'} group relative overflow-hidden rounded-[30px] ${featured ? 'premium-dark text-white min-h-[520px]' : 'premium-glass min-h-[250px]'} p-7 sm:p-9`}
+              >
+                <div className={`pointer-events-none absolute ${featured ? '-right-24 -top-24 h-72 w-72 border-white/10 bg-white/[0.03]' : '-right-16 -top-16 h-44 w-44 border-zinc-200 bg-white/60'} rounded-full border transition-transform duration-700 group-hover:scale-125`} />
+                {featured && <div className="pointer-events-none absolute -bottom-20 -left-16 h-72 w-72 rounded-full bg-fuchsia-500/10 blur-[80px]" />}
+
+                <div className="relative z-10 flex h-full flex-col justify-between">
+                  <div>
+                    <div className={`flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.16em] ${featured ? 'text-white/40' : 'text-zinc-400'}`}>
+                      <span>{article.category}</span>
+                      <span>{String(idx + 1).padStart(2, '0')}</span>
+                    </div>
+
+                    <h3 className={`${featured ? 'mt-20 max-w-[90%] text-3xl sm:text-4xl text-white' : 'mt-10 text-2xl text-black'} font-semibold leading-[1.08] tracking-[-0.035em]`}>
+                      <Link href={`/blog/${article.slug}`}>{article.title}</Link>
+                    </h3>
+
+                    <p className={`${featured ? 'text-white/60 max-w-2xl' : 'text-zinc-600'} mt-5 line-clamp-4 text-sm font-light leading-relaxed`}>
+                      {article.excerpt}
+                    </p>
+                  </div>
+
+                  <div className={`${featured ? 'border-white/10' : 'border-zinc-200/70'} mt-10 border-t pt-5`}>
+                    <div className={`flex items-center justify-between gap-4 text-xs ${featured ? 'text-white/40' : 'text-zinc-500'}`}>
+                      <span>{article.date}</span>
+                      <span>{article.readTime}</span>
+                    </div>
+                    <Link
+                      href={`/blog/${article.slug}`}
+                      className={`mt-5 inline-flex items-center gap-2 text-xs font-semibold transition-all group-hover:gap-4 ${featured ? 'text-white' : 'text-black'}`}
+                    >
+                      Ler artigo <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
                 </div>
-
-                <h3 className="mt-10 text-2xl font-semibold leading-tight tracking-[-0.025em] text-black">
-                  <Link href={`/blog/${article.slug}`}>{article.title}</Link>
-                </h3>
-
-                <p className="mt-4 line-clamp-4 text-sm font-light leading-relaxed text-zinc-600">
-                  {article.excerpt}
-                </p>
-              </div>
-
-              <div className="relative z-10 mt-10 border-t border-zinc-100 pt-5">
-                <div className="flex items-center justify-between gap-4 text-xs text-zinc-500">
-                  <span>{article.date}</span>
-                  <span>{article.readTime}</span>
-                </div>
-                <Link
-                  href={`/blog/${article.slug}`}
-                  className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-black transition-all group-hover:gap-3"
-                >
-                  Ler artigo <span aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>
