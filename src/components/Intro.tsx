@@ -1,30 +1,30 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 
 export default function Intro() {
   return (
-    <section className="py-24 lg:py-32 bg-white relative overflow-hidden">
-      {/* Decorative top borderline */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#18363B]/10 to-transparent" />
-
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section className="py-24 lg:py-32 bg-white relative overflow-hidden border-t border-zinc-100">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Text Column (7 cols) */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             className="lg:col-span-7 space-y-8"
           >
             <div className="space-y-3">
-              <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-3">UMA ABORDAGEM INTEGRADA</span>
-              <h2 className="tracking-tight text-3xl sm:text-4xl lg:text-5xl text-black leading-[1.18] tracking-tight">
-                Cada pessoa possui uma história.{' '}
-                <span className="text-zinc-500 block sm:inline">
+              <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-600 uppercase mb-3">
+                Uma Abordagem Integrada
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black leading-[1.15]">
+                Cada pessoa possui uma história única.{" "}
+                <span className="text-zinc-400 block sm:inline">
                   O tratamento também deve ser individual.
                 </span>
               </h2>
@@ -35,59 +35,59 @@ export default function Intro() {
                 O processo terapêutico parte da compreensão aprofundada das experiências, emoções, comportamentos e particularidades de cada pessoa. Não existem fórmulas prontas para dores humanas singulares.
               </p>
               <p>
-                A partir dessa escuta atenta, diferentes abordagens podem ser utilizadas de maneira integrada durante o acompanhamento: a estrutura científica da <strong>Terapia Cognitivo-Comportamental</strong>, o alcance profundo da <strong>Hipnoterapia Clínica</strong>, a precisão da <strong>Neuropsicologia</strong> e a clareza da <strong>visão sistêmica</strong>.
-              </p>
-              <p>
-                O objetivo primordial é construir autonomia duradoura, auxiliando o paciente a ressignificar memórias de sofrimento, romper padrões repetitivos e restaurar o bem-estar psicológico com sustentabilidade.
+                Por meio da integração entre <strong className="text-black font-medium">psicoterapia clínica, neurociência aplicada e hipnoterapia</strong>, estruturamos caminhos seguros e práticos para identificar as origens do sofrimento, reestruturar padrões limitantes e promover transformações duradouras.
               </p>
             </div>
 
-            <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Link
                 href="/sobre"
-                className="btn-outline"
+                className="btn-outline text-xs py-3 px-6 text-center"
               >
-                Conheça a trajetória profissional
+                Conheça a metodologia completa
               </Link>
-              <div className="flex items-center gap-3 text-xs text-textMuted">
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-200" />
-                <span>Base científica e ética profissional</span>
-              </div>
+              <a
+                href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de entender mais sobre o método de atendimento.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-xs py-3 px-6 text-center"
+              >
+                Falar com a equipe
+              </a>
             </div>
           </motion.div>
 
-          {/* Right Image Column (5 cols) */}
+          {/* Right Highlights Column (5 cols) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-            className="lg:col-span-5 relative"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="lg:col-span-5 space-y-4"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-apple border border-zinc-200/10">
-              {/* Image of warm therapeutic setting */}
-              <div className="aspect-[4/3] sm:aspect-[1/1] w-full overflow-hidden bg-surface">
-                <img
-                  src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=85&fit=crop"
-                  alt="Espaço terapêutico acolhedor e humanizado"
-                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-
-              {/* Inset Quote Pill */}
-              <div className="p-6 bg-black text-white">
-                <p className="tracking-tight italic text-lg leading-snug text-[#F8F8F5]">
-                  &ldquo;A escuta atenta revela caminhos onde antes só existiam bloqueios.&rdquo;
-                </p>
-                <div className="mt-3 flex items-center justify-between text-xs text-zinc-500">
-                  <span className="font-semibold tracking-wider uppercase">Cristiano Ávila</span>
-                  <span className="text-white/60">Atendimento Humanizado</span>
-                </div>
-              </div>
+            <div className="p-7 rounded-3xl bg-surface border border-zinc-200/80 shadow-apple">
+              <span className="text-xs font-mono font-bold text-zinc-400 block mb-2">01 / CIÊNCIA</span>
+              <h3 className="text-lg font-bold text-black tracking-tight mb-2">Base em Evidências</h3>
+              <p className="text-xs text-textMuted leading-relaxed font-light">
+                Intervenções validadas pela neurociência e psicologia contemporânea, sem promessas milagrosas.
+              </p>
             </div>
 
-            {/* Subtle decorative offset border */}
-            <div className="absolute -bottom-4 -right-4 w-full h-full rounded-2xl border border-zinc-200/20 -z-10 hidden sm:block" />
+            <div className="p-7 rounded-3xl bg-surface border border-zinc-200/80 shadow-apple">
+              <span className="text-xs font-mono font-bold text-zinc-400 block mb-2">02 / HUMANIZAÇÃO</span>
+              <h3 className="text-lg font-bold text-black tracking-tight mb-2">Escuta Qualificada & Sigilo</h3>
+              <p className="text-xs text-textMuted leading-relaxed font-light">
+                Ambiente livre de julgamentos morais, com acolhimento rigoroso sob o código de ética do CFP.
+              </p>
+            </div>
+
+            <div className="p-7 rounded-3xl bg-surface border border-zinc-200/80 shadow-apple">
+              <span className="text-xs font-mono font-bold text-zinc-400 block mb-2">03 / RESULTADOS</span>
+              <h3 className="text-lg font-bold text-black tracking-tight mb-2">Autonomia Emocional</h3>
+              <p className="text-xs text-textMuted leading-relaxed font-light">
+                O objetivo não é criar dependência da terapia, mas instrumentalizar você para assumir o controle da própria vida.
+              </p>
+            </div>
           </motion.div>
 
         </div>

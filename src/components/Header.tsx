@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { CLINIC_CONTACT } from "@/data/content";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,36 +16,49 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { name: "Especialidades", href: "#especialidades" },
-    { name: "Sobre", href: "#sobre" },
-    { name: "Metodologia", href: "#metodologia" },
-    { name: "Depoimentos", href: "#depoimentos" },
-    { name: "Unidades", href: "#unidades" },
+    { name: "Especialidades", href: "/#especialidades" },
+    { name: "Sobre", href: "/sobre" },
+    { name: "Metodologia", href: "/#metodologia" },
+    { name: "Unidades", href: "/unidades" },
+    { name: "FAQ", href: "/#faq" },
+    { name: "Contato", href: "/contato" },
   ];
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/70 backdrop-blur-md border-b border-zinc-200/50 shadow-sm"
+          ? "bg-white/80 backdrop-blur-md border-b border-zinc-200/60 shadow-sm"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="relative z-10 flex items-center gap-2 group">
-          <span className="font-semibold text-lg tracking-tight text-black">
-            Cristiano Ávila
-          </span>
+      <div className="max-w-7xl mx-auto px-6 h-18 py-3 flex items-center justify-between">
+        {/* Logo oficial (Imagem 2) com nome */}
+        <Link href="/" className="relative z-10 flex items-center gap-3 group">
+          <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 border border-zinc-200/80 shadow-sm group-hover:scale-105 transition-transform duration-200 bg-white">
+            <img
+              src="/images/logo-icon.png"
+              alt="Logo Psicólogo Cristiano Ávila"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="flex flex-col text-left">
+            <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-400 leading-none">
+              Psicólogo
+            </span>
+            <span className="font-bold text-base tracking-tight text-black leading-tight">
+              Cristiano Ávila
+            </span>
+          </div>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-textMuted hover:text-black transition-colors"
+              className="text-xs font-semibold text-textMuted hover:text-black transition-colors"
             >
               {link.name}
             </Link>
@@ -52,21 +66,21 @@ export default function Header() {
         </nav>
 
         {/* CTA */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-5">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
             <span className="text-[10px] font-bold tracking-widest text-zinc-500 uppercase">
               Agenda Aberta
             </span>
           </div>
           <a
-            href="https://wa.me/5511943015504"
+            href={CLINIC_CONTACT.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary py-2 px-5 text-xs"
+            className="btn-primary py-2 px-5 text-xs shadow-sm"
           >
             Agendar Consulta
           </a>
@@ -74,10 +88,11 @@ export default function Header() {
 
         {/* Mobile Toggle */}
         <button
+          type="button"
           className="md:hidden relative z-10 p-2 -mr-2 text-black"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
         >
-          <span className="sr-only">Abrir menu</span>
           <div className="w-5 h-4 flex flex-col justify-between">
             <span
               className={`block w-full h-[1.5px] bg-current transition-transform duration-300 ${
@@ -106,27 +121,27 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-16 left-0 right-0 bg-white border-b border-zinc-100 shadow-lg md:hidden"
+            className="absolute top-16 left-0 right-0 bg-white border-b border-zinc-200 shadow-xl md:hidden"
           >
-            <nav className="flex flex-col p-4 gap-2">
+            <nav className="flex flex-col p-5 gap-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 text-sm font-medium text-black rounded-lg hover:bg-zinc-50"
+                  className="px-4 py-3 text-sm font-semibold text-black rounded-xl hover:bg-zinc-50"
                 >
                   {link.name}
                 </Link>
               ))}
               <div className="pt-4 mt-2 border-t border-zinc-100 px-4 pb-2">
                 <a
-                  href="https://wa.me/5511943015504"
+                  href={CLINIC_CONTACT.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary w-full"
+                  className="btn-primary w-full text-center"
                 >
-                  Agendar Consulta
+                  Agendar Consulta no WhatsApp
                 </a>
               </div>
             </nav>

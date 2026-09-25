@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   description:
     "Atendimento psicológico clínico baseado em ciência, escuta humanizada e estratégias integradas.",
   metadataBase: new URL("https://cristianoavilapsicologo.com.br"),
+  icons: {
+    icon: "/images/logo-icon.png",
+    shortcut: "/images/logo-icon.png",
+    apple: "/images/logo-icon.png",
+  },
   openGraph: {
     title: "Cristiano Ávila | Psicólogo Clínico",
     description:

@@ -1,82 +1,71 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { METHOD_STEPS } from '@/data/content';
+import { motion } from "framer-motion";
+import { METHOD_STEPS, buildWhatsAppLink } from "@/data/content";
 
 export default function Method() {
   return (
-    <section id="metodo" className="py-24 lg:py-32 bg-white relative">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section id="metodologia" className="py-24 lg:py-32 bg-white relative border-t border-zinc-100">
+      <div className="max-w-7xl mx-auto px-6">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-          <div className="inline-flex items-center gap-3">
-            <span className="w-6 h-[1.5px] bg-zinc-200" />
-            <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-3">MÉTODO CLÍNICO</span>
-            <span className="w-6 h-[1.5px] bg-zinc-200" />
-          </div>
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-600 uppercase mb-3">
+            Método Clínico Estruturado
+          </span>
 
-          <h2 className="tracking-tight text-3xl sm:text-4xl lg:text-5xl text-black tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black mb-4">
             Como funciona o acompanhamento
           </h2>
 
-          <p className="text-textMuted text-base lg:text-lg font-light leading-relaxed">
+          <p className="text-textMuted text-base sm:text-lg font-light leading-relaxed">
             Uma jornada transparente, pautada no respeito aos seus limites e focada em resultados progressivos e duradouros.
           </p>
         </div>
 
-        {/* Timeline Desktop (Horizontal) & Mobile (Vertical) */}
-        <div className="relative">
-          {/* Horizontal Line on Desktop */}
-          <div className="hidden lg:block absolute top-[52px] left-[10%] right-[10%] h-[1.5px] bg-gradient-to-r from-[#B7925A]/20 via-[#B7925A] to-[#B7925A]/20 z-0" />
+        {/* 4 Steps Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {METHOD_STEPS.map((step, idx) => (
+            <motion.div
+              key={step.num}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              className="p-7 rounded-3xl bg-surface border border-zinc-200/80 shadow-apple flex flex-col justify-between"
+            >
+              <div>
+                <span className="font-mono text-2xl font-bold text-zinc-300 block mb-4">
+                  {step.num}
+                </span>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-8">
-            {METHOD_STEPS.map((step, idx) => (
-              <motion.div
-                key={step.num}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6, delay: idx * 0.12, ease: 'easeOut' }}
-                className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left group"
-              >
-                {/* Step Circle Header */}
-                <div className="relative mb-6">
-                  <div className="w-[104px] h-[104px] rounded-full bg-white border-2 border-zinc-200/15 group-hover:border-zinc-200 shadow-apple flex items-center justify-center transition-all duration-400 group-hover:scale-105">
-                    <span className="tracking-tight text-3xl font-normal text-black group-hover:text-zinc-500 transition-colors">
-                      {step.num}
-                    </span>
-                  </div>
-                  {/* Micro Badge */}
-                  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 lg:left-2 lg:translate-x-0 text-[10px] font-semibold uppercase tracking-wider bg-black text-white px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-sm">
-                    {step.badge}
-                  </span>
-                </div>
-
-                {/* Step Text */}
-                <h3 className="tracking-tight text-xl text-black font-semibold mb-3">
+                <h3 className="text-lg font-bold text-black tracking-tight mb-2">
                   {step.title}
                 </h3>
-                <p className="text-textMuted text-sm leading-relaxed font-light">
+
+                <p className="text-xs text-textMuted font-light leading-relaxed mb-4">
                   {step.desc}
                 </p>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+
+              {step.badge && (
+                <div className="pt-3 border-t border-zinc-100 text-[11px] text-zinc-500 font-light">
+                  {step.badge}
+                </div>
+              )}
+            </motion.div>
+          ))}
         </div>
 
-        {/* Footnote CTA */}
-        <div className="mt-16 pt-10 border-t border-gray-100 text-center">
-          <p className="text-sm text-textMuted mb-5">
-            Deseja compreender qual abordagem é mais indicada para a sua situação?
-          </p>
+        {/* Bottom CTA */}
+        <div className="mt-14 text-center">
           <a
-            href="https://wa.me/5511995235839?text=Ol%C3%A1%2C%20gostaria%20de%20esclarecer%20d%C3%BAvidas%20sobre%20as%20etapas%20do%20atendimento%20com%20Cristiano%20%C3%81vila."
+            href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de esclarecer dúvidas sobre as etapas do atendimento clínico.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary text-xs"
+            className="btn-primary text-xs py-3 px-8 shadow-apple"
           >
-            Tirar dúvidas com o profissional
+            Esclarecer dúvidas sobre o método no WhatsApp
           </a>
         </div>
 
