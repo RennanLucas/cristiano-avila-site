@@ -25,7 +25,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       description: article.excerpt,
       url,
       type: "article",
-      images: article.imageUrl ? [article.imageUrl] : undefined,
+      images: [`${SITE_URL}${CLINIC_CONTACT.avatarUrl}`],
     },
   };
 }
