@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CLINIC_CONTACT, SPECIALTIES_DATA, UNITS_DATA } from "@/data/content";
+import { CLINIC_CONTACT, SPECIALTIES_DATA } from "@/data/content";
+import { CURRENT_UNITS } from "@/data/units";
 import { isPublicSpecialty, PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export default function Footer() {
@@ -60,7 +61,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <h2 className="text-xs font-semibold uppercase tracking-wider text-black mb-4">Presencial</h2>
             <ul className="space-y-2.5 text-sm text-zinc-600 font-light">
-              {UNITS_DATA.map((unit) => (
+              {CURRENT_UNITS.map((unit) => (
                 <li key={unit.id}><Link href={`/unidades#${unit.id}`} className="hover:text-black">{unit.city}</Link></li>
               ))}
             </ul>
