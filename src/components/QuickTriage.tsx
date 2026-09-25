@@ -34,35 +34,35 @@ export default function QuickTriage() {
   const customMessage = `Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.${details ? `\n\n${details}` : ""}`;
 
   return (
-    <section className="relative overflow-hidden border-y border-zinc-200/60 bg-[#F3F3F1] py-24 lg:py-32">
+    <section className="relative overflow-hidden border-y border-zinc-200/60 bg-[#F3F3F1] py-20 sm:py-24 lg:py-32">
       <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.28] [mask-image:radial-gradient(circle_at_center,black,transparent_82%)]" />
       <div className="aurora-orb absolute -left-24 top-12 h-72 w-72 rounded-full bg-fuchsia-100/45 blur-[100px]" />
       <div className="aurora-orb aurora-orb-delayed absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-amber-100/60 blur-[100px]" />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0.45, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="grid overflow-hidden rounded-[34px] premium-dark text-white lg:grid-cols-[0.8fr_1.2fr]"
+          viewport={{ once: true, margin: "-45px" }}
+          transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+          className="grid overflow-hidden rounded-[28px] premium-dark text-white sm:rounded-[34px] lg:grid-cols-[0.8fr_1.2fr]"
         >
-          <div className="relative flex min-h-[420px] flex-col justify-between overflow-hidden border-b border-white/10 p-7 sm:p-10 lg:border-b-0 lg:border-r lg:p-12">
+          <div className="relative flex min-h-0 flex-col justify-between overflow-hidden border-b border-white/10 p-6 sm:min-h-[380px] sm:p-10 lg:min-h-[420px] lg:border-b-0 lg:border-r lg:p-12">
             <div className="pointer-events-none absolute -left-16 -top-16 h-64 w-64 rounded-full bg-fuchsia-500/10 blur-[85px]" />
             <div className="pointer-events-none absolute -bottom-20 right-[-3rem] h-72 w-72 rounded-full bg-amber-300/10 blur-[90px]" />
             <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.07]" />
 
             <div className="relative z-10">
               <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Primeiro contato</span>
-              <h2 className="mt-5 max-w-md text-3xl font-semibold leading-[1.06] tracking-[-0.04em] sm:text-4xl lg:text-[2.85rem]">
+              <h2 className="mt-4 max-w-md text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] min-[390px]:text-3xl sm:mt-5 sm:text-4xl lg:text-[2.85rem]">
                 Consulte a disponibilidade em menos de um minuto.
               </h2>
-              <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-white/55 sm:text-base">
+              <p className="mt-4 max-w-md text-sm font-light leading-relaxed text-white/55 sm:mt-5 sm:text-base">
                 Escolha apenas local e período de preferência. Questões clínicas ficam para o ambiente adequado de atendimento.
               </p>
             </div>
 
-            <div className="relative z-10 mt-10 grid grid-cols-2 gap-3">
+            <div className="relative z-10 mt-8 grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 sm:mt-10">
               <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4 backdrop-blur">
                 <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Etapa 01</span>
                 <strong className="mt-1.5 block text-sm font-medium text-white">Escolha o local</strong>
@@ -74,15 +74,15 @@ export default function QuickTriage() {
             </div>
           </div>
 
-          <div className="bg-white/95 p-6 text-black sm:p-9 lg:p-12">
-            <div className="grid gap-9">
-              <fieldset>
-                <div className="mb-4 flex items-center justify-between gap-4">
-                  <legend className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">Onde prefere ser atendido?</legend>
-                  <span className="font-mono text-[10px] text-zinc-300">01 / 02</span>
+          <div className="bg-white/95 p-5 text-black min-[390px]:p-6 sm:p-9 lg:p-12">
+            <div className="grid gap-8 sm:gap-9">
+              <fieldset className="min-w-0">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Onde prefere ser atendido?</legend>
+                  <span className="shrink-0 font-mono text-[10px] text-zinc-300">01 / 02</span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                <div className="grid grid-cols-1 gap-2.5 min-[390px]:grid-cols-2 sm:grid-cols-3">
                   {LOCATIONS.map((loc) => {
                     const active = selectedLocation === loc.id;
                     return (
@@ -92,12 +92,12 @@ export default function QuickTriage() {
                         onClick={() => setSelectedLocation(loc.id)}
                         aria-pressed={active}
                         whileTap={{ scale: 0.97 }}
-                        className={`relative overflow-hidden rounded-2xl border px-3 py-3.5 text-left text-xs font-medium transition-colors duration-300 ${active ? "border-black text-white" : "border-zinc-200 bg-zinc-50/75 text-zinc-600 hover:border-zinc-400 hover:bg-white"}`}
+                        className={`relative min-w-0 overflow-hidden rounded-2xl border px-3 py-3.5 text-left text-xs font-medium transition-colors duration-300 ${active ? "border-black text-white" : "border-zinc-200 bg-zinc-50/75 text-zinc-600 hover:border-zinc-400 hover:bg-white"}`}
                       >
                         {active && <motion.span layoutId="locationChoice" className="absolute inset-0 bg-black" transition={{ type: "spring", stiffness: 420, damping: 32 }} />}
                         <span className="relative z-10 flex items-center justify-between gap-2">
-                          <span>{loc.label}</span>
-                          <span className={active ? "text-white/50" : "text-zinc-300"} aria-hidden="true">•</span>
+                          <span className="min-w-0 break-words">{loc.label}</span>
+                          <span className={`shrink-0 ${active ? "text-white/50" : "text-zinc-300"}`} aria-hidden="true">•</span>
                         </span>
                       </motion.button>
                     );
@@ -105,10 +105,10 @@ export default function QuickTriage() {
                 </div>
               </fieldset>
 
-              <fieldset>
-                <div className="mb-4 flex items-center justify-between gap-4">
-                  <legend className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">Período de preferência</legend>
-                  <span className="font-mono text-[10px] text-zinc-300">02 / 02</span>
+              <fieldset className="min-w-0">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Período de preferência</legend>
+                  <span className="shrink-0 font-mono text-[10px] text-zinc-300">02 / 02</span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
@@ -121,7 +121,7 @@ export default function QuickTriage() {
                         onClick={() => setSelectedPeriod(periodItem.id)}
                         aria-pressed={active}
                         whileTap={{ scale: 0.97 }}
-                        className={`relative overflow-hidden rounded-2xl border px-3 py-3.5 text-center text-xs font-medium transition-colors duration-300 ${active ? "border-black text-white" : "border-zinc-200 bg-zinc-50/75 text-zinc-600 hover:border-zinc-400 hover:bg-white"}`}
+                        className={`relative overflow-hidden rounded-2xl border px-2.5 py-3.5 text-center text-xs font-medium transition-colors duration-300 ${active ? "border-black text-white" : "border-zinc-200 bg-zinc-50/75 text-zinc-600 hover:border-zinc-400 hover:bg-white"}`}
                       >
                         {active && <motion.span layoutId="periodChoice" className="absolute inset-0 bg-black" transition={{ type: "spring", stiffness: 420, damping: 32 }} />}
                         <span className="relative z-10">{periodItem.label}</span>
@@ -131,7 +131,7 @@ export default function QuickTriage() {
                 </div>
               </fieldset>
 
-              <div className="border-t border-zinc-200 pt-7">
+              <div className="border-t border-zinc-200 pt-6 sm:pt-7">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`${location ?? "none"}-${period ?? "none"}`}
@@ -141,7 +141,7 @@ export default function QuickTriage() {
                     transition={{ duration: 0.22 }}
                     className="mb-5 flex min-h-[42px] flex-wrap items-center gap-2"
                   >
-                    {location ? <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{location}</span> : null}
+                    {location ? <span className="max-w-full rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{location}</span> : null}
                     {period ? <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{period}</span> : null}
                     {!ready ? <span className="text-xs font-light text-zinc-400">Você pode selecionar uma ou as duas opções.</span> : null}
                   </motion.div>
@@ -149,7 +149,7 @@ export default function QuickTriage() {
 
                 <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                   <p className="max-w-xl text-[10px] font-light leading-relaxed text-zinc-400">{FIRST_CONTACT_PRIVACY_NOTE}</p>
-                  <a href={buildWhatsAppLink(customMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary shrink-0 px-7 py-3.5 text-center text-xs">
+                  <a href={buildWhatsAppLink(customMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary w-full shrink-0 px-7 py-3.5 text-center text-xs md:w-auto">
                     Continuar no WhatsApp <span className="ml-2" aria-hidden="true">↗</span>
                   </a>
                 </div>
