@@ -55,11 +55,11 @@ export default function FaqSection() {
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
+            initial={{ opacity: 0.35, x: -14 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:sticky lg:top-32 lg:self-start"
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:self-start"
           >
             <span className="editorial-label">Informações sobre o atendimento</span>
             <h2 className="mt-4 max-w-md text-3xl font-semibold leading-[1.05] tracking-[-0.045em] text-black sm:text-4xl lg:text-5xl">
@@ -70,7 +70,6 @@ export default function FaqSection() {
             </p>
 
             <div className="mt-9 overflow-hidden rounded-[28px] premium-dark p-6 text-white sm:p-7">
-              <div className="pointer-events-none absolute" />
               <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/35">Precisa falar com a equipe?</span>
               <h3 className="mt-3 text-xl font-semibold tracking-[-0.025em]">Envie apenas o necessário para o primeiro contato.</h3>
               <p className="mt-3 text-xs font-light leading-relaxed text-white/50">
@@ -93,10 +92,10 @@ export default function FaqSection() {
               return (
                 <motion.article
                   key={item.question}
-                  initial={{ opacity: 0, y: 18 }}
+                  initial={{ opacity: 0.45, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.48, delay: idx * 0.045, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={{ once: true, margin: "-35px" }}
+                  transition={{ duration: 0.36, delay: idx * 0.025, ease: [0.16, 1, 0.3, 1] }}
                   className={`group overflow-hidden rounded-[24px] border transition-all duration-500 ${
                     isOpen
                       ? "border-zinc-300 bg-white shadow-[0_22px_60px_rgba(0,0,0,0.08)]"
@@ -109,7 +108,7 @@ export default function FaqSection() {
                     className="flex w-full items-center gap-4 p-5 text-left sm:p-6"
                     aria-expanded={isOpen}
                   >
-                    <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border font-mono text-[10px] transition-all duration-400 ${isOpen ? "border-black bg-black text-white" : "border-zinc-200 bg-white text-zinc-400 group-hover:text-black"}`}>
+                    <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border font-mono text-[10px] transition-all duration-300 ${isOpen ? "border-black bg-black text-white" : "border-zinc-200 bg-white text-zinc-400 group-hover:text-black"}`}>
                       {String(idx + 1).padStart(2, "0")}
                     </span>
 
@@ -129,7 +128,7 @@ export default function FaqSection() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                       >
                         <div className="ml-[76px] border-t border-zinc-100 px-0 pb-6 pr-6 pt-5 text-sm font-light leading-relaxed text-zinc-600 sm:ml-[84px] sm:pr-8">
                           {item.answer}
