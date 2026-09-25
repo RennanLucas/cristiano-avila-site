@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 import CountUp from "./CountUp";
+import SynapseCanvas from "./SynapseCanvas";
 import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 
 const CYCLING_WORDS = [
@@ -37,6 +38,9 @@ export default function Hero() {
 
   return (
     <section className="relative pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden bg-white">
+      {/* Interactive JavaScript Canvas (Neural Synapses) */}
+      <SynapseCanvas />
+
       {/* Background radial gradient mesh */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] opacity-40 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-zinc-200/70 via-white to-white blur-3xl" />

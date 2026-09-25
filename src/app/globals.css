@@ -12,7 +12,25 @@
 @layer components {
   /* Minimalist Apple/Figma style buttons */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-full bg-black text-white text-sm font-medium transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-apple-hover active:scale-[0.98];
+    @apply relative overflow-hidden inline-flex items-center justify-center px-6 py-3 rounded-full bg-black text-white text-sm font-medium transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-apple-hover active:scale-[0.98];
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      60deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent 70%
+    );
+    transform: rotate(25deg);
+    animation: button-shimmer 6s infinite ease-in-out;
+    pointer-events: none;
   }
   
   .btn-outline {
@@ -37,4 +55,13 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #CCCCCC; 
+}
+
+@keyframes button-shimmer {
+  0% {
+    transform: translate(-100%, -100%) rotate(25deg);
+  }
+  20%, 100% {
+    transform: translate(100%, 100%) rotate(25deg);
+  }
 }
