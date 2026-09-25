@@ -15,10 +15,10 @@ export default function BlogPreview() {
 
       <div className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0.5, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-35px' }}
+          transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end"
         >
           <div className="max-w-2xl">
@@ -40,10 +40,10 @@ export default function BlogPreview() {
             return (
               <motion.article
                 key={article.slug}
-                initial={{ opacity: 0, y: 30, scale: 0.985 }}
+                initial={{ opacity: 0.55, y: 16, scale: 0.995 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.62, delay: idx * 0.09, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, margin: '-35px' }}
+                transition={{ duration: 0.42, delay: idx * 0.045, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -7 }}
                 className={`${featured ? 'lg:col-span-7 lg:row-span-2' : 'lg:col-span-5'} group relative overflow-hidden rounded-[30px] ${featured ? 'premium-dark text-white min-h-[520px]' : 'premium-glass min-h-[250px]'} p-7 sm:p-9`}
               >
