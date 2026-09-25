@@ -6,6 +6,7 @@ import MagneticButton from "./MagneticButton";
 import CountUp from "./CountUp";
 import SynapseCanvas from "./SynapseCanvas";
 import BorderBeam from "./BorderBeam";
+import HeroVideoBackground from "./HeroVideoBackground";
 import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 
 const CYCLING_WORDS = [
@@ -38,9 +39,10 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden bg-white">
-      {/* Interactive JavaScript Canvas (Neural Synapses) */}
-      <SynapseCanvas />
+    <HeroVideoBackground>
+      <section className="relative pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden">
+        {/* Interactive JavaScript Canvas (Neural Synapses) */}
+        <SynapseCanvas />
 
       {/* Background radial gradient mesh */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] opacity-40 pointer-events-none">
@@ -169,5 +171,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+  </HeroVideoBackground>
   );
 }
