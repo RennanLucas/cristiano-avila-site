@@ -48,57 +48,99 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-24 lg:py-32 bg-white relative">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-600 uppercase mb-3">
-            Informações sobre o atendimento
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black mb-4">Perguntas frequentes</h2>
-          <p className="text-textMuted text-base font-light">
-            Informações gerais sobre consultas, modalidades e organização do acompanhamento.
-          </p>
-        </div>
+    <section id="faq" className="relative overflow-hidden bg-white py-24 lg:py-32">
+      <div className="pointer-events-none absolute -left-28 top-24 h-80 w-80 rounded-full bg-zinc-100 blur-[110px]" />
+      <div className="aurora-orb absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-sky-100/50 blur-[100px]" />
 
-        <div className="space-y-4">
-          {FAQ_ITEMS.map((item, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <div key={item.question} className="rounded-2xl border border-zinc-200/80 bg-zinc-50/50 overflow-hidden transition-all duration-200 hover:border-zinc-300">
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4"
-                  aria-expanded={isOpen}
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:sticky lg:top-32 lg:self-start"
+          >
+            <span className="editorial-label">Informações sobre o atendimento</span>
+            <h2 className="mt-4 max-w-md text-3xl font-semibold leading-[1.05] tracking-[-0.045em] text-black sm:text-4xl lg:text-5xl">
+              Dúvidas importantes, respostas objetivas.
+            </h2>
+            <p className="mt-5 max-w-md text-base font-light leading-relaxed text-zinc-600">
+              Informações gerais sobre consultas, modalidades, organização do acompanhamento e atendimento presencial.
+            </p>
+
+            <div className="mt-9 overflow-hidden rounded-[28px] premium-dark p-6 text-white sm:p-7">
+              <div className="pointer-events-none absolute" />
+              <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/35">Precisa falar com a equipe?</span>
+              <h3 className="mt-3 text-xl font-semibold tracking-[-0.025em]">Envie apenas o necessário para o primeiro contato.</h3>
+              <p className="mt-3 text-xs font-light leading-relaxed text-white/50">
+                Questões clínicas podem ser conversadas posteriormente em ambiente apropriado de atendimento.
+              </p>
+              <a
+                href={buildWhatsAppLink("Olá! Tenho uma dúvida sobre o atendimento e gostaria de mais informações.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[11px] font-semibold text-black transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+              >
+                Falar pelo WhatsApp <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </motion.div>
+
+          <div className="space-y-3">
+            {FAQ_ITEMS.map((item, idx) => {
+              const isOpen = openIndex === idx;
+              return (
+                <motion.article
+                  key={item.question}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.48, delay: idx * 0.045, ease: [0.16, 1, 0.3, 1] }}
+                  className={`group overflow-hidden rounded-[24px] border transition-all duration-500 ${
+                    isOpen
+                      ? "border-zinc-300 bg-white shadow-[0_22px_60px_rgba(0,0,0,0.08)]"
+                      : "border-zinc-200/80 bg-zinc-50/55 hover:border-zinc-300 hover:bg-white"
+                  }`}
                 >
-                  <span className="text-base sm:text-lg font-semibold text-black tracking-tight">{item.question}</span>
-                  <span className={`w-7 h-7 rounded-full bg-white border border-zinc-200 flex items-center justify-center shrink-0 text-black transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} aria-hidden="true">
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </span>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(isOpen ? null : idx)}
+                    className="flex w-full items-center gap-4 p-5 text-left sm:p-6"
+                    aria-expanded={isOpen}
+                  >
+                    <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border font-mono text-[10px] transition-all duration-400 ${isOpen ? "border-black bg-black text-white" : "border-zinc-200 bg-white text-zinc-400 group-hover:text-black"}`}>
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease: "easeInOut" }}>
-                      <div className="px-6 pb-6 pt-2 text-sm text-textMuted leading-relaxed border-t border-zinc-100">{item.answer}</div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </div>
+                    <span className="min-w-0 flex-1">
+                      <span className="mb-1 block text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">{item.category}</span>
+                      <span className="block text-base font-semibold tracking-[-0.02em] text-black sm:text-lg">{item.question}</span>
+                    </span>
 
-        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-zinc-50 border border-zinc-200/80 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-          <div>
-            <h4 className="text-base font-bold text-black mb-1">Ficou com alguma dúvida?</h4>
-            <p className="text-xs text-textMuted font-light">Envie apenas as informações necessárias para agendamento ou esclarecimentos iniciais.</p>
+                    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${isOpen ? "rotate-45 border-black bg-black text-white" : "border-zinc-200 bg-white text-black"}`} aria-hidden="true">
+                      +
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <div className="ml-[76px] border-t border-zinc-100 px-0 pb-6 pr-6 pt-5 text-sm font-light leading-relaxed text-zinc-600 sm:ml-[84px] sm:pr-8">
+                          {item.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.article>
+              );
+            })}
           </div>
-          <a href={buildWhatsAppLink("Olá! Tenho uma dúvida sobre o atendimento e gostaria de mais informações.")} target="_blank" rel="noopener noreferrer" className="btn-primary py-2.5 px-6 text-xs shrink-0">
-            Falar pelo WhatsApp
-          </a>
         </div>
       </div>
     </section>
