@@ -4,13 +4,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 import HeroVideoBackground from "./HeroVideoBackground";
+import TrustBadges from "./TrustBadges";
 import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export default function Hero() {
   return (
     <HeroVideoBackground>
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      <section className="relative pt-32 pb-10 md:pt-40 md:pb-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid lg:grid-cols-[1.05fr_.95fr] gap-12 lg:gap-16 items-center">
             <div className="max-w-3xl">
@@ -100,6 +101,15 @@ export default function Hero() {
               </div>
             </motion.div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-10 sm:mt-14"
+          >
+            <TrustBadges />
+          </motion.div>
         </div>
       </section>
     </HeroVideoBackground>
