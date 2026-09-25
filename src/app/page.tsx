@@ -3,10 +3,8 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Hero from "@/components/Hero";
 import InfiniteMarquee from "@/components/InfiniteMarquee";
 import TrustBadges from "@/components/TrustBadges";
-import AudioWelcome from "@/components/AudioWelcome";
 import Intro from "@/components/Intro";
 import Specialties from "@/components/Specialties";
-import SelfAssessmentQuiz from "@/components/SelfAssessmentQuiz";
 import QuickTriage from "@/components/QuickTriage";
 import Demands from "@/components/Demands";
 import About from "@/components/About";
@@ -21,6 +19,7 @@ import FaqSection from "@/components/FaqSection";
 import BlogPreview from "@/components/BlogPreview";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
+import FloatingDock from "@/components/FloatingDock";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import CookieBanner from "@/components/CookieBanner";
 
@@ -32,12 +31,8 @@ export default function Home() {
       <Hero />
       <InfiniteMarquee />
       <TrustBadges />
-      <div className="max-w-7xl mx-auto px-6">
-        <AudioWelcome />
-      </div>
       <Intro />
       <Specialties />
-      <SelfAssessmentQuiz />
       <QuickTriage />
       <Demands />
       <About />
@@ -52,6 +47,7 @@ export default function Home() {
       <BlogPreview />
       <CtaSection />
       <Footer />
+      <FloatingDock />
       <FloatingWhatsApp />
       <CookieBanner />
     </main>

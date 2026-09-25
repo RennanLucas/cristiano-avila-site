@@ -104,8 +104,8 @@ export default function Hero() {
             <MagneticButton href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de agendar uma primeira consulta de avaliação.")}>
               <div className="btn-primary shadow-apple">Agendar uma consulta</div>
             </MagneticButton>
-            <MagneticButton href="#autoavaliacao">
-              <div className="btn-outline">Fazer autoavaliação (1 min)</div>
+            <MagneticButton href="#especialidades">
+              <div className="btn-outline">Explorar especialidades</div>
             </MagneticButton>
           </motion.div>
 
