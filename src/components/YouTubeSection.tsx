@@ -60,21 +60,39 @@ export default function YouTubeSection() {
               <div className="pointer-events-none absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-fuchsia-500/[0.06] blur-[90px]" />
 
               <div className="relative z-10 overflow-hidden rounded-[28px] border border-white/10 bg-black/30 p-6 sm:p-8">
-                <div className="flex items-center gap-4">
-                  <div className="relative h-16 w-16 overflow-hidden rounded-[20px] border border-white/10 sm:h-[76px] sm:w-[76px]">
-                    <Image
-                      src={CLINIC_CONTACT.avatarUrl}
-                      alt="Cristiano Ávila"
-                      fill
-                      sizes="76px"
-                      className="object-cover object-top"
-                    />
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[20px] border border-white/10 sm:h-[76px] sm:w-[76px]">
+                      <Image
+                        src={CLINIC_CONTACT.avatarUrl}
+                        alt="Cristiano Ávila"
+                        fill
+                        sizes="76px"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[9px] font-semibold uppercase tracking-[0.17em] text-white/35">Canal oficial</span>
+                      <p className="mt-1 text-xl font-semibold tracking-[-0.025em] text-white">Cristiano Ávila</p>
+                      <p className="mt-1 truncate text-xs text-white/40">{CLINIC_CONTACT.youtubeHandle}</p>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.17em] text-white/35">Canal oficial</span>
-                    <p className="mt-1 text-xl font-semibold tracking-[-0.025em] text-white">Cristiano Ávila</p>
-                    <p className="mt-1 text-xs text-white/40">{CLINIC_CONTACT.youtubeHandle}</p>
-                  </div>
+
+                  <motion.a
+                    href={CLINIC_CONTACT.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -3 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group inline-flex shrink-0 items-center gap-3 self-start rounded-2xl border border-white/10 bg-white px-4 py-3 text-black shadow-[0_16px_42px_rgba(0,0,0,0.24)] transition-shadow hover:shadow-[0_20px_50px_rgba(0,0,0,0.30)] sm:self-auto"
+                  >
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">▶</span>
+                    <div>
+                      <span className="block text-[9px] font-semibold uppercase tracking-[0.15em] text-zinc-400">Assistir agora</span>
+                      <strong className="mt-0.5 block text-xs font-semibold">YouTube</strong>
+                    </div>
+                    <span className="text-zinc-300 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">↗</span>
+                  </motion.a>
                 </div>
 
                 <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -98,25 +116,11 @@ export default function YouTubeSection() {
                 </div>
 
                 <div className="mt-7 border-t border-white/10 pt-6">
-                  <p className="text-[11px] font-light leading-relaxed text-white/35">
+                  <p className="text-[11px] font-light leading-relaxed text-white/40">
                     Os conteúdos do canal são informativos e não substituem avaliação ou acompanhamento psicológico individualizado.
                   </p>
                 </div>
               </div>
-
-              <motion.a
-                href={CLINIC_CONTACT.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -5, rotate: 1 }}
-                className="floating-card absolute -right-2 top-10 hidden items-center gap-3 rounded-2xl border border-white/10 bg-white px-4 py-3 text-black shadow-[0_20px_50px_rgba(0,0,0,0.25)] sm:flex lg:-right-8"
-              >
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">▶</span>
-                <div>
-                  <span className="block text-[9px] font-semibold uppercase tracking-[0.15em] text-zinc-400">Assistir agora</span>
-                  <strong className="mt-0.5 block text-xs font-semibold">YouTube</strong>
-                </div>
-              </motion.a>
             </div>
           </motion.div>
         </div>
