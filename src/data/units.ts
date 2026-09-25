@@ -78,3 +78,9 @@ export const CURRENT_UNITS: CurrentUnit[] = [
     ...mapLinks("Avenida Conselheiro Nébias 756, conjunto 1106, Santos, SP, 11045-002"),
   },
 ];
+
+export const CURRENT_CITY_NAMES = CURRENT_UNITS.map((unit) => unit.city);
+
+export const CURRENT_CITIES_TEXT = CURRENT_CITY_NAMES.length > 1
+  ? `${CURRENT_CITY_NAMES.slice(0, -1).join(", ")} e ${CURRENT_CITY_NAMES[CURRENT_CITY_NAMES.length - 1]}`
+  : CURRENT_CITY_NAMES[0] ?? "";
