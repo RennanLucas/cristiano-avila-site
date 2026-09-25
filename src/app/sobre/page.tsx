@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { CLINIC_CONTACT } from "@/data/content";
+import { CURRENT_CITIES_TEXT } from "@/data/units";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export default function SobrePage() {
@@ -64,7 +65,7 @@ export default function SobrePage() {
 
             <div className="pt-8 border-t border-zinc-100">
               <p className="text-sm text-zinc-500">
-                Atendimento presencial em São Paulo, Atibaia, Santos e São Bernardo do Campo, além de modalidade online quando adequada à situação apresentada.
+                Atendimento presencial em {CURRENT_CITIES_TEXT}, além de modalidade online quando adequada à situação apresentada.
               </p>
             </div>
           </div>
