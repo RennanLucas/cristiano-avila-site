@@ -14,7 +14,7 @@ export default function Header() {
   const progress = useSpring(scrollYProgress, { stiffness: 150, damping: 28, mass: 0.35 });
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 28);
+    const handleScroll = () => setIsScrolled(window.scrollY > 16);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -33,11 +33,14 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
       <motion.div
         layout
-        className={`relative mx-auto max-w-7xl overflow-visible rounded-[22px] border transition-all duration-500 ${
-          isScrolled
-            ? "border-zinc-200/80 bg-white/90 shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-2xl"
-            : "border-transparent bg-transparent shadow-none backdrop-blur-none"
-        }`}
+        className="relative mx-auto max-w-7xl overflow-visible rounded-[22px] border transition-all duration-500"
+        style={{
+          backgroundColor: isScrolled ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0)",
+          borderColor: isScrolled ? "rgba(228,228,231,0.82)" : "rgba(255,255,255,0)",
+          boxShadow: isScrolled ? "0 18px 55px rgba(0,0,0,0.10)" : "0 0 0 rgba(0,0,0,0)",
+          backdropFilter: isScrolled ? "blur(22px) saturate(1.35)" : "none",
+          WebkitBackdropFilter: isScrolled ? "blur(22px) saturate(1.35)" : "none",
+        }}
       >
         <div className="flex items-center justify-between gap-4 px-3 py-2.5 sm:px-4 lg:px-5">
           <Link href="/" className="group relative z-10 flex min-w-0 items-center gap-3" aria-label="Ir para a página inicial">
@@ -60,11 +63,14 @@ export default function Header() {
           </Link>
 
           <nav
-            className={`hidden items-center rounded-full border px-1.5 py-1 backdrop-blur-xl transition-all duration-500 lg:flex ${
-              isScrolled
-                ? "border-zinc-200/80 bg-white/95 shadow-sm"
-                : "border-white/70 bg-white/55 shadow-[0_8px_28px_rgba(0,0,0,0.055)]"
-            }`}
+            className="hidden items-center rounded-full border px-1.5 py-1 transition-all duration-500 lg:flex"
+            style={{
+              backgroundColor: isScrolled ? "rgba(255,255,255,0.70)" : "rgba(255,255,255,0.34)",
+              borderColor: isScrolled ? "rgba(228,228,231,0.78)" : "rgba(255,255,255,0.52)",
+              backdropFilter: "blur(16px) saturate(1.25)",
+              WebkitBackdropFilter: "blur(16px) saturate(1.25)",
+              boxShadow: isScrolled ? "0 8px 24px rgba(0,0,0,0.055)" : "0 6px 22px rgba(0,0,0,0.035)",
+            }}
             aria-label="Navegação principal"
           >
             {navLinks.map((link) => (
@@ -90,7 +96,13 @@ export default function Header() {
 
           <button
             type="button"
-            className={`relative z-10 -mr-1 flex h-10 w-10 items-center justify-center rounded-xl border text-black transition-all duration-500 lg:hidden ${isScrolled ? "border-zinc-200/80 bg-white shadow-sm" : "border-white/70 bg-white/60 backdrop-blur-xl"}`}
+            className="relative z-10 -mr-1 flex h-10 w-10 items-center justify-center rounded-xl border text-black transition-all duration-500 lg:hidden"
+            style={{
+              backgroundColor: isScrolled ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.42)",
+              borderColor: isScrolled ? "rgba(228,228,231,0.82)" : "rgba(255,255,255,0.6)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+            }}
             onClick={() => setMobileMenuOpen((open) => !open)}
             aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={mobileMenuOpen}
