@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import MagneticButton from "./MagneticButton";
 import HeroVideoBackground from "./HeroVideoBackground";
 import TrustBadges from "./TrustBadges";
@@ -9,93 +10,144 @@ import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export default function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const portraitY = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 1.04]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, 32]);
+  const fade = useTransform(scrollYProgress, [0, 0.85], [1, 0.72]);
+
   return (
     <HeroVideoBackground>
-      <section className="relative pt-32 pb-10 md:pt-40 md:pb-14 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid lg:grid-cols-[1.05fr_.95fr] gap-12 lg:gap-16 items-center">
-            <div className="max-w-3xl">
+      <section ref={heroRef} className="relative overflow-hidden pb-12 pt-32 md:pb-16 md:pt-40">
+        <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.45] [mask-image:linear-gradient(to_bottom,black,transparent_78%)]" />
+        <div className="aurora-orb absolute -left-28 top-24 h-80 w-80 rounded-full bg-fuchsia-200/30 blur-[80px]" />
+        <div className="aurora-orb aurora-orb-delayed absolute right-[-7rem] top-10 h-[26rem] w-[26rem] rounded-full bg-amber-100/55 blur-[95px]" />
+        <div className="aurora-orb absolute bottom-0 left-[42%] h-64 w-64 rounded-full bg-sky-100/45 blur-[90px]" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="grid items-center gap-14 lg:grid-cols-[1.02fr_.98fr] lg:gap-16">
+            <motion.div style={{ y: copyY, opacity: fade }} className="max-w-3xl">
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/85 border border-zinc-200 text-[11px] sm:text-xs font-medium text-zinc-700 mb-7 shadow-sm backdrop-blur"
+                transition={{ duration: 0.5 }}
+                className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/72 px-3.5 py-1.5 text-[11px] font-medium text-zinc-700 shadow-[0_10px_32px_rgba(0,0,0,0.07)] backdrop-blur-xl sm:text-xs"
               >
+                <span className="h-1.5 w-1.5 rounded-full bg-zinc-900" />
                 <span>Psicologia clínica • {PROFESSIONAL_REGISTRATION}</span>
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, delay: 0.05 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-semibold tracking-[-0.045em] text-black leading-[1.02] mb-6"
+                initial={{ opacity: 0, y: 26, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, delay: 0.04, ease: [0.16, 1, 0.3, 1] }}
+                className="mb-6 text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-black sm:text-5xl md:text-6xl lg:text-[4.7rem]"
               >
-                Um espaço profissional para compreender o que você está vivendo.
+                Cuidado psicológico com profundidade, presença e direção.
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.12 }}
-                className="text-base sm:text-lg md:text-xl text-zinc-600 max-w-2xl font-light leading-relaxed mb-8"
+                transition={{ duration: 0.6, delay: 0.14 }}
+                className="mb-9 max-w-2xl text-base font-light leading-relaxed text-zinc-600 sm:text-lg md:text-xl"
               >
-                Atendimento psicológico presencial e online, com escuta qualificada, planejamento individualizado e recursos clínicos adequados às necessidades de cada pessoa.
+                Atendimento presencial e online com escuta qualificada, planejamento individualizado e recursos clínicos adequados às necessidades de cada pessoa.
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4"
+                transition={{ duration: 0.55, delay: 0.22 }}
+                className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4"
               >
                 <MagneticButton href={buildWhatsAppLink("Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.")} className="w-full sm:w-auto">
-                  <div className="btn-primary shadow-apple w-full sm:w-auto text-center py-3.5 text-sm">Ver disponibilidade</div>
+                  <div className="btn-primary w-full py-3.5 text-center text-sm sm:w-auto">Ver disponibilidade</div>
                 </MagneticButton>
                 <MagneticButton href="#especialidades" className="w-full sm:w-auto">
-                  <div className="btn-outline w-full sm:w-auto text-center py-3.5 text-sm">Conhecer formas de atendimento</div>
+                  <div className="btn-outline w-full py-3.5 text-center text-sm sm:w-auto">Conhecer formas de atendimento</div>
                 </MagneticButton>
               </motion.div>
-            </div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.34 }}
+                className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-xs text-zinc-500"
+              >
+                <span className="inline-flex items-center gap-2"><span className="h-px w-5 bg-zinc-300" />Presencial em 4 cidades</span>
+                <span className="inline-flex items-center gap-2"><span className="h-px w-5 bg-zinc-300" />Atendimento online</span>
+              </motion.div>
+            </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              className="relative mx-auto w-full max-w-[500px]"
+              initial={{ opacity: 0, x: 34, scale: 0.97 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 0.85, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+              className="relative mx-auto w-full max-w-[540px]"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-zinc-200 bg-zinc-100 shadow-2xl">
-                <Image
-                  src={CLINIC_CONTACT.avatarUrl}
-                  alt="Cristiano Ávila da Silva, psicólogo"
-                  fill
-                  sizes="(max-width: 1024px) 90vw, 500px"
-                  className="object-cover object-top"
-                  priority
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent p-6 sm:p-8 pt-20 text-white">
-                  <p className="text-lg sm:text-xl font-semibold tracking-tight">Cristiano Ávila da Silva</p>
-                  <p className="text-sm text-white/80 mt-1">Psicólogo Clínico • {PROFESSIONAL_REGISTRATION}</p>
+              <motion.div style={{ y: portraitY, scale: portraitScale }} className="relative">
+                <div className="absolute -inset-5 rounded-[2.4rem] bg-gradient-to-br from-white/90 via-white/20 to-zinc-200/50 blur-2xl" />
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[2.35rem] border border-white/80 bg-zinc-100 shadow-[0_38px_100px_rgba(0,0,0,0.16)] ring-1 ring-black/[0.04]">
+                  <Image
+                    src={CLINIC_CONTACT.avatarUrl}
+                    alt="Cristiano Ávila da Silva, psicólogo"
+                    fill
+                    sizes="(max-width: 1024px) 90vw, 540px"
+                    className="object-cover object-top transition-transform duration-[1200ms] hover:scale-[1.025]"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(145deg,transparent_52%,rgba(0,0,0,0.28))]" />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent px-6 pb-7 pt-28 text-white sm:px-8 sm:pb-8">
+                    <p className="text-xl font-semibold tracking-tight sm:text-2xl">Cristiano Ávila da Silva</p>
+                    <p className="mt-1 text-sm text-white/75">Psicólogo Clínico • {PROFESSIONAL_REGISTRATION}</p>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="rounded-2xl border border-zinc-200 bg-white/90 p-4 shadow-sm backdrop-blur">
-                  <span className="block text-[10px] uppercase tracking-widest font-semibold text-zinc-400 mb-1">Atendimento</span>
-                  <span className="text-sm font-semibold text-black">Presencial & online</span>
+              <motion.div
+                initial={{ opacity: 0, x: -20, y: 16 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.55 }}
+                className="floating-card absolute -left-3 top-[17%] hidden rounded-2xl px-4 py-3 premium-glass sm:block lg:-left-12"
+              >
+                <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Atendimento</span>
+                <strong className="mt-1 block text-sm font-semibold text-black">Presencial & online</strong>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 18, y: 18 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.66 }}
+                className="floating-card floating-card-delayed absolute -right-2 bottom-[18%] hidden rounded-2xl px-4 py-3 premium-dark text-white sm:block lg:-right-10"
+              >
+                <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-white/45">Formação complementar</span>
+                <strong className="mt-1 block text-sm font-semibold">Hipnoterapia OMNI</strong>
+              </motion.div>
+
+              <div className="mt-4 grid grid-cols-2 gap-3 sm:hidden">
+                <div className="premium-glass rounded-2xl p-4">
+                  <span className="block text-[9px] font-semibold uppercase tracking-widest text-zinc-400">Atendimento</span>
+                  <strong className="mt-1 block text-sm text-black">Presencial & online</strong>
                 </div>
-                <div className="rounded-2xl border border-zinc-200 bg-white/90 p-4 shadow-sm backdrop-blur">
-                  <span className="block text-[10px] uppercase tracking-widest font-semibold text-zinc-400 mb-1">Formação complementar</span>
-                  <span className="text-sm font-semibold text-black">Hipnoterapia OMNI</span>
+                <div className="premium-dark rounded-2xl p-4 text-white">
+                  <span className="block text-[9px] font-semibold uppercase tracking-widest text-white/45">Formação</span>
+                  <strong className="mt-1 block text-sm">Hipnoterapia OMNI</strong>
                 </div>
               </div>
             </motion.div>
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-10 sm:mt-14"
+            transition={{ duration: 0.7, delay: 0.48 }}
+            className="mt-14 sm:mt-16"
           >
             <TrustBadges />
           </motion.div>
