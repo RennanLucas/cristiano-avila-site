@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { buildWhatsAppLink } from "@/data/content";
+import { CURRENT_CITIES_TEXT } from "@/data/units";
 
 const FAQ_ITEMS = [
   {
@@ -39,7 +40,7 @@ const FAQ_ITEMS = [
     category: "Presencial",
     question: "Onde ficam os consultórios presenciais?",
     answer:
-      "Há atendimento presencial em São Paulo (Santana), Atibaia, Santos e São Bernardo do Campo. Os endereços completos, horários e links para mapa estão disponíveis na página de unidades.",
+      `Há atendimento presencial em ${CURRENT_CITIES_TEXT}. Os endereços completos e links para mapa estão disponíveis na página de unidades.`,
   },
 ];
 
