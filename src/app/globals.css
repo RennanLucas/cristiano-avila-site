@@ -13,6 +13,10 @@
     text-rendering: optimizeLegibility;
   }
 
+  section[id] {
+    scroll-margin-top: 7.5rem;
+  }
+
   ::selection {
     background: #111111;
     color: #ffffff;
