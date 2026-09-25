@@ -3,7 +3,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { motion, Variants } from "framer-motion";
-import { UNITS_DATA } from "@/data/content";
+import { UNITS_DATA, CLINIC_CONTACT } from "@/data/content";
 import MagneticButton from "@/components/MagneticButton";
 
 const container: Variants = {
@@ -58,9 +58,9 @@ export default function UnidadesPage() {
                 {/* Aesthetic Image Placeholder */}
                 <div className="sm:w-2/5 h-64 sm:h-auto bg-black relative overflow-hidden">
                   <img 
-                    src={`https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80`}
+                    src={CLINIC_CONTACT.avatarUrl}
                     alt={unit.city}
-                    className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                    className="absolute inset-0 w-full h-full object-cover object-[center_30%] grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
                 </div>

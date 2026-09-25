@@ -69,6 +69,11 @@ export const CLINIC_CONTACT = {
   avatarUrl: "https://cristianoavilapsicologo.com.br/assets/images/avatar.png",
 };
 
+export function buildWhatsAppLink(customMessage: string): string {
+  const base = `https://wa.me/${CLINIC_CONTACT.phoneRaw}`;
+  return `${base}?text=${encodeURIComponent(customMessage)}`;
+}
+
 export const UNITS_DATA: Unit[] = [
   {
     id: "atibaia",

@@ -84,9 +84,9 @@ export default function SobrePage() {
 
             <div className="mt-16 pt-10 border-t border-zinc-100">
               <img 
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-                alt="Consultório" 
-                className="w-full h-[400px] object-cover rounded-2xl mb-8 grayscale hover:grayscale-0 transition-all duration-700"
+                src={CLINIC_CONTACT.avatarUrl} 
+                alt="Dr. Cristiano Ávila" 
+                className="w-full h-[400px] object-cover object-top rounded-2xl mb-8 grayscale hover:grayscale-0 transition-all duration-700 shadow-apple"
               />
               <p className="text-sm text-center">
                 Atendimentos presenciais nos consultórios de <strong className="text-black">São Paulo, Atibaia e Santos</strong>, ou sessões online globais com a mesma eficácia metodológica.

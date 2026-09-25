@@ -1,12 +1,15 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import InfiniteMarquee from '@/components/InfiniteMarquee';
+import TrustBadges from '@/components/TrustBadges';
 import Intro from '@/components/Intro';
 import Specialties from '@/components/Specialties';
+import QuickTriage from '@/components/QuickTriage';
 import Demands from '@/components/Demands';
 import About from '@/components/About';
 import Quote from '@/components/Quote';
 import Method from '@/components/Method';
+import ModalityComparison from '@/components/ModalityComparison';
 import Testimonials from '@/components/Testimonials';
 import Locations from '@/components/Locations';
 import BlogPreview from '@/components/BlogPreview';
@@ -21,12 +24,15 @@ export default function Home() {
       <Header />
       <Hero />
       <InfiniteMarquee />
+      <TrustBadges />
       <Intro />
       <Specialties />
+      <QuickTriage />
       <Demands />
       <About />
       <Quote />
       <Method />
+      <ModalityComparison />
       <Testimonials />
       <Locations />
       <BlogPreview />

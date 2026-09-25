@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import JsonLd from "@/components/JsonLd";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,6 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${inter.variable} scroll-smooth`}>
+      <head>
+        <JsonLd />
+      </head>
       <body className="bg-white text-[#111111] font-sans antialiased selection:bg-black selection:text-white overflow-x-hidden relative">
         <div 
           className="pointer-events-none fixed inset-0 z-50 h-full w-full opacity-[0.015]"
