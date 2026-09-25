@@ -17,6 +17,7 @@ import Testimonials from "@/components/Testimonials";
 import Locations from "@/components/Locations";
 import FaqSection from "@/components/FaqSection";
 import BlogPreview from "@/components/BlogPreview";
+import YouTubeSection from "@/components/YouTubeSection";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 import FloatingDock from "@/components/FloatingDock";
@@ -42,6 +43,7 @@ export default function Home() {
       <ModalityComparison />
       <ReembolsoGuide />
       <Testimonials />
+      <YouTubeSection />
       <Locations />
       <FaqSection />
       <BlogPreview />
