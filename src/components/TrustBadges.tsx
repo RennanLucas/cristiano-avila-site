@@ -11,26 +11,20 @@ export default function TrustBadges() {
 
         <div className="grid gap-7 px-5 py-6 sm:px-8 sm:py-7 lg:grid-cols-[1.7fr_1fr] lg:items-center lg:gap-10">
           <div className="flex min-w-0 items-center gap-4 sm:gap-5">
-            <div className="relative shrink-0">
-              <Image
-                src={CLINIC_CONTACT.avatarUrl}
-                alt="Cristiano Ávila da Silva"
-                width={84}
-                height={84}
-                className="h-[70px] w-[70px] sm:h-[82px] sm:w-[82px] rounded-[20px] object-cover object-top shadow-sm"
-              />
-              <span
-                className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full border-[3px] border-white bg-emerald-500"
-                aria-hidden="true"
-              />
-            </div>
+            <Image
+              src={CLINIC_CONTACT.avatarUrl}
+              alt="Cristiano Ávila da Silva"
+              width={84}
+              height={84}
+              className="h-[70px] w-[70px] sm:h-[82px] sm:w-[82px] shrink-0 rounded-[20px] object-cover object-top shadow-sm"
+            />
 
             <div className="min-w-0">
               <h2 className="text-lg sm:text-2xl font-bold tracking-tight text-black">
                 Cristiano Ávila da Silva
               </h2>
               <p className="mt-0.5 text-xs sm:text-sm text-zinc-500">
-                Psicólogo Clínico, Neurocientista & Hipnoterapeuta
+                Psicólogo Clínico & Hipnoterapeuta
               </p>
               <div className="mt-2.5 flex flex-wrap gap-2">
                 <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-zinc-600">
