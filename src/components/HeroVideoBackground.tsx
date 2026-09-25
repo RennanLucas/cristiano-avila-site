@@ -99,7 +99,7 @@ export default function HeroVideoBackground({ children }: HeroVideoBackgroundPro
       )}
 
       {/* Floating Ambient Controls Pill */}
-      <div className="absolute top-24 md:top-28 right-6 z-20 pointer-events-auto">
+      <div className="absolute top-20 sm:top-24 md:top-28 right-3 sm:right-6 z-20 pointer-events-auto">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}

@@ -121,28 +121,34 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-16 left-0 right-0 bg-white border-b border-zinc-200 shadow-xl md:hidden"
+            className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-2xl border-b border-zinc-200/90 shadow-2xl md:hidden"
           >
-            <nav className="flex flex-col p-5 gap-2">
+            <nav className="flex flex-col p-5 gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 text-sm font-semibold text-black rounded-xl hover:bg-zinc-50"
+                  className="px-4 py-3 text-sm font-semibold text-black rounded-xl hover:bg-zinc-100/80 transition-colors flex items-center justify-between"
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  <svg className="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </Link>
               ))}
-              <div className="pt-4 mt-2 border-t border-zinc-100 px-4 pb-2">
+              <div className="pt-4 mt-2 border-t border-zinc-100 px-2 pb-2 space-y-2">
                 <a
                   href={CLINIC_CONTACT.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary w-full text-center"
+                  className="btn-primary w-full text-center py-3.5 text-xs font-bold shadow-apple"
                 >
                   Agendar Consulta no WhatsApp
                 </a>
+                <p className="text-[11px] text-center text-zinc-500 font-light">
+                  {CLINIC_CONTACT.phone} • Atendimento Sigiloso
+                </p>
               </div>
             </nav>
           </motion.div>

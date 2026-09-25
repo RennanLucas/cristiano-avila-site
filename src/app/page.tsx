@@ -25,7 +25,7 @@ import CookieBanner from "@/components/CookieBanner";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-[#111111] overflow-x-hidden selection:bg-black selection:text-white relative">
+    <main className="min-h-screen bg-white text-[#111111] overflow-x-hidden selection:bg-black selection:text-white relative pb-16 sm:pb-0">
       <ScrollProgress />
       <Header />
       <Hero />
