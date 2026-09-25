@@ -51,7 +51,7 @@ export default function Header() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4"
+      className="fixed inset-x-0 top-0 z-50 px-2.5 pt-2.5 sm:px-5 sm:pt-4"
       style={{
         transform: headerVisible ? "translateY(0)" : "translateY(calc(-100% - 20px))",
         transition: "transform 360ms cubic-bezier(0.16, 1, 0.3, 1)",
@@ -60,7 +60,7 @@ export default function Header() {
     >
       <motion.div
         layout
-        className="relative mx-auto max-w-7xl overflow-visible rounded-[22px] border transition-all duration-500"
+        className="relative mx-auto max-w-7xl overflow-visible rounded-[19px] border transition-all duration-500 sm:rounded-[22px]"
         style={{
           backgroundColor: isScrolled ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0)",
           borderColor: isScrolled ? "rgba(228,228,231,0.82)" : "rgba(255,255,255,0)",
@@ -69,21 +69,21 @@ export default function Header() {
           WebkitBackdropFilter: isScrolled ? "blur(22px) saturate(1.35)" : "none",
         }}
       >
-        <div className="flex items-center justify-between gap-4 px-3 py-2.5 sm:px-4 lg:px-5">
-          <Link href="/" className="group relative z-10 flex min-w-0 items-center gap-3" aria-label="Ir para a página inicial">
+        <div className="flex items-center justify-between gap-2 px-2.5 py-2.5 min-[390px]:gap-3 min-[390px]:px-3 sm:px-4 lg:gap-4 lg:px-5">
+          <Link href="/" className="group relative z-10 flex min-w-0 flex-1 items-center gap-2.5 min-[390px]:gap-3 lg:flex-none" aria-label="Ir para a página inicial">
             <motion.div
               whileHover={{ rotate: 3, scale: 1.04 }}
               transition={{ type: "spring", stiffness: 320, damping: 20 }}
-              className={`relative h-10 w-10 shrink-0 overflow-hidden rounded-2xl border bg-white transition-all duration-500 ${isScrolled ? "border-zinc-200/80 shadow-sm" : "border-white/70 shadow-[0_8px_24px_rgba(0,0,0,0.07)]"}`}
+              className={`relative h-9 w-9 shrink-0 overflow-hidden rounded-xl border bg-white transition-all duration-500 min-[390px]:h-10 min-[390px]:w-10 min-[390px]:rounded-2xl ${isScrolled ? "border-zinc-200/80 shadow-sm" : "border-white/70 shadow-[0_8px_24px_rgba(0,0,0,0.07)]"}`}
             >
               <Image src="/images/logo-icon.png" alt="Símbolo da marca Cristiano Ávila" fill sizes="40px" className="object-cover" priority />
             </motion.div>
 
             <div className="min-w-0 text-left">
-              <span className="block truncate text-[9px] font-semibold uppercase leading-none tracking-[0.18em] text-zinc-500 sm:text-[10px]">
+              <span className="hidden truncate text-[8px] font-semibold uppercase leading-none tracking-[0.14em] text-zinc-500 min-[350px]:block min-[390px]:text-[9px] min-[390px]:tracking-[0.18em] sm:text-[10px]">
                 Psicólogo • {PROFESSIONAL_REGISTRATION}
               </span>
-              <span className="mt-1 block truncate text-[15px] font-semibold leading-tight tracking-[-0.025em] text-black sm:text-base">
+              <span className="block truncate text-[14px] font-semibold leading-tight tracking-[-0.025em] text-black min-[350px]:mt-1 min-[390px]:text-[15px] sm:text-base">
                 Cristiano Ávila
               </span>
             </div>
@@ -123,7 +123,7 @@ export default function Header() {
 
           <button
             type="button"
-            className="relative z-10 -mr-1 flex h-10 w-10 items-center justify-center rounded-xl border text-black transition-all duration-500 lg:hidden"
+            className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border text-black transition-all duration-500 min-[390px]:h-10 min-[390px]:w-10 lg:hidden"
             style={{
               backgroundColor: isScrolled ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.42)",
               borderColor: isScrolled ? "rgba(228,228,231,0.82)" : "rgba(255,255,255,0.6)",
@@ -134,7 +134,7 @@ export default function Header() {
             aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={mobileMenuOpen}
           >
-            <div className="flex h-4 w-5 flex-col justify-between">
+            <div className="flex h-4 w-[18px] flex-col justify-between min-[390px]:w-5">
               <span className={`block h-[1.5px] w-full bg-current transition-transform duration-300 ${mobileMenuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
               <span className={`block h-[1.5px] w-full bg-current transition-opacity duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`} />
               <span className={`block h-[1.5px] w-full bg-current transition-transform duration-300 ${mobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
@@ -151,7 +151,7 @@ export default function Header() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.985 }}
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-x-0 top-[calc(100%+8px)] overflow-hidden rounded-[22px] border border-zinc-200/80 bg-white/95 p-3 shadow-[0_28px_80px_rgba(0,0,0,0.16)] backdrop-blur-2xl lg:hidden"
+              className="absolute inset-x-0 top-[calc(100%+8px)] max-h-[calc(100vh-86px)] overflow-y-auto rounded-[20px] border border-zinc-200/80 bg-white/95 p-2.5 shadow-[0_28px_80px_rgba(0,0,0,0.16)] backdrop-blur-2xl sm:rounded-[22px] sm:p-3 lg:hidden"
             >
               <nav className="grid gap-1" aria-label="Navegação móvel">
                 {navLinks.map((link, index) => (
@@ -159,7 +159,7 @@ export default function Header() {
                     <Link
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-medium text-black transition-colors hover:bg-zinc-100"
+                      className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium text-black transition-colors hover:bg-zinc-100 sm:py-3.5"
                     >
                       <span>{link.name}</span>
                       <span className="text-zinc-300" aria-hidden="true">↗</span>
