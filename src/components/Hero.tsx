@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 import CountUp from "./CountUp";
 import SynapseCanvas from "./SynapseCanvas";
+import BorderBeam from "./BorderBeam";
 import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 
 const CYCLING_WORDS = [
@@ -114,9 +115,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="w-full max-w-3xl rounded-3xl p-6 sm:p-8 bg-zinc-50/80 border border-zinc-200/80 shadow-apple backdrop-blur-sm flex flex-col md:flex-row items-center justify-between gap-6 text-left"
+            className="w-full max-w-3xl rounded-3xl p-6 sm:p-8 bg-zinc-50/80 border border-zinc-200/80 shadow-apple backdrop-blur-sm flex flex-col md:flex-row items-center justify-between gap-6 text-left relative overflow-hidden"
           >
-            <div className="flex items-center gap-4">
+            <BorderBeam size={280} duration={12} colorFrom="#f97316" colorTo="#a855f7" borderWidth={1.5} />
+
+            <div className="flex items-center gap-4 relative z-10">
               <div className="relative">
                 <img 
                   src={CLINIC_CONTACT.avatarUrl} 

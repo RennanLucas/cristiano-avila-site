@@ -65,3 +65,13 @@
     transform: translate(100%, 100%) rotate(25deg);
   }
 }
+
+@keyframes border-beam {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+.animate-border-beam {
+  animation: border-beam var(--duration) linear infinite;
+}
