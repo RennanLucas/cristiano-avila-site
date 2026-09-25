@@ -46,7 +46,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-9"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4"
               >
                 <MagneticButton href={buildWhatsAppLink("Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.")} className="w-full sm:w-auto">
                   <div className="btn-primary shadow-apple w-full sm:w-auto text-center py-3.5 text-sm">Ver disponibilidade</div>
@@ -54,17 +54,6 @@ export default function Hero() {
                 <MagneticButton href="#especialidades" className="w-full sm:w-auto">
                   <div className="btn-outline w-full sm:w-auto text-center py-3.5 text-sm">Conhecer formas de atendimento</div>
                 </MagneticButton>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm text-zinc-500"
-              >
-                <span>+10 anos de experiência clínica</span>
-                <span>Presencial em 4 cidades</span>
-                <span>Atendimento online</span>
               </motion.div>
             </div>
 
