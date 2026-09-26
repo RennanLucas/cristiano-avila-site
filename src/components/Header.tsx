@@ -15,6 +15,13 @@ const NAV_LINKS = [
   { name: "Contato", href: "/contato" },
 ];
 
+const HEADER_ALWAYS_VISIBLE_UNTIL = 130;
+const HEADER_HIDE_AFTER = 160;
+const HIDE_TRAVEL_THRESHOLD = 72;
+const SHOW_TRAVEL_THRESHOLD = 28;
+
+type ScrollDirection = "up" | "down" | null;
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -22,12 +29,15 @@ export default function Header() {
   const lastScrollY = useRef(0);
   const scrollFrame = useRef<number | null>(null);
   const mobileMenuOpenRef = useRef(false);
+  const scrollDirection = useRef<ScrollDirection>(null);
+  const directionTravel = useRef(0);
 
   useEffect(() => {
     mobileMenuOpenRef.current = mobileMenuOpen;
 
     if (mobileMenuOpen) {
       setHeaderVisible(true);
+      directionTravel.current = 0;
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -56,12 +66,33 @@ export default function Header() {
 
       setIsScrolled(currentY > 16);
 
-      if (mobileMenuOpenRef.current || currentY < 90) {
+      if (mobileMenuOpenRef.current || currentY <= HEADER_ALWAYS_VISIBLE_UNTIL) {
         setHeaderVisible(true);
-      } else if (delta > 8) {
-        setHeaderVisible(false);
-      } else if (delta < -8) {
-        setHeaderVisible(true);
+        scrollDirection.current = null;
+        directionTravel.current = 0;
+      } else if (Math.abs(delta) >= 1) {
+        const nextDirection: ScrollDirection = delta > 0 ? "down" : "up";
+
+        if (scrollDirection.current !== nextDirection) {
+          scrollDirection.current = nextDirection;
+          directionTravel.current = 0;
+        }
+
+        directionTravel.current += Math.abs(delta);
+
+        if (
+          nextDirection === "down" &&
+          currentY > HEADER_HIDE_AFTER &&
+          directionTravel.current >= HIDE_TRAVEL_THRESHOLD
+        ) {
+          setHeaderVisible(false);
+          directionTravel.current = 0;
+        }
+
+        if (nextDirection === "up" && directionTravel.current >= SHOW_TRAVEL_THRESHOLD) {
+          setHeaderVisible(true);
+          directionTravel.current = 0;
+        }
       }
 
       lastScrollY.current = currentY;
@@ -94,7 +125,7 @@ export default function Header() {
       className="fixed inset-x-0 top-0 z-50 px-2.5 pt-2.5 sm:px-5 sm:pt-4"
       style={{
         transform: headerVisible ? "translate3d(0,0,0)" : "translate3d(0,calc(-100% - 20px),0)",
-        transition: "transform 240ms cubic-bezier(0.16, 1, 0.3, 1)",
+        transition: "transform 300ms cubic-bezier(0.16, 1, 0.3, 1)",
         pointerEvents: headerVisible ? "auto" : "none",
         willChange: "transform",
       }}
