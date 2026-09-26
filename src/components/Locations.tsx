@@ -20,10 +20,10 @@ export default function Locations() {
             Atendimento presencial
           </span>
           <h2 className="mt-5 text-3xl font-semibold tracking-tight text-black md:text-5xl">
-            Endereços atuais em 4 cidades
+            Atendimento presencial em 4 cidades
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] font-light leading-relaxed text-zinc-600 sm:text-base">
-            As unidades abaixo foram revisadas a partir das informações públicas atuais do profissional. Para evitar mostrar fotos incorretas de consultórios, o site prioriza endereço verificado e mapa.
+            Escolha a cidade para consultar endereço, mapa e disponibilidade de atendimento.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function Locations() {
                   rel="noopener noreferrer"
                   className="w-full rounded-full bg-white px-5 py-3 text-center text-xs font-semibold text-black transition-transform hover:-translate-y-0.5 sm:w-auto"
                 >
-                  Ver disponibilidade
+                  Consultar horários
                 </a>
                 <a
                   href={selectedUnit.mapsExternalLink}

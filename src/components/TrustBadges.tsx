@@ -92,12 +92,12 @@ export default function TrustBadges() {
 
             <div className="lg:justify-self-end lg:text-right">
               <p className="max-w-lg text-[11px] font-light leading-[1.75] text-white/58 sm:text-[13px]">
-                Registro, experiência, presença física e formação complementar apresentados de forma objetiva.
+                Psicologia clínica com atendimento presencial e online, experiência profissional e formação complementar em hipnoterapia.
               </p>
               <div className="mt-4 flex items-center gap-2 lg:justify-end">
                 <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
                 <span className="text-[9px] font-medium uppercase tracking-[0.16em] text-white/32">
-                  Panorama profissional
+                  Atendimento profissional
                 </span>
               </div>
             </div>

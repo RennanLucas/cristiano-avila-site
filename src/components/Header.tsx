@@ -70,22 +70,16 @@ export default function Header() {
         }}
       >
         <div className="flex items-center justify-between gap-2 px-2.5 py-2.5 min-[390px]:gap-3 min-[390px]:px-3 sm:px-4 lg:gap-4 lg:px-5">
-          <Link href="/" className="group relative z-10 flex min-w-0 flex-1 items-center gap-2.5 min-[390px]:gap-3 lg:flex-none" aria-label="Ir para a página inicial">
-            <motion.div
-              whileHover={{ rotate: 3, scale: 1.04 }}
-              transition={{ type: "spring", stiffness: 320, damping: 20 }}
-              className={`relative h-9 w-9 shrink-0 overflow-hidden rounded-xl border bg-white transition-all duration-500 min-[390px]:h-10 min-[390px]:w-10 min-[390px]:rounded-2xl ${isScrolled ? "border-zinc-200/80 shadow-sm" : "border-white/70 shadow-[0_8px_24px_rgba(0,0,0,0.07)]"}`}
-            >
-              <Image src="/images/logo-icon.png" alt="Símbolo da marca Cristiano Ávila" fill sizes="40px" className="object-cover" priority />
-            </motion.div>
-
-            <div className="min-w-0 text-left">
-              <span className="hidden truncate text-[8px] font-semibold uppercase leading-none tracking-[0.14em] text-zinc-500 min-[350px]:block min-[390px]:text-[9px] min-[390px]:tracking-[0.18em] sm:text-[10px]">
-                Psicólogo • {PROFESSIONAL_REGISTRATION}
-              </span>
-              <span className="block truncate text-[14px] font-semibold leading-tight tracking-[-0.025em] text-black min-[350px]:mt-1 min-[390px]:text-[15px] sm:text-base">
-                Cristiano Ávila
-              </span>
+          <Link href="/" className="group relative z-10 flex min-w-0 flex-1 items-center lg:flex-none" aria-label="Ir para a página inicial">
+            <div className="relative w-[154px] min-[390px]:w-[174px] sm:w-[196px] lg:w-[210px]">
+              <Image
+                src="/images/logo-full.png"
+                alt="Cristiano Ávila — Psicologia e Hipnoterapia"
+                width={420}
+                height={100}
+                className="h-auto w-full object-contain object-left"
+                priority
+              />
             </div>
           </Link>
 
@@ -116,7 +110,7 @@ export default function Header() {
               Presencial & online
             </span>
             <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary px-5 py-2.5 text-[11px] shadow-none">
-              Agendar consulta
+              Consultar agenda
               <span className="ml-2" aria-hidden="true">↗</span>
             </a>
           </div>
@@ -169,7 +163,7 @@ export default function Header() {
 
                 <div className="mt-2 border-t border-zinc-100 p-2 pt-4">
                   <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary w-full py-3.5 text-center text-xs font-semibold">
-                    Agendar pelo WhatsApp
+                    Consultar agenda no WhatsApp
                   </a>
                   <p className="mt-3 text-center text-[10px] text-zinc-400">
                     {CLINIC_CONTACT.fullName} • {PROFESSIONAL_REGISTRATION}

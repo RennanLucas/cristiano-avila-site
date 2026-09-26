@@ -55,10 +55,10 @@ export default function QuickTriage() {
             <div className="relative z-10">
               <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Primeiro contato</span>
               <h2 className="mt-4 max-w-md text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] min-[390px]:text-3xl sm:mt-5 sm:text-4xl lg:text-[2.85rem]">
-                Consulte a disponibilidade em menos de um minuto.
+                Encontre a melhor opção de atendimento para você.
               </h2>
               <p className="mt-4 max-w-md text-sm font-light leading-relaxed text-white/55 sm:mt-5 sm:text-base">
-                Escolha apenas local e período de preferência. Questões clínicas ficam para o ambiente adequado de atendimento.
+                Escolha onde prefere ser atendido e o período mais conveniente. Depois, consulte os horários disponíveis pelo WhatsApp.
               </p>
             </div>
 
@@ -143,14 +143,14 @@ export default function QuickTriage() {
                   >
                     {location ? <span className="max-w-full rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{location}</span> : null}
                     {period ? <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{period}</span> : null}
-                    {!ready ? <span className="text-xs font-light text-zinc-400">Você pode selecionar uma ou as duas opções.</span> : null}
+                    {!ready ? <span className="text-xs font-light text-zinc-400">Selecione uma ou as duas opções para personalizar a mensagem.</span> : null}
                   </motion.div>
                 </AnimatePresence>
 
                 <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                   <p className="max-w-xl text-[10px] font-light leading-relaxed text-zinc-400">{FIRST_CONTACT_PRIVACY_NOTE}</p>
                   <a href={buildWhatsAppLink(customMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary w-full shrink-0 px-7 py-3.5 text-center text-xs md:w-auto">
-                    Continuar no WhatsApp <span className="ml-2" aria-hidden="true">↗</span>
+                    Consultar horários <span className="ml-2" aria-hidden="true">↗</span>
                   </a>
                 </div>
               </div>

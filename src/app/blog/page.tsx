@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ARTICLES_DATA } from "@/data/content";
 
 export const metadata = {
-  title: "Blog & Artigos Clínicos | Cristiano Ávila",
-  description: "Artigos científicos, reflexões sobre neurociência, ansiedade, hipnoterapia e comportamento humano por Cristiano Ávila.",
+  title: "Blog | Psicologia, Saúde Mental e Comportamento | Cristiano Ávila",
+  description: "Artigos e reflexões sobre psicologia, saúde mental, emoções, comportamento e hipnoterapia por Cristiano Ávila.",
 };
 
 export default function BlogIndexPage() {
@@ -16,14 +16,14 @@ export default function BlogIndexPage() {
       <section className="pt-40 pb-20 px-6 border-b border-zinc-100">
         <div className="max-w-4xl mx-auto">
           <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-6">
-            Publicações & Neurociência
+            Psicologia & comportamento
           </span>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-black leading-tight mb-6">
-            Blog & Artigos <br />
-            <span className="text-zinc-400">Clínicos.</span>
+            Conteúdos sobre <br />
+            <span className="text-zinc-400">psicologia e saúde mental.</span>
           </h1>
           <p className="text-xl text-textMuted font-light max-w-2xl leading-relaxed">
-            Conhecimento aprofundado sobre o funcionamento da mente, saúde emocional, neurociência aplicada e comportamento humano.
+            Artigos e reflexões para ampliar a compreensão sobre emoções, relações, comportamento e desenvolvimento pessoal.
           </p>
         </div>
       </section>

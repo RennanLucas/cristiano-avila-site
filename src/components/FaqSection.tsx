@@ -66,14 +66,14 @@ export default function FaqSection() {
               Dúvidas importantes, respostas objetivas.
             </h2>
             <p className="mt-5 max-w-md text-[15px] font-light leading-relaxed text-zinc-600 sm:text-base">
-              Informações gerais sobre consultas, modalidades, organização do acompanhamento e atendimento presencial.
+              Consulte as principais informações sobre modalidades, frequência, reembolso e locais de atendimento.
             </p>
 
             <div className="mt-8 overflow-hidden rounded-[24px] premium-dark p-5 text-white min-[390px]:p-6 sm:mt-9 sm:rounded-[28px] sm:p-7">
-              <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/35">Precisa falar com a equipe?</span>
-              <h3 className="mt-3 text-lg font-semibold tracking-[-0.025em] sm:text-xl">Envie apenas o necessário para o primeiro contato.</h3>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/35">Atendimento</span>
+              <h3 className="mt-3 text-lg font-semibold tracking-[-0.025em] sm:text-xl">Ainda ficou com alguma dúvida?</h3>
               <p className="mt-3 text-xs font-light leading-relaxed text-white/50">
-                Questões clínicas podem ser conversadas posteriormente em ambiente apropriado de atendimento.
+                Fale pelo WhatsApp para consultar horários, modalidades de atendimento e outras informações.
               </p>
               <a
                 href={buildWhatsAppLink("Olá! Tenho uma dúvida sobre o atendimento e gostaria de mais informações.")}
@@ -81,7 +81,7 @@ export default function FaqSection() {
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-[11px] font-semibold text-black transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:w-auto"
               >
-                Falar pelo WhatsApp <span aria-hidden="true">↗</span>
+                Falar no WhatsApp <span aria-hidden="true">↗</span>
               </a>
             </div>
           </motion.div>

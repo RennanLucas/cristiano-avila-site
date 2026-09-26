@@ -34,10 +34,10 @@ export default function UnidadesPage() {
               Atendimento presencial
             </span>
             <h1 className="mt-6 text-4xl font-semibold leading-[1.04] tracking-[-0.04em] text-black sm:text-6xl md:text-7xl">
-              Endereços atuais, sem informação genérica.
+              Atendimento presencial em quatro cidades.
             </h1>
             <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-zinc-600 sm:text-xl">
-              Consulte os locais de atendimento presencial atualmente divulgados pelo profissional. Os mapas e endereços foram priorizados para evitar associar fotografias não confirmadas a uma unidade específica.
+              Encontre o endereço da unidade mais conveniente, consulte o mapa e verifique a disponibilidade de horários para atendimento.
             </p>
           </motion.div>
         </div>
@@ -99,7 +99,7 @@ export default function UnidadesPage() {
                       rel="noopener noreferrer"
                       className="btn-primary flex-1 px-5 py-3 text-center text-xs"
                     >
-                      Ver disponibilidade
+                      Consultar horários
                     </a>
                     <a
                       href={unit.mapsExternalLink}
@@ -124,9 +124,9 @@ export default function UnidadesPage() {
             <div className="grid items-end gap-8 md:grid-cols-[1fr_auto]">
               <div className="max-w-2xl">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45">Atendimento online</span>
-                <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Não está perto de uma unidade?</h3>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Prefere atendimento online?</h3>
                 <p className="mt-3 text-sm font-light leading-relaxed text-white/65">
-                  Consulte a disponibilidade para atendimento psicológico online. A adequação da modalidade é considerada individualmente e conforme as normas profissionais aplicáveis.
+                  O atendimento psicológico online oferece praticidade para quem busca acompanhamento à distância. Consulte a disponibilidade e tire suas dúvidas sobre essa modalidade.
                 </p>
               </div>
               <a

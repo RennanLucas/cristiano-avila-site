@@ -7,13 +7,13 @@ const PLATFORMS = [
   {
     name: "Doctoralia",
     href: CLINIC_CONTACT.doctoraliaUrl,
-    text: "Perfil profissional e avaliações publicadas diretamente na plataforma.",
+    text: "Consulte avaliações e informações do perfil profissional na Doctoralia.",
     code: "01",
   },
   {
     name: "Zenklub",
     href: CLINIC_CONTACT.zenklubUrl,
-    text: "Informações públicas disponíveis no perfil externo do profissional.",
+    text: "Acesse o perfil profissional e as informações disponíveis no Zenklub.",
     code: "02",
   },
 ];
@@ -40,19 +40,19 @@ export default function Testimonials() {
 
             <div className="relative z-10 flex h-full flex-col justify-between">
               <div>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">Referências públicas</span>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">Avaliações</span>
                 <h2 className="mt-5 max-w-xl text-3xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
-                  Avaliações consultadas fora do próprio site.
+                  Conheça avaliações em plataformas especializadas.
                 </h2>
                 <p className="mt-5 max-w-xl text-sm font-light leading-relaxed text-white/55 sm:text-base">
-                  Para preservar a privacidade de pacientes e evitar exposição de experiências clínicas no site, as avaliações ficam nas plataformas onde foram publicadas.
+                  Acesse os perfis de Cristiano Ávila na Doctoralia e no Zenklub para consultar informações e avaliações publicadas nessas plataformas.
                 </p>
               </div>
 
               <div className="mt-10 border-t border-white/10 pt-6">
                 <div className="flex items-center gap-3 text-xs text-white/40">
                   <span className="h-px w-8 bg-white/20" />
-                  Plataformas independentes
+                  Perfis profissionais externos
                 </div>
               </div>
             </div>
@@ -80,7 +80,7 @@ export default function Testimonials() {
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-[10px] text-zinc-400">{platform.code}</span>
                       <span className="rounded-full border border-zinc-200 bg-white/75 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.15em] text-zinc-400">
-                        Externo
+                        Perfil externo
                       </span>
                     </div>
 
@@ -89,7 +89,7 @@ export default function Testimonials() {
                   </div>
 
                   <div className="mt-10 flex items-center justify-between border-t border-zinc-200/70 pt-5">
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400">Abrir plataforma</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400">Acessar perfil</span>
                     <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black text-white transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg" aria-hidden="true">↗</span>
                   </div>
                 </div>

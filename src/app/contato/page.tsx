@@ -46,7 +46,7 @@ export default function ContatoPage() {
                 Vamos <span className="text-zinc-400">conversar.</span>
               </h1>
               <p className="mb-10 mt-6 max-w-lg text-base font-light leading-relaxed text-zinc-600 sm:text-lg">
-                Use este canal para dúvidas iniciais, informações sobre modalidades de atendimento e disponibilidade de agenda.
+                Tire dúvidas sobre o atendimento, consulte modalidades disponíveis e verifique horários para uma primeira consulta.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
@@ -78,7 +78,10 @@ export default function ContatoPage() {
             >
               <div className="border-b border-zinc-200/80 bg-zinc-950 px-6 py-6 text-white sm:px-8">
                 <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/40">Primeiro contato</span>
-                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">Envie só o necessário para começarmos.</h2>
+                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">Como podemos ajudar?</h2>
+                <p className="mt-2 max-w-xl text-xs font-light leading-relaxed text-white/55">
+                  Informe seu nome e o assunto principal para continuar pelo WhatsApp.
+                </p>
               </div>
 
               <form className="space-y-7 p-6 sm:p-8" onSubmit={handleSubmit}>

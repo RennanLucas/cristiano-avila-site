@@ -1,4 +1,4 @@
-export const SITE_URL = "https://cristianoavilapsicologo.com.br";
+export const SITE_URL = "https://cristiano-avila-site.vercel.app";
 
 export const PROFESSIONAL_REGISTRATION = "CRP 06/119186";
 
@@ -18,4 +18,4 @@ export function isPublicSpecialty(id: string): boolean {
 }
 
 export const FIRST_CONTACT_PRIVACY_NOTE =
-  "Para sua privacidade, evite enviar detalhes clínicos sensíveis nesta primeira mensagem. A conversa inicial deve conter apenas informações necessárias para o agendamento.";
+  "O primeiro contato é destinado ao agendamento e a dúvidas gerais sobre o atendimento.";

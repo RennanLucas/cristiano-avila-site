@@ -27,7 +27,7 @@ export default function BlogPreview() {
               Leituras para aprofundar a compreensão sobre mente e comportamento.
             </h2>
             <p className="mt-4 text-[15px] font-light leading-relaxed text-zinc-600 sm:text-base lg:text-lg">
-              Conteúdo informativo em uma apresentação editorial, sem fotografias genéricas que simulem situações clínicas.
+              Artigos sobre psicologia, emoções, comportamento, relações e desenvolvimento pessoal.
             </p>
           </div>
 

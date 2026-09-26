@@ -16,10 +16,10 @@ export default function Method() {
           transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mb-20 max-w-3xl text-center"
         >
-          <span className="editorial-label">Organização do acompanhamento</span>
-          <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-black md:text-5xl">Um processo claro, sem aparência de protocolo engessado.</h2>
+          <span className="editorial-label">Como funciona</span>
+          <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-black md:text-5xl">Um acompanhamento com etapas claras e espaço para ajustes.</h2>
           <p className="mt-5 text-base font-light leading-relaxed text-zinc-600 sm:text-lg">
-            Objetivos e estratégias são definidos individualmente e podem ser revistos ao longo do acompanhamento.
+            O processo começa pela compreensão da sua demanda e evolui de acordo com objetivos, necessidades e avanços ao longo do acompanhamento.
           </p>
         </motion.div>
 
@@ -76,7 +76,7 @@ export default function Method() {
           className="mt-16 text-center"
         >
           <a href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de esclarecer dúvidas sobre como funciona o acompanhamento psicológico.")} target="_blank" rel="noopener noreferrer" className="btn-primary px-8 py-3.5 text-xs">
-            Entender como funciona o acompanhamento
+            Tirar dúvidas sobre o atendimento
           </a>
         </motion.div>
       </div>
