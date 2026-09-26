@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { buildWhatsAppLink } from "@/data/content";
 import { CURRENT_UNITS } from "@/data/units";
 import { FIRST_CONTACT_PRIVACY_NOTE } from "@/lib/site-policy";
@@ -25,12 +24,7 @@ export default function QuickTriage() {
   const location = LOCATIONS.find((item) => item.id === selectedLocation)?.label;
   const period = PERIODS.find((item) => item.id === selectedPeriod)?.label;
   const ready = Boolean(location || period);
-
-  const details = [
-    location ? `Modalidade/local: ${location}` : null,
-    period ? `Período preferido: ${period}` : null,
-  ].filter(Boolean).join("\n");
-
+  const details = [location ? `Modalidade/local: ${location}` : null, period ? `Período preferido: ${period}` : null].filter(Boolean).join("\n");
   const customMessage = `Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.${details ? `\n\n${details}` : ""}`;
 
   return (
@@ -40,123 +34,58 @@ export default function QuickTriage() {
       <div className="aurora-orb aurora-orb-delayed absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-amber-100/60 blur-[100px]" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0.45, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-45px" }}
-          transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-          className="grid overflow-hidden rounded-[28px] premium-dark text-white sm:rounded-[34px] lg:grid-cols-[0.8fr_1.2fr]"
-        >
+        <div className="grid overflow-hidden rounded-[28px] premium-dark text-white sm:rounded-[34px] lg:grid-cols-[0.8fr_1.2fr]">
           <div className="relative flex min-h-0 flex-col justify-between overflow-hidden border-b border-white/10 p-6 sm:min-h-[380px] sm:p-10 lg:min-h-[420px] lg:border-b-0 lg:border-r lg:p-12">
             <div className="pointer-events-none absolute -left-16 -top-16 h-64 w-64 rounded-full bg-fuchsia-500/10 blur-[85px]" />
             <div className="pointer-events-none absolute -bottom-20 right-[-3rem] h-72 w-72 rounded-full bg-amber-300/10 blur-[90px]" />
             <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.07]" />
-
             <div className="relative z-10">
               <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Primeiro contato</span>
-              <h2 className="mt-4 max-w-md text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] min-[390px]:text-3xl sm:mt-5 sm:text-4xl lg:text-[2.85rem]">
-                Encontre a melhor opção de atendimento para você.
-              </h2>
-              <p className="mt-4 max-w-md text-sm font-light leading-relaxed text-white/55 sm:mt-5 sm:text-base">
-                Escolha onde prefere ser atendido e o período mais conveniente. Depois, consulte os horários disponíveis pelo WhatsApp.
-              </p>
+              <h2 className="mt-4 max-w-md text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] min-[390px]:text-3xl sm:mt-5 sm:text-4xl lg:text-[2.85rem]">Encontre a melhor opção de atendimento para você.</h2>
+              <p className="mt-4 max-w-md text-sm font-light leading-relaxed text-white/55 sm:mt-5 sm:text-base">Escolha onde prefere ser atendido e o período mais conveniente. Depois, consulte os horários disponíveis pelo WhatsApp.</p>
             </div>
-
             <div className="relative z-10 mt-8 grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 sm:mt-10">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4 backdrop-blur">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Etapa 01</span>
-                <strong className="mt-1.5 block text-sm font-medium text-white">Escolha o local</strong>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4 backdrop-blur">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Etapa 02</span>
-                <strong className="mt-1.5 block text-sm font-medium text-white">Indique o período</strong>
-              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4"><span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Etapa 01</span><strong className="mt-1.5 block text-sm font-medium text-white">Escolha o local</strong></div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4"><span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Etapa 02</span><strong className="mt-1.5 block text-sm font-medium text-white">Indique o período</strong></div>
             </div>
           </div>
 
           <div className="bg-white/95 p-5 text-black min-[390px]:p-6 sm:p-9 lg:p-12">
             <div className="grid gap-8 sm:gap-9">
               <fieldset className="min-w-0">
-                <div className="mb-4 flex items-center justify-between gap-3">
-                  <legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Onde prefere ser atendido?</legend>
-                  <span className="shrink-0 font-mono text-[10px] text-zinc-300">01 / 02</span>
-                </div>
-
+                <div className="mb-4 flex items-center justify-between gap-3"><legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Onde prefere ser atendido?</legend><span className="shrink-0 font-mono text-[10px] text-zinc-300">01 / 02</span></div>
                 <div className="grid grid-cols-1 gap-2.5 min-[390px]:grid-cols-2 sm:grid-cols-3">
                   {LOCATIONS.map((loc) => {
                     const active = selectedLocation === loc.id;
-                    return (
-                      <motion.button
-                        key={loc.id}
-                        type="button"
-                        onClick={() => setSelectedLocation(loc.id)}
-                        aria-pressed={active}
-                        whileTap={{ scale: 0.97 }}
-                        className={`relative min-w-0 overflow-hidden rounded-2xl border px-3 py-3.5 text-left text-xs font-medium transition-colors duration-300 ${active ? "border-black text-white" : "border-zinc-200 bg-zinc-50/75 text-zinc-600 hover:border-zinc-400 hover:bg-white"}`}
-                      >
-                        {active && <motion.span layoutId="locationChoice" className="absolute inset-0 bg-black" transition={{ type: "spring", stiffness: 420, damping: 32 }} />}
-                        <span className="relative z-10 flex items-center justify-between gap-2">
-                          <span className="min-w-0 break-words">{loc.label}</span>
-                          <span className={`shrink-0 ${active ? "text-white/50" : "text-zinc-300"}`} aria-hidden="true">•</span>
-                        </span>
-                      </motion.button>
-                    );
+                    return <button key={loc.id} type="button" onClick={() => setSelectedLocation(loc.id)} aria-pressed={active} className={`min-w-0 rounded-2xl border px-3 py-3.5 text-left text-xs font-medium transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.98] ${active ? "border-black bg-black text-white" : "border-zinc-200 bg-zinc-50/75 text-zinc-600 hover:border-zinc-400 hover:bg-white"}`}><span className="flex items-center justify-between gap-2"><span className="min-w-0 break-words">{loc.label}</span><span className={`shrink-0 ${active ? "text-white/50" : "text-zinc-300"}`} aria-hidden="true">•</span></span></button>;
                   })}
                 </div>
               </fieldset>
 
               <fieldset className="min-w-0">
-                <div className="mb-4 flex items-center justify-between gap-3">
-                  <legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Período de preferência</legend>
-                  <span className="shrink-0 font-mono text-[10px] text-zinc-300">02 / 02</span>
-                </div>
-
+                <div className="mb-4 flex items-center justify-between gap-3"><legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Período de preferência</legend><span className="shrink-0 font-mono text-[10px] text-zinc-300">02 / 02</span></div>
                 <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
                   {PERIODS.map((periodItem) => {
                     const active = selectedPeriod === periodItem.id;
-                    return (
-                      <motion.button
-                        key={periodItem.id}
-                        type="button"
-                        onClick={() => setSelectedPeriod(periodItem.id)}
-                        aria-pressed={active}
-                        whileTap={{ scale: 0.97 }}
-                        className={`relative overflow-hidden rounded-2xl border px-2.5 py-3.5 text-center text-xs font-medium transition-colors duration-300 ${active ? "border-black text-white" : "border-zinc-200 bg-zinc-50/75 text-zinc-600 hover:border-zinc-400 hover:bg-white"}`}
-                      >
-                        {active && <motion.span layoutId="periodChoice" className="absolute inset-0 bg-black" transition={{ type: "spring", stiffness: 420, damping: 32 }} />}
-                        <span className="relative z-10">{periodItem.label}</span>
-                      </motion.button>
-                    );
+                    return <button key={periodItem.id} type="button" onClick={() => setSelectedPeriod(periodItem.id)} aria-pressed={active} className={`rounded-2xl border px-2.5 py-3.5 text-center text-xs font-medium transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.98] ${active ? "border-black bg-black text-white" : "border-zinc-200 bg-zinc-50/75 text-zinc-600 hover:border-zinc-400 hover:bg-white"}`}>{periodItem.label}</button>;
                   })}
                 </div>
               </fieldset>
 
               <div className="border-t border-zinc-200 pt-6 sm:pt-7">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${location ?? "none"}-${period ?? "none"}`}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.22 }}
-                    className="mb-5 flex min-h-[42px] flex-wrap items-center gap-2"
-                  >
-                    {location ? <span className="max-w-full rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{location}</span> : null}
-                    {period ? <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{period}</span> : null}
-                    {!ready ? <span className="text-xs font-light text-zinc-400">Selecione uma ou as duas opções para personalizar a mensagem.</span> : null}
-                  </motion.div>
-                </AnimatePresence>
-
+                <div className="mb-5 flex min-h-[42px] flex-wrap items-center gap-2">
+                  {location ? <span className="max-w-full rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{location}</span> : null}
+                  {period ? <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{period}</span> : null}
+                  {!ready ? <span className="text-xs font-light text-zinc-400">Selecione uma ou as duas opções para personalizar a mensagem.</span> : null}
+                </div>
                 <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                   <p className="max-w-xl text-[10px] font-light leading-relaxed text-zinc-400">{FIRST_CONTACT_PRIVACY_NOTE}</p>
-                  <a href={buildWhatsAppLink(customMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary w-full shrink-0 px-7 py-3.5 text-center text-xs md:w-auto">
-                    Consultar horários <span className="ml-2" aria-hidden="true">↗</span>
-                  </a>
+                  <a href={buildWhatsAppLink(customMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary w-full shrink-0 px-7 py-3.5 text-center text-xs md:w-auto">Consultar horários <span className="ml-2" aria-hidden="true">↗</span></a>
                 </div>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
