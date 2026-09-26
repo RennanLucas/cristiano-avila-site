@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import MagneticButton from "./MagneticButton";
 import HeroVideoBackground from "./HeroVideoBackground";
 import TrustBadges from "./TrustBadges";
@@ -9,9 +10,56 @@ import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export default function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+  const copyRef = useRef<HTMLDivElement>(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!desktop.matches || reducedMotion.matches) return;
+
+    let frame: number | null = null;
+
+    const updateParallax = () => {
+      const hero = heroRef.current;
+      const copy = copyRef.current;
+      const portrait = portraitRef.current;
+      if (!hero || !copy || !portrait) return;
+
+      const rect = hero.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, -rect.top / Math.max(rect.height, 1)));
+
+      copy.style.transform = `translate3d(0, ${progress * 32}px, 0)`;
+      copy.style.opacity = String(1 - progress * 0.28);
+      portrait.style.transform = `translate3d(0, ${progress * 70}px, 0) scale(${1 + progress * 0.04})`;
+      frame = null;
+    };
+
+    const requestUpdate = () => {
+      if (frame !== null) return;
+      frame = window.requestAnimationFrame(updateParallax);
+    };
+
+    updateParallax();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+      if (copyRef.current) {
+        copyRef.current.style.transform = "";
+        copyRef.current.style.opacity = "";
+      }
+      if (portraitRef.current) portraitRef.current.style.transform = "";
+    };
+  }, []);
+
   return (
     <HeroVideoBackground>
-      <section className="relative overflow-hidden pb-10 pt-28 sm:pb-12 sm:pt-32 md:pb-16 md:pt-40">
+      <section ref={heroRef} className="relative overflow-hidden pb-10 pt-28 sm:pb-12 sm:pt-32 md:pb-16 md:pt-40">
         <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.45] [mask-image:linear-gradient(to_bottom,black,transparent_78%)]" />
         <div className="aurora-orb absolute -left-28 top-24 h-80 w-80 rounded-full bg-fuchsia-200/30 blur-[80px]" />
         <div className="aurora-orb aurora-orb-delayed absolute right-[-7rem] top-10 h-[26rem] w-[26rem] rounded-full bg-amber-100/55 blur-[95px]" />
@@ -19,7 +67,7 @@ export default function Hero() {
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[1.02fr_.98fr] lg:gap-16">
-            <div className="max-w-3xl">
+            <div ref={copyRef} className="max-w-3xl md:will-change-transform">
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -79,7 +127,7 @@ export default function Hero() {
               transition={{ duration: 0.62, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="relative mx-auto w-full max-w-[500px] lg:max-w-[540px]"
             >
-              <div className="relative">
+              <div ref={portraitRef} className="relative md:will-change-transform">
                 <div className="absolute -inset-4 rounded-[2.25rem] bg-gradient-to-br from-white/90 via-white/20 to-zinc-200/50 blur-2xl sm:-inset-5 sm:rounded-[2.4rem]" />
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/80 bg-zinc-100 shadow-[0_30px_80px_rgba(0,0,0,0.14)] ring-1 ring-black/[0.04] sm:rounded-[2.35rem] sm:shadow-[0_38px_100px_rgba(0,0,0,0.16)]">
                   <Image
