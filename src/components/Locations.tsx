@@ -1,11 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CURRENT_UNITS } from "@/data/units";
-import { buildWhatsAppLink } from "@/data/content";
+import { buildWhatsAppLink } from "@/data/contact-lite";
 
 export default function Locations() {
   const [selectedUnit, setSelectedUnit] = useState(CURRENT_UNITS[0]);
+  const [showMap, setShowMap] = useState(false);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const syncMapPreference = () => {
+      if (desktop.matches) setShowMap(true);
+    };
+
+    syncMapPreference();
+    desktop.addEventListener?.("change", syncMapPreference);
+    return () => desktop.removeEventListener?.("change", syncMapPreference);
+  }, []);
+
+  const selectUnit = (unit: (typeof CURRENT_UNITS)[number]) => {
+    setSelectedUnit(unit);
+    if (typeof window !== "undefined" && !window.matchMedia("(min-width: 768px)").matches) {
+      setShowMap(false);
+    }
+  };
 
   return (
     <section id="unidades" className="relative overflow-hidden border-t border-zinc-100 bg-white py-20 sm:py-24 lg:py-32">
@@ -20,7 +39,7 @@ export default function Locations() {
         <div className="-mx-1 mb-8 flex max-w-full flex-nowrap items-center justify-start gap-2.5 overflow-x-auto px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-auto sm:mb-10 sm:max-w-4xl sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0">
           {CURRENT_UNITS.map((unit) => {
             const active = selectedUnit.id === unit.id;
-            return <button key={unit.id} type="button" onClick={() => setSelectedUnit(unit)} className={`shrink-0 rounded-full px-4 py-2.5 text-xs font-semibold transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.98] ${active ? "bg-black text-white shadow-lg" : "border border-zinc-200 bg-white text-zinc-600 hover:border-zinc-400"}`}>{unit.city}</button>;
+            return <button key={unit.id} type="button" onClick={() => selectUnit(unit)} className={`shrink-0 rounded-full px-4 py-2.5 text-xs font-semibold transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.98] ${active ? "bg-black text-white shadow-lg" : "border border-zinc-200 bg-white text-zinc-600 hover:border-zinc-400"}`}>{unit.city}</button>;
           })}
         </div>
 
@@ -42,7 +61,17 @@ export default function Locations() {
             </div>
           </div>
           <div className="relative min-h-[300px] border-t border-zinc-800 bg-zinc-900 sm:min-h-[360px] lg:min-h-[520px] lg:border-l lg:border-t-0">
-            <iframe title={`Mapa da unidade de ${selectedUnit.city}`} src={selectedUnit.mapEmbedUrl} className="absolute inset-0 h-full w-full border-0 grayscale-[0.35] contrast-[0.95]" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+            {showMap ? (
+              <iframe title={`Mapa da unidade de ${selectedUnit.city}`} src={selectedUnit.mapEmbedUrl} className="absolute inset-0 h-full w-full border-0 grayscale-[0.35] contrast-[0.95]" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_58%)] p-6 text-center">
+                <div className="max-w-xs">
+                  <p className="text-sm font-medium text-white">Mapa sob demanda</p>
+                  <p className="mt-2 text-xs leading-relaxed text-white/50">No celular, o Google Maps só é carregado quando você pedir. Isso deixa a página mais leve.</p>
+                  <button type="button" onClick={() => setShowMap(true)} className="mt-5 rounded-full bg-white px-5 py-3 text-xs font-semibold text-black">Carregar mapa</button>
+                </div>
+              </div>
+            )}
             <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-zinc-950/20 to-transparent" />
           </div>
         </div>

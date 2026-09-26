@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { buildWhatsAppLink } from "@/data/content";
+import { buildWhatsAppLink } from "@/data/contact-lite";
 import { CURRENT_UNITS } from "@/data/units";
 import { FIRST_CONTACT_PRIVACY_NOTE } from "@/lib/site-policy";
 

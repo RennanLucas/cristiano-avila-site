@@ -144,12 +144,26 @@
   to { offset-distance: 100%; }
 }
 
+@keyframes ctaOrbitClockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes ctaOrbitCounterClockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
 .animate-border-beam {
   animation: border-beam var(--duration) linear infinite;
 }
 
-/* Tablets e celulares recebem a versão estática dos efeitos decorativos.
-   Isso reduz composição contínua e consumo de GPU durante o scroll. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .cta-orbit { animation: ctaOrbitClockwise 28s linear infinite; }
+  .cta-orbit-reverse { animation: ctaOrbitCounterClockwise 20s linear infinite; }
+}
+
+/* Tablets e celulares recebem a versão estática dos efeitos decorativos. */
 @media (max-width: 1023px) {
   .aurora-orb,
   .floating-card,
@@ -159,16 +173,36 @@
   }
 }
 
+/* iPhone/WebKit sofre bastante com grandes filtros, máscaras e backdrop-filter.
+   No celular removemos apenas camadas decorativas caras; conteúdo e layout ficam intactos. */
 @media (max-width: 767px) {
+  body {
+    text-rendering: auto;
+  }
+
   .btn-primary::after {
     display: none;
   }
 
+  .aurora-orb {
+    display: none !important;
+  }
+
+  main div[class*="blur-"]:not([class*="backdrop-blur"]) {
+    display: none !important;
+  }
+
+  main [class*="backdrop-blur"],
   .premium-card,
   .premium-glass,
   .btn-outline {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
+  }
+
+  main .soft-grid {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
   }
 
   .premium-card {
@@ -178,12 +212,16 @@
 
   .premium-card:hover {
     transform: none;
-    box-shadow: 0 18px 55px rgba(20,20,20,0.07), inset 0 1px 0 rgba(255,255,255,0.9);
+    box-shadow: 0 12px 34px rgba(20,20,20,0.07), inset 0 1px 0 rgba(255,255,255,0.9);
   }
 
   .premium-glass {
     background: linear-gradient(135deg, rgba(255,255,255,0.97), rgba(255,255,255,0.90));
-    box-shadow: 0 18px 48px rgba(20,20,20,0.08), inset 0 1px 0 rgba(255,255,255,0.95);
+    box-shadow: 0 12px 34px rgba(20,20,20,0.07), inset 0 1px 0 rgba(255,255,255,0.95);
+  }
+
+  .premium-dark {
+    box-shadow: 0 16px 42px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.06);
   }
 }
 

@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { buildWhatsAppLink } from "@/data/content";
 import { CURRENT_CITIES_TEXT } from "@/data/units";
 
@@ -14,8 +11,6 @@ const FAQ_ITEMS = [
 ];
 
 export default function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   return (
     <section id="faq" className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-32">
       <div className="pointer-events-none absolute -left-28 top-24 h-80 w-80 rounded-full bg-zinc-100 blur-[110px]" />
@@ -35,19 +30,16 @@ export default function FaqSection() {
           </div>
 
           <div className="space-y-3">
-            {FAQ_ITEMS.map((item, idx) => {
-              const isOpen = openIndex === idx;
-              return (
-                <article key={item.question} className={`group overflow-hidden rounded-[22px] border transition-[background-color,border-color,box-shadow] duration-200 sm:rounded-[24px] ${isOpen ? "border-zinc-300 bg-white shadow-[0_18px_50px_rgba(0,0,0,0.07)]" : "border-zinc-200/80 bg-zinc-50/55 hover:border-zinc-300 hover:bg-white"}`}>
-                  <button type="button" onClick={() => setOpenIndex(isOpen ? null : idx)} className="flex w-full items-center gap-3 p-4 text-left min-[390px]:gap-4 min-[390px]:p-5 sm:p-6" aria-expanded={isOpen}>
-                    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border font-mono text-[9px] transition-colors duration-200 min-[390px]:h-11 min-[390px]:w-11 min-[390px]:rounded-2xl min-[390px]:text-[10px] ${isOpen ? "border-black bg-black text-white" : "border-zinc-200 bg-white text-zinc-400 group-hover:text-black"}`}>{String(idx + 1).padStart(2, "0")}</span>
-                    <span className="min-w-0 flex-1"><span className="mb-1 block text-[8px] font-semibold uppercase tracking-[0.14em] text-zinc-400 min-[390px]:text-[9px] min-[390px]:tracking-[0.16em]">{item.category}</span><span className="block text-[15px] font-semibold leading-snug tracking-[-0.02em] text-black sm:text-lg">{item.question}</span></span>
-                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-transform duration-200 sm:h-9 sm:w-9 ${isOpen ? "rotate-45 border-black bg-black text-white" : "border-zinc-200 bg-white text-black"}`} aria-hidden="true">+</span>
-                  </button>
-                  {isOpen && <div className="border-t border-zinc-100 px-4 pb-5 pt-4 text-sm font-light leading-relaxed text-zinc-600 min-[390px]:px-5 min-[390px]:pb-6 sm:ml-[84px] sm:px-0 sm:pb-6 sm:pr-8 sm:pt-5">{item.answer}</div>}
-                </article>
-              );
-            })}
+            {FAQ_ITEMS.map((item, idx) => (
+              <details key={item.question} open={idx === 0} className="group overflow-hidden rounded-[22px] border border-zinc-200/80 bg-zinc-50/55 transition-colors duration-200 open:border-zinc-300 open:bg-white sm:rounded-[24px]">
+                <summary className="flex cursor-pointer list-none items-center gap-3 p-4 text-left min-[390px]:gap-4 min-[390px]:p-5 sm:p-6 [&::-webkit-details-marker]:hidden">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-zinc-200 bg-white font-mono text-[9px] text-zinc-400 transition-colors duration-200 group-open:border-black group-open:bg-black group-open:text-white min-[390px]:h-11 min-[390px]:w-11 min-[390px]:rounded-2xl min-[390px]:text-[10px]">{String(idx + 1).padStart(2, "0")}</span>
+                  <span className="min-w-0 flex-1"><span className="mb-1 block text-[8px] font-semibold uppercase tracking-[0.14em] text-zinc-400 min-[390px]:text-[9px] min-[390px]:tracking-[0.16em]">{item.category}</span><span className="block text-[15px] font-semibold leading-snug tracking-[-0.02em] text-black sm:text-lg">{item.question}</span></span>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-zinc-200 bg-white text-black transition-transform duration-200 group-open:rotate-45 group-open:border-black group-open:bg-black group-open:text-white sm:h-9 sm:w-9" aria-hidden="true">+</span>
+                </summary>
+                <div className="border-t border-zinc-100 px-4 pb-5 pt-4 text-sm font-light leading-relaxed text-zinc-600 min-[390px]:px-5 min-[390px]:pb-6 sm:ml-[84px] sm:px-0 sm:pb-6 sm:pr-8 sm:pt-5">{item.answer}</div>
+              </details>
+            ))}
           </div>
         </div>
       </div>

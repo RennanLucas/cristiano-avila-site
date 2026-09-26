@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CLINIC_CONTACT } from "@/data/content";
+import { CLINIC_CONTACT } from "@/data/contact-lite";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 const NAV_LINKS = [

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
+import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/contact-lite";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export default function FloatingDock() {
