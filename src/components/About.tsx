@@ -29,9 +29,9 @@ export default function About() {
           </div>
 
           <div className="lg:col-span-7 lg:pt-6">
-            <div><span className="editorial-label">Sobre o profissional</span><h2 className="mt-4 max-w-3xl text-3xl font-semibold leading-[1.04] tracking-[-0.045em] text-black sm:text-4xl lg:text-6xl">Uma prática clínica construída com escuta, contexto e individualização.</h2><p className="mt-6 max-w-2xl text-base font-light leading-relaxed text-zinc-600 sm:text-lg">Cristiano Ávila atua em Psicologia Clínica e possui formação complementar em áreas relacionadas ao comportamento humano, neurociência e hipnoterapia.</p></div>
+            <div><span className="editorial-label">Sobre Cristiano Ávila</span><h2 className="mt-4 max-w-3xl text-3xl font-semibold leading-[1.04] tracking-[-0.045em] text-black sm:text-4xl lg:text-6xl">Experiência clínica, formação complementar e atuação em diferentes contextos.</h2><p className="mt-6 max-w-2xl text-base font-light leading-relaxed text-zinc-600 sm:text-lg">Psicólogo clínico com atendimento presencial e online, trajetória também ligada à psicologia institucional, educação em saúde mental, palestras e produção de conteúdo.</p></div>
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              {[{num:"01",title:"Condução individualizada",text:"O acompanhamento considera a demanda apresentada, o contexto de vida e os limites técnicos e éticos do exercício profissional.",dark:false},{num:"02",title:"Experiência institucional",text:"A trajetória inclui experiência junto à Fundação Casa Atibaia, além de atividades de educação em saúde mental e palestras.",dark:true}].map((item) => (
+              {[{num:"01",title:"Consultório e atendimento online",text:"Atuação clínica com consultas presenciais em quatro cidades e possibilidade de atendimento por videochamada.",dark:false},{num:"02",title:"Experiência além do consultório",text:"A trajetória inclui passagem pela Fundação Casa Atibaia, atividades de educação em saúde mental e participação em palestras.",dark:true}].map((item) => (
                 <article key={item.num} className={`${item.dark ? "premium-dark text-white" : "premium-glass text-black"} relative min-h-[245px] overflow-hidden rounded-[28px] p-7 transition-transform duration-300 md:hover:-translate-y-1.5`}>
                   <div className={`pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full border ${item.dark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200/60 bg-white/45"}`} />
                   <span className={`font-mono text-[10px] ${item.dark ? "text-white/30" : "text-zinc-400"}`}>{item.num}</span><h3 className={`mt-12 text-xl font-semibold tracking-[-0.025em] ${item.dark ? "text-white" : "text-black"}`}>{item.title}</h3><p className={`mt-3 text-sm font-light leading-relaxed ${item.dark ? "text-white/55" : "text-zinc-600"}`}>{item.text}</p>
@@ -41,7 +41,7 @@ export default function About() {
             <div className="mt-10 border-t border-zinc-200/80 pt-8">
               <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
                 <div><span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Áreas de atuação e experiência</span><div className="mt-4 flex max-w-3xl flex-wrap gap-2">{EXPERIENCES.map((exp) => <span key={exp} className="rounded-full border border-zinc-200 bg-white/80 px-3.5 py-2 text-[11px] font-medium text-zinc-600 shadow-sm md:backdrop-blur">{exp}</span>)}</div></div>
-                <Link href="/sobre" className="btn-primary shrink-0 px-6 py-3 text-xs">Ver perfil completo <span className="ml-2" aria-hidden="true">↗</span></Link>
+                <Link href="/sobre" className="btn-primary shrink-0 px-6 py-3 text-xs">Ver trajetória completa <span className="ml-2" aria-hidden="true">↗</span></Link>
               </div>
             </div>
           </div>

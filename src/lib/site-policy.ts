@@ -18,4 +18,4 @@ export function isPublicSpecialty(id: string): boolean {
 }
 
 export const FIRST_CONTACT_PRIVACY_NOTE =
-  "O primeiro contato é destinado ao agendamento e a dúvidas gerais sobre o atendimento.";
+  "Depois de enviar, a conversa continua diretamente pelo WhatsApp para combinar os próximos detalhes.";

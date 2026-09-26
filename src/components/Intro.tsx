@@ -2,9 +2,9 @@ import Link from "next/link";
 import { buildWhatsAppLink } from "@/data/content";
 
 const PRINCIPLES = [
-  { number: "01", label: "Técnica", title: "Planejamento individualizado", text: "A condução é ajustada ao contexto e às necessidades apresentadas em cada acompanhamento.", dark: false },
-  { number: "02", label: "Ética", title: "Escuta qualificada e sigilo", text: "O atendimento observa o Código de Ética Profissional e a legislação aplicável à proteção de dados.", dark: true },
-  { number: "03", label: "Processo", title: "Autonomia e compreensão", text: "O acompanhamento busca ampliar repertório, compreensão e recursos para lidar com diferentes situações da vida.", dark: false },
+  { number: "01", label: "Escuta", title: "Entender o que está acontecendo", text: "As primeiras conversas ajudam a organizar a queixa, reconhecer padrões e perceber o que hoje merece mais atenção.", dark: false },
+  { number: "02", label: "Clareza", title: "Dar nome ao que se repete", text: "Pensamentos, emoções, relações e situações do cotidiano podem ser observados com mais distância e compreensão.", dark: true },
+  { number: "03", label: "Prática", title: "Levar a terapia para a vida real", text: "O que aparece nas sessões pode abrir novas formas de lidar com escolhas, limites, conflitos e mudanças fora do consultório.", dark: false },
 ];
 
 export default function Intro() {
@@ -16,17 +16,17 @@ export default function Intro() {
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="space-y-8 lg:col-span-6">
             <div>
-              <span className="editorial-label">Atendimento individualizado</span>
-              <h2 className="mt-4 text-3xl font-semibold leading-[1.08] tracking-[-0.045em] text-black sm:text-4xl lg:text-5xl">Cada história pede uma escuta diferente.</h2>
-              <p className="mt-5 max-w-xl text-base font-light leading-relaxed text-zinc-500 min-[390px]:text-lg">O acompanhamento não parte de fórmulas prontas. Ele é construído a partir da pessoa, do contexto e do momento de vida.</p>
+              <span className="editorial-label">Na prática</span>
+              <h2 className="mt-4 text-3xl font-semibold leading-[1.08] tracking-[-0.045em] text-black sm:text-4xl lg:text-5xl">Terapia também é aprender a enxergar com mais clareza o que hoje parece confuso.</h2>
+              <p className="mt-5 max-w-xl text-base font-light leading-relaxed text-zinc-500 min-[390px]:text-lg">A sessão oferece tempo e espaço para conversar sobre o que está acontecendo, sem precisar chegar com tudo organizado ou saber exatamente por onde começar.</p>
             </div>
             <div className="max-w-xl space-y-5 text-base font-light leading-relaxed text-zinc-600 lg:text-lg">
-              <p>O processo terapêutico considera experiências, emoções, comportamentos e circunstâncias atuais, respeitando a singularidade de cada demanda.</p>
-              <p>Quando pertinente, o trabalho pode integrar recursos da <strong className="font-medium text-black">psicologia clínica, neurociência e hipnoterapia</strong>, sempre dentro dos limites técnicos, éticos e profissionais.</p>
+              <p>Questões emocionais, conflitos, mudanças importantes, padrões de comportamento e dificuldades nos relacionamentos podem ganhar outra leitura quando são examinados com calma.</p>
+              <p>Quando fizer sentido, a condução pode incluir recursos da <strong className="font-medium text-black">psicologia clínica, neurociência e hipnoterapia</strong> como parte do trabalho realizado em sessão.</p>
             </div>
             <div className="flex flex-col items-stretch gap-3 pt-2 sm:flex-row sm:items-center">
-              <Link href="/sobre" className="btn-outline px-6 py-3 text-center text-xs">Conhecer a abordagem</Link>
-              <a href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de entender melhor como funciona o atendimento.")} target="_blank" rel="noopener noreferrer" className="btn-primary px-6 py-3 text-center text-xs">Tirar uma dúvida</a>
+              <Link href="/sobre" className="btn-outline px-6 py-3 text-center text-xs">Conhecer o profissional</Link>
+              <a href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de entender melhor como funciona a primeira consulta.")} target="_blank" rel="noopener noreferrer" className="btn-primary px-6 py-3 text-center text-xs">Como funciona a primeira consulta?</a>
             </div>
           </div>
 

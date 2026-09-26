@@ -39,8 +39,8 @@ export default function SpecialtiesClient({ items }: { items: SpecialtySummary[]
         <div className="mb-12 flex flex-col justify-between gap-7 sm:mb-14 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <span className="editorial-label">Formas de atendimento</span>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-black md:text-5xl">Um plano clínico construído em torno da sua história.</h2>
-            <p className="mt-4 text-[15px] font-light leading-relaxed text-zinc-600 sm:text-lg">O acompanhamento é definido após avaliação profissional, considerando contexto, necessidades e objetivos de cada pessoa.</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-black md:text-5xl">Conheça as frentes de trabalho disponíveis.</h2>
+            <p className="mt-4 text-[15px] font-light leading-relaxed text-zinc-600 sm:text-lg">Cada opção abaixo tem um foco diferente. Abra a página para entender como funciona, quais temas podem ser levados à sessão e em quais formatos o atendimento acontece.</p>
           </div>
 
           <div className="-mx-1 flex max-w-full flex-nowrap gap-1.5 overflow-x-auto rounded-[22px] border border-white/80 bg-white/65 p-1.5 shadow-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:flex-wrap md:rounded-full md:backdrop-blur-xl" role="group" aria-label="Filtrar formas de atendimento">
@@ -68,7 +68,7 @@ export default function SpecialtiesClient({ items }: { items: SpecialtySummary[]
                   <p className="mt-4 text-sm font-light leading-relaxed text-zinc-600">{item.shortDesc}</p>
                 </div>
                 <div className="mt-8 flex items-center justify-between border-t border-zinc-200/70 pt-5 sm:mt-10">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-400">Saiba mais</span>
+                  <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-400">Entender melhor</span>
                   <Link href={`/especialidades/${item.slug}`} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black text-white transition-transform duration-200 md:hover:scale-110" aria-label={`Conhecer ${item.title}`}><span aria-hidden="true">↗</span></Link>
                 </div>
               </SpotlightCard>

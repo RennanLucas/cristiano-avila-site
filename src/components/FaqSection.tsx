@@ -2,12 +2,12 @@ import { buildWhatsAppLink } from "@/data/content";
 import { CURRENT_CITIES_TEXT } from "@/data/units";
 
 const FAQ_ITEMS = [
-  { category: "Consultas", question: "Como funciona a primeira consulta?", answer: "A primeira sessão é dedicada à escuta da sua demanda, compreensão do contexto atual e alinhamento de objetivos. A partir disso, o acompanhamento é organizado de forma individualizada, respeitando as necessidades e os limites de cada pessoa." },
-  { category: "Online", question: "Como funciona o atendimento psicológico online?", answer: "O atendimento online é realizado por videoconferência, em ambiente reservado e com os mesmos deveres éticos aplicáveis ao exercício profissional. A prestação de serviços psicológicos mediados por tecnologias digitais é regulamentada pela Resolução CFP nº 9/2024. A indicação da modalidade é avaliada conforme as características e necessidades de cada caso." },
-  { category: "Hipnoterapia", question: "Como a hipnoterapia clínica pode ser utilizada?", answer: "A hipnoterapia pode ser empregada como recurso complementar quando houver indicação clínica e concordância da pessoa atendida. O procedimento envolve atenção focalizada e participação ativa, sem perda automática de consciência ou de controle." },
-  { category: "Planos", question: "O atendimento é particular? É possível solicitar reembolso?", answer: "Os atendimentos são particulares. Quando aplicável, é fornecida a documentação referente ao serviço prestado para que a pessoa consulte diretamente as regras de reembolso do próprio plano de saúde. Valores e condições de reembolso dependem de cada operadora e contrato." },
-  { category: "Duração", question: "Qual é a duração e a frequência das sessões?", answer: "As sessões individuais costumam durar cerca de 50 minutos. A frequência é definida de acordo com a avaliação profissional, os objetivos do acompanhamento e as necessidades de cada pessoa, podendo ser ajustada ao longo do processo." },
-  { category: "Presencial", question: "Onde ficam os consultórios presenciais?", answer: `Há atendimento presencial em ${CURRENT_CITIES_TEXT}. Os endereços completos e links para mapa estão disponíveis na página de unidades.` },
+  { category: "Primeira sessão", question: "O que acontece na primeira consulta?", answer: "A primeira sessão é uma conversa para entender o motivo da procura, o que está acontecendo agora e alguns pontos importantes da sua história. Também é um momento para conhecer a forma de trabalho do psicólogo e esclarecer dúvidas antes de seguir." },
+  { category: "Online", question: "Como funciona a consulta por videochamada?", answer: "O atendimento online acontece por videoconferência, em horário agendado. É importante estar em um local reservado, com conexão estável e condições para conversar com privacidade. Os serviços psicológicos mediados por tecnologias digitais são regulamentados pela Resolução CFP nº 9/2024." },
+  { category: "Hipnose clínica", question: "A pessoa perde o controle durante a hipnose?", answer: "Não. Na hipnose clínica, a pessoa permanece participativa e em comunicação durante a experiência. O recurso trabalha com atenção focalizada e relaxamento e pode ser utilizado como parte da psicoterapia quando fizer sentido para o trabalho realizado em sessão." },
+  { category: "Pagamento", question: "O atendimento é particular? Posso pedir reembolso?", answer: "Os atendimentos são particulares. Quando necessário, é fornecida a documentação referente ao serviço prestado para que você consulte diretamente com o seu plano de saúde as regras e condições de reembolso." },
+  { category: "Tempo de sessão", question: "Quanto tempo dura uma sessão?", answer: "As sessões individuais costumam durar cerca de 50 minutos. A periodicidade é combinada ao longo do processo e pode mudar conforme a evolução das conversas e a organização da agenda." },
+  { category: "Consultórios", question: "Em quais cidades há atendimento presencial?", answer: `Há consultórios em ${CURRENT_CITIES_TEXT}. Na página de unidades você encontra endereço, Google Maps, Apple Maps e o link para consultar horários em cada cidade.` },
 ];
 
 export default function FaqSection() {
@@ -18,14 +18,14 @@ export default function FaqSection() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid gap-10 sm:gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
           <div className="lg:self-start">
-            <span className="editorial-label">Informações sobre o atendimento</span>
-            <h2 className="mt-4 max-w-md text-3xl font-semibold leading-[1.05] tracking-[-0.045em] text-black sm:text-4xl lg:text-5xl">Dúvidas importantes, respostas objetivas.</h2>
-            <p className="mt-5 max-w-md text-[15px] font-light leading-relaxed text-zinc-600 sm:text-base">Consulte as principais informações sobre modalidades, frequência, reembolso e locais de atendimento.</p>
+            <span className="editorial-label">Perguntas frequentes</span>
+            <h2 className="mt-4 max-w-md text-3xl font-semibold leading-[1.05] tracking-[-0.045em] text-black sm:text-4xl lg:text-5xl">O que vale saber antes de marcar uma consulta.</h2>
+            <p className="mt-5 max-w-md text-[15px] font-light leading-relaxed text-zinc-600 sm:text-base">Informações práticas sobre primeira sessão, atendimento online, hipnose clínica, duração, reembolso e consultórios.</p>
             <div className="mt-8 overflow-hidden rounded-[24px] premium-dark p-5 text-white min-[390px]:p-6 sm:mt-9 sm:rounded-[28px] sm:p-7">
-              <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/35">Atendimento</span>
-              <h3 className="mt-3 text-lg font-semibold tracking-[-0.025em] sm:text-xl">Ainda ficou com alguma dúvida?</h3>
-              <p className="mt-3 text-xs font-light leading-relaxed text-white/50">Fale pelo WhatsApp para consultar horários, modalidades de atendimento e outras informações.</p>
-              <a href={buildWhatsAppLink("Olá! Tenho uma dúvida sobre o atendimento e gostaria de mais informações.")} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-[11px] font-semibold text-black transition-transform duration-200 md:hover:-translate-y-0.5 sm:w-auto">Falar no WhatsApp <span aria-hidden="true">↗</span></a>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/35">Contato direto</span>
+              <h3 className="mt-3 text-lg font-semibold tracking-[-0.025em] sm:text-xl">Sua dúvida não está aqui?</h3>
+              <p className="mt-3 text-xs font-light leading-relaxed text-white/50">Envie uma mensagem para consultar horários ou perguntar algo específico sobre a consulta.</p>
+              <a href={buildWhatsAppLink("Olá! Tenho uma dúvida sobre a consulta e gostaria de mais informações.")} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-[11px] font-semibold text-black transition-transform duration-200 md:hover:-translate-y-0.5 sm:w-auto">Falar no WhatsApp <span aria-hidden="true">↗</span></a>
             </div>
           </div>
 

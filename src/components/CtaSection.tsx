@@ -16,15 +16,15 @@ export default function CtaSection() {
       <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
         <div className="overflow-hidden rounded-[30px] border border-white/10 bg-white/[0.045] p-6 text-center shadow-[0_32px_90px_rgba(0,0,0,0.34)] sm:rounded-[34px] sm:p-10 sm:backdrop-blur-xl lg:p-14">
           <div>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/40">Primeiro contato</span>
-            <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-semibold leading-[1.08] tracking-[-0.04em] text-white sm:text-4xl lg:text-6xl">Um primeiro passo pode começar com uma conversa simples.</h2>
-            <p className="mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-white/60 lg:text-lg">Entre em contato para consultar modalidades de atendimento, horários e disponibilidade de agenda.</p>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/40">Agenda</span>
+            <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-semibold leading-[1.08] tracking-[-0.04em] text-white sm:text-4xl lg:text-6xl">Quer consultar horários para uma primeira sessão?</h2>
+            <p className="mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-white/60 lg:text-lg">Envie uma mensagem pelo WhatsApp, escolha entre presencial ou online e veja as opções disponíveis.</p>
           </div>
 
           <div className="mt-9">
-            <a href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de obter informações sobre horários disponíveis para consulta.")} target="_blank" rel="noopener noreferrer" className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-white px-7 py-4 text-xs font-semibold text-black shadow-[0_18px_50px_rgba(255,255,255,0.12)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_60px_rgba(255,255,255,0.16)] active:translate-y-0 sm:w-auto sm:px-8">
+            <a href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de consultar os horários disponíveis para uma primeira sessão.")} target="_blank" rel="noopener noreferrer" className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-white px-7 py-4 text-xs font-semibold text-black shadow-[0_18px_50px_rgba(255,255,255,0.12)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_60px_rgba(255,255,255,0.16)] active:translate-y-0 sm:w-auto sm:px-8">
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.675-.839-6.481-2.373l-.388-.322-2.65.889.889-2.65-.322-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" /></svg>
-              <span>Falar pelo WhatsApp</span>
+              <span>Consultar pelo WhatsApp</span>
               <span className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">→</span>
             </a>
           </div>
@@ -39,7 +39,7 @@ export default function CtaSection() {
               <strong className="mt-1.5 block truncate text-sm font-medium text-white">{CLINIC_CONTACT.email}</strong>
             </a>
             <div className="rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-4 text-left">
-              <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Modalidades</span>
+              <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Consultas</span>
               <strong className="mt-1.5 block text-sm font-medium text-white">Presencial & online</strong>
             </div>
           </div>

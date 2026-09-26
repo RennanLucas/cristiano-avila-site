@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: "Cristiano Ávila | Psicólogo Clínico",
     template: "%s | Cristiano Ávila",
   },
-  description: `Atendimento psicológico presencial e online com Cristiano Ávila, Psicólogo Clínico. Atendimento presencial em ${CURRENT_CITIES_TEXT}.`,
+  description: `Psicoterapia presencial e online com Cristiano Ávila, Psicólogo Clínico. Consultórios em ${CURRENT_CITIES_TEXT}.`,
   applicationName: "Cristiano Ávila Psicólogo",
   alternates: { canonical: "/" },
   icons: {
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Cristiano Ávila | Psicólogo Clínico",
-    description: "Atendimento psicológico presencial e online com escuta qualificada e planejamento individualizado.",
+    description: "Psicoterapia presencial e online para questões emocionais, comportamentais e relacionais.",
     url: SITE_URL,
     siteName: "Cristiano Ávila",
     locale: "pt_BR",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Cristiano Ávila | Psicólogo Clínico",
-    description: "Atendimento psicológico presencial e online.",
+    description: "Psicoterapia presencial e online.",
     images: ["/images/cristiano_avila.jpg"],
   },
   robots: {

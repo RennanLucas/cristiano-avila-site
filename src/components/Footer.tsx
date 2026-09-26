@@ -24,7 +24,7 @@ export default function Footer() {
 
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-500">Psicólogo • {PROFESSIONAL_REGISTRATION}</p>
             <p className="max-w-md text-sm font-light leading-relaxed text-zinc-600">
-              Atendimento psicológico presencial e online, com escuta qualificada e acompanhamento individualizado.
+              Psicoterapia presencial e online, com consultórios em quatro cidades de São Paulo.
             </p>
 
             <div className="min-w-0 space-y-1.5 text-xs text-zinc-500">
@@ -46,7 +46,7 @@ export default function Footer() {
 
         <div className="flex flex-col items-start justify-between gap-4 pt-7 text-[11px] font-light leading-relaxed text-zinc-500 sm:pt-8 sm:text-xs lg:flex-row lg:items-center">
           <p>© {new Date().getFullYear()} {CLINIC_CONTACT.fullName}. Todos os direitos reservados.</p>
-          <p className="max-w-xl">Conteúdo profissional e psicoeducativo sobre psicologia, comportamento e saúde mental.</p>
+          <p className="max-w-xl">Informações sobre psicologia, comportamento, saúde mental e atendimento clínico.</p>
           <div className="flex flex-wrap items-center gap-5"><Link href="/politica-de-privacidade" className="hover:text-black">Privacidade</Link><Link href="/contato" className="hover:text-black">Contato</Link></div>
         </div>
       </div>

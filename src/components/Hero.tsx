@@ -22,25 +22,25 @@ export default function Hero() {
               </div>
 
               <h1 className="mb-5 text-[2.55rem] font-semibold leading-[0.98] tracking-[-0.055em] text-black min-[390px]:text-5xl sm:mb-6 sm:text-5xl md:text-6xl lg:text-[4.7rem]">
-                Cuidado psicológico com profundidade, presença e direção.
+                Um espaço para compreender o que você sente e como isso aparece na sua vida.
               </h1>
 
               <p className="mb-8 max-w-2xl text-[15px] font-light leading-relaxed text-zinc-600 sm:mb-9 sm:text-lg md:text-xl">
-                Atendimento presencial e online com escuta qualificada, planejamento individualizado e recursos clínicos adequados às necessidades de cada pessoa.
+                Psicoterapia presencial e online com Cristiano Ávila, psicólogo clínico, para questões emocionais, comportamentais e relacionais.
               </p>
 
               <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <a href={buildWhatsAppLink("Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.")} target="_blank" rel="noopener noreferrer" className="btn-primary w-full py-3.5 text-center text-sm sm:w-auto">
-                  Ver disponibilidade
+                  Consultar horários
                 </a>
                 <a href="#especialidades" className="btn-outline w-full py-3.5 text-center text-sm sm:w-auto">
-                  Conhecer formas de atendimento
+                  Ver formas de atendimento
                 </a>
               </div>
 
               <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3 text-xs text-zinc-500 sm:mt-9">
                 <span className="inline-flex items-center gap-2"><span className="h-px w-5 bg-zinc-300" />Presencial em 4 cidades</span>
-                <span className="inline-flex items-center gap-2"><span className="h-px w-5 bg-zinc-300" />Atendimento online</span>
+                <span className="inline-flex items-center gap-2"><span className="h-px w-5 bg-zinc-300" />Consultas online</span>
               </div>
             </div>
 
@@ -57,13 +57,13 @@ export default function Hero() {
                 </div>
 
                 <div className="mt-6 grid grid-cols-1 gap-3 min-[390px]:grid-cols-2 sm:hidden">
-                  <div className="premium-glass min-w-0 rounded-2xl p-4"><span className="block text-[9px] font-semibold uppercase tracking-widest text-zinc-400">Atendimento</span><strong className="mt-1 block text-sm leading-snug text-black">Presencial & online</strong></div>
+                  <div className="premium-glass min-w-0 rounded-2xl p-4"><span className="block text-[9px] font-semibold uppercase tracking-widest text-zinc-400">Consultas</span><strong className="mt-1 block text-sm leading-snug text-black">Presencial & online</strong></div>
                   <div className="premium-dark min-w-0 rounded-2xl p-4 text-white"><span className="block text-[9px] font-semibold uppercase tracking-widest text-white/45">Formação</span><strong className="mt-1 block text-sm leading-snug">Hipnoterapia OMNI</strong></div>
                 </div>
               </div>
 
               <div className="floating-card absolute -left-3 top-[17%] hidden rounded-2xl px-4 py-3 premium-glass sm:block lg:-left-12">
-                <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Atendimento</span>
+                <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Consultas</span>
                 <strong className="mt-1 block text-sm font-semibold text-black">Presencial & online</strong>
               </div>
               <div className="floating-card floating-card-delayed absolute -right-2 bottom-[18%] hidden rounded-2xl px-4 py-3 premium-dark text-white sm:block lg:-right-10">

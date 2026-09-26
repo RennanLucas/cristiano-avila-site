@@ -20,10 +20,10 @@ export default function SobrePage() {
               Trajetória profissional
             </span>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tighter text-black leading-tight mb-6">
-              Escuta atenta e <span className="text-zinc-400">prática profissional individualizada.</span>
+              Psicologia clínica com experiência em consultório, instituições e educação em saúde mental.
             </h1>
             <p className="text-base sm:text-lg text-zinc-600 font-light leading-relaxed max-w-2xl">
-              Cristiano Ávila da Silva é psicólogo clínico, {PROFESSIONAL_REGISTRATION}, com atuação presencial e online e formação complementar em áreas relacionadas ao comportamento humano e hipnoterapia.
+              Cristiano Ávila da Silva é psicólogo clínico, {PROFESSIONAL_REGISTRATION}, com atendimento presencial e online e formação complementar em hipnoterapia e temas relacionados ao comportamento humano.
             </p>
           </motion.div>
 
@@ -35,22 +35,22 @@ export default function SobrePage() {
 
       <section className="py-24 bg-white">
         <div className="max-w-3xl mx-auto px-6">
-          <div className="space-y-8 text-base sm:text-lg text-zinc-600 font-light leading-relaxed">
+          <div className="space-y-10 text-base sm:text-lg text-zinc-600 font-light leading-relaxed">
             <p className="text-2xl text-black font-medium tracking-tight leading-snug">
-              O atendimento parte da compreensão da história, do contexto e das necessidades de cada pessoa.
+              A trajetória profissional reúne prática clínica, experiência institucional e atuação em comunicação sobre saúde mental.
             </p>
 
             <div>
-              <h2 className="text-2xl text-black font-semibold tracking-tight mb-4">Atuação clínica</h2>
+              <h2 className="text-2xl text-black font-semibold tracking-tight mb-4">No consultório</h2>
               <p>
-                A prática é organizada de forma individualizada e pode integrar recursos da psicologia clínica, neurociência e hipnoterapia quando pertinentes ao caso e compatíveis com os limites técnicos e éticos do exercício profissional.
+                O trabalho inclui psicoterapia e, em situações específicas, recursos complementares ligados à hipnoterapia e à compreensão de aspectos cognitivos e comportamentais. As sessões podem acontecer presencialmente ou por videochamada.
               </p>
             </div>
 
             <div>
               <h2 className="text-2xl text-black font-semibold tracking-tight mb-4">Experiência profissional</h2>
               <p>
-                A trajetória inclui atendimento clínico, experiência institucional junto à Fundação Casa Atibaia, atividades de educação em saúde mental, palestras e produção de conteúdo.
+                Além da clínica, a trajetória inclui experiência institucional junto à Fundação Casa Atibaia, atividades de educação em saúde mental, palestras e produção de conteúdo voltado à psicologia e ao comportamento.
               </p>
             </div>
 
@@ -58,14 +58,14 @@ export default function SobrePage() {
               <h2 className="text-2xl text-black font-semibold tracking-tight mb-4">Formação complementar</h2>
               <ul className="list-disc pl-5 space-y-3">
                 <li>Certificação em hipnoterapia pelo OMNI Training Center.</li>
-                <li>Formação e atualização continuada em temas relacionados à neurociência e comportamento humano.</li>
-                <li>Experiência em contextos clínicos e institucionais.</li>
+                <li>Estudos e atualização continuada em neurociência, comportamento e saúde mental.</li>
+                <li>Vivência profissional em contextos clínicos e institucionais.</li>
               </ul>
             </div>
 
             <div className="pt-8 border-t border-zinc-100">
               <p className="text-sm text-zinc-500">
-                Atendimento presencial em {CURRENT_CITIES_TEXT}, além de modalidade online quando adequada à situação apresentada.
+                Consultas presenciais em {CURRENT_CITIES_TEXT} e atendimento online por videochamada.
               </p>
             </div>
           </div>

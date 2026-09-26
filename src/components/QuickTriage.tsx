@@ -25,7 +25,7 @@ export default function QuickTriage() {
   const period = PERIODS.find((item) => item.id === selectedPeriod)?.label;
   const ready = Boolean(location || period);
   const details = [location ? `Modalidade/local: ${location}` : null, period ? `Período preferido: ${period}` : null].filter(Boolean).join("\n");
-  const customMessage = `Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.${details ? `\n\n${details}` : ""}`;
+  const customMessage = `Olá, Dr. Cristiano. Gostaria de consultar a agenda para uma primeira sessão.${details ? `\n\n${details}` : ""}`;
 
   return (
     <section className="relative overflow-hidden border-y border-zinc-200/60 bg-[#F3F3F1] py-20 sm:py-24 lg:py-32">
@@ -40,20 +40,20 @@ export default function QuickTriage() {
             <div className="pointer-events-none absolute -bottom-20 right-[-3rem] h-72 w-72 rounded-full bg-amber-300/10 blur-[90px]" />
             <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.07]" />
             <div className="relative z-10">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Primeiro contato</span>
-              <h2 className="mt-4 max-w-md text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] min-[390px]:text-3xl sm:mt-5 sm:text-4xl lg:text-[2.85rem]">Encontre a melhor opção de atendimento para você.</h2>
-              <p className="mt-4 max-w-md text-sm font-light leading-relaxed text-white/55 sm:mt-5 sm:text-base">Escolha onde prefere ser atendido e o período mais conveniente. Depois, consulte os horários disponíveis pelo WhatsApp.</p>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Consultar agenda</span>
+              <h2 className="mt-4 max-w-md text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] min-[390px]:text-3xl sm:mt-5 sm:text-4xl lg:text-[2.85rem]">Escolha o local e o período que funcionam melhor para você.</h2>
+              <p className="mt-4 max-w-md text-sm font-light leading-relaxed text-white/55 sm:mt-5 sm:text-base">A seleção entra automaticamente na mensagem do WhatsApp e deixa a consulta de horários mais rápida.</p>
             </div>
             <div className="relative z-10 mt-8 grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 sm:mt-10">
               <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4"><span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Etapa 01</span><strong className="mt-1.5 block text-sm font-medium text-white">Escolha o local</strong></div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4"><span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Etapa 02</span><strong className="mt-1.5 block text-sm font-medium text-white">Indique o período</strong></div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4"><span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Etapa 02</span><strong className="mt-1.5 block text-sm font-medium text-white">Escolha o período</strong></div>
             </div>
           </div>
 
           <div className="bg-white/95 p-5 text-black min-[390px]:p-6 sm:p-9 lg:p-12">
             <div className="grid gap-8 sm:gap-9">
               <fieldset className="min-w-0">
-                <div className="mb-4 flex items-center justify-between gap-3"><legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Onde prefere ser atendido?</legend><span className="shrink-0 font-mono text-[10px] text-zinc-300">01 / 02</span></div>
+                <div className="mb-4 flex items-center justify-between gap-3"><legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Onde prefere fazer a sessão?</legend><span className="shrink-0 font-mono text-[10px] text-zinc-300">01 / 02</span></div>
                 <div className="grid grid-cols-1 gap-2.5 min-[390px]:grid-cols-2 sm:grid-cols-3">
                   {LOCATIONS.map((loc) => {
                     const active = selectedLocation === loc.id;
@@ -63,7 +63,7 @@ export default function QuickTriage() {
               </fieldset>
 
               <fieldset className="min-w-0">
-                <div className="mb-4 flex items-center justify-between gap-3"><legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Período de preferência</legend><span className="shrink-0 font-mono text-[10px] text-zinc-300">02 / 02</span></div>
+                <div className="mb-4 flex items-center justify-between gap-3"><legend className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 sm:text-xs sm:tracking-[0.14em]">Qual período costuma ser melhor?</legend><span className="shrink-0 font-mono text-[10px] text-zinc-300">02 / 02</span></div>
                 <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
                   {PERIODS.map((periodItem) => {
                     const active = selectedPeriod === periodItem.id;
@@ -76,11 +76,11 @@ export default function QuickTriage() {
                 <div className="mb-5 flex min-h-[42px] flex-wrap items-center gap-2">
                   {location ? <span className="max-w-full rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{location}</span> : null}
                   {period ? <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[10px] font-semibold text-zinc-600">{period}</span> : null}
-                  {!ready ? <span className="text-xs font-light text-zinc-400">Selecione uma ou as duas opções para personalizar a mensagem.</span> : null}
+                  {!ready ? <span className="text-xs font-light text-zinc-400">Você pode selecionar uma opção ou já seguir direto para o WhatsApp.</span> : null}
                 </div>
                 <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                   <p className="max-w-xl text-[10px] font-light leading-relaxed text-zinc-400">{FIRST_CONTACT_PRIVACY_NOTE}</p>
-                  <a href={buildWhatsAppLink(customMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary w-full shrink-0 px-7 py-3.5 text-center text-xs md:w-auto">Consultar horários <span className="ml-2" aria-hidden="true">↗</span></a>
+                  <a href={buildWhatsAppLink(customMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary w-full shrink-0 px-7 py-3.5 text-center text-xs md:w-auto">Ver horários no WhatsApp <span className="ml-2" aria-hidden="true">↗</span></a>
                 </div>
               </div>
             </div>

@@ -8,11 +8,11 @@ import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 import { FIRST_CONTACT_PRIVACY_NOTE } from "@/lib/site-policy";
 
 const CONTACT_REASONS = [
-  "Informações sobre consulta",
-  "Verificar disponibilidade de agenda",
-  "Informações sobre atendimento online",
-  "Informações sobre atendimento presencial",
-  "Outro esclarecimento inicial",
+  "Quero marcar a primeira consulta",
+  "Quero consultar horários",
+  "Prefiro atendimento online",
+  "Quero saber sobre uma unidade presencial",
+  "Tenho outra dúvida",
 ];
 
 export default function ContatoPage() {
@@ -21,7 +21,7 @@ export default function ContatoPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const formattedMsg = `Olá, Dr. Cristiano. Meu nome é ${name}. Gostaria de ${contactReason.toLowerCase()}.`;
+    const formattedMsg = `Olá, Dr. Cristiano. Meu nome é ${name}. ${contactReason}.`;
     window.open(buildWhatsAppLink(formattedMsg), "_blank", "noopener,noreferrer");
   };
 
@@ -41,12 +41,12 @@ export default function ContatoPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="editorial-label">Contato e agendamento</span>
+              <span className="editorial-label">Contato</span>
               <h1 className="mt-4 text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-black sm:text-5xl md:text-7xl">
-                Vamos <span className="text-zinc-400">conversar.</span>
+                Fale diretamente com o <span className="text-zinc-400">consultório.</span>
               </h1>
               <p className="mb-10 mt-6 max-w-lg text-base font-light leading-relaxed text-zinc-600 sm:text-lg">
-                Tire dúvidas sobre o atendimento, consulte modalidades disponíveis e verifique horários para uma primeira consulta.
+                Use o WhatsApp para consultar horários, escolher entre presencial e online ou tirar uma dúvida antes de marcar.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
@@ -77,10 +77,10 @@ export default function ContatoPage() {
               className="premium-card overflow-hidden rounded-[30px] bg-white/85"
             >
               <div className="border-b border-zinc-200/80 bg-zinc-950 px-6 py-6 text-white sm:px-8">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/40">Primeiro contato</span>
-                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">Como podemos ajudar?</h2>
+                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/40">Mensagem rápida</span>
+                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">Já deixe o assunto pronto.</h2>
                 <p className="mt-2 max-w-xl text-xs font-light leading-relaxed text-white/55">
-                  Informe seu nome e o assunto principal para continuar pelo WhatsApp.
+                  Preencha seu nome, escolha o motivo do contato e abra a conversa no WhatsApp.
                 </p>
               </div>
 
@@ -95,12 +95,12 @@ export default function ContatoPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 text-sm outline-none transition-all focus:border-black focus:ring-1 focus:ring-black"
-                    placeholder="Como podemos chamar você?"
+                    placeholder="Digite seu nome"
                   />
                 </div>
 
                 <fieldset>
-                  <legend className="mb-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-500">Assunto</legend>
+                  <legend className="mb-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-500">Motivo do contato</legend>
                   <div className="grid gap-2 sm:grid-cols-2">
                     {CONTACT_REASONS.map((reason, index) => {
                       const active = contactReason === reason;
@@ -129,7 +129,7 @@ export default function ContatoPage() {
                 </div>
 
                 <button type="submit" className="btn-primary w-full rounded-2xl py-3.5 text-xs">
-                  Continuar no WhatsApp <span className="ml-2" aria-hidden="true">↗</span>
+                  Abrir conversa no WhatsApp <span className="ml-2" aria-hidden="true">↗</span>
                 </button>
               </form>
             </motion.div>

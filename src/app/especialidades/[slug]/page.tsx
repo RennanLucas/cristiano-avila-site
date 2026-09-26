@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SPECIALTIES_DATA, CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
+import { SPECIALTY_COPY } from "@/data/specialty-copy";
 import { CURRENT_UNITS } from "@/data/units";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,8 +18,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const specialty = SPECIALTIES_DATA.find((s) => s.slug === params.slug && isPublicSpecialty(s.id));
   if (!specialty) return {};
 
+  const copy = SPECIALTY_COPY[specialty.id];
   const title = `${specialty.title} | Atendimento psicológico`;
-  const description = specialty.shortDesc.slice(0, 155);
+  const description = (copy?.shortDesc ?? specialty.shortDesc).slice(0, 155);
   const url = `${SITE_URL}/especialidades/${specialty.slug}`;
 
   return {
@@ -30,11 +32,17 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 export default function SpecialtyPage({ params }: { params: { slug: string } }) {
-  const specialty = SPECIALTIES_DATA.find((s) => s.slug === params.slug && isPublicSpecialty(s.id));
-  if (!specialty) notFound();
+  const baseSpecialty = SPECIALTIES_DATA.find((s) => s.slug === params.slug && isPublicSpecialty(s.id));
+  if (!baseSpecialty) notFound();
 
-  const otherSpecialties = SPECIALTIES_DATA.filter((s) => s.slug !== specialty.slug && isPublicSpecialty(s.id)).slice(0, 3);
-  const whatsappMessage = `Olá, Dr. Cristiano. Li a página sobre ${specialty.title} e gostaria de verificar a disponibilidade para uma consulta.`;
+  const copy = SPECIALTY_COPY[baseSpecialty.id];
+  const specialty = { ...baseSpecialty, ...(copy ?? {}) };
+  const summary = copy?.summary ?? baseSpecialty.shortDesc;
+  const otherSpecialties = SPECIALTIES_DATA
+    .filter((s) => s.slug !== specialty.slug && isPublicSpecialty(s.id))
+    .slice(0, 3)
+    .map((item) => ({ ...item, ...(SPECIALTY_COPY[item.id] ?? {}) }));
+  const whatsappMessage = `Olá, Dr. Cristiano. Li a página sobre ${specialty.title} e gostaria de consultar a disponibilidade para uma sessão.`;
   const currentCities = CURRENT_UNITS.map((unit) => unit.city).join(", ");
 
   return (
@@ -58,7 +66,7 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
           <p className="mb-9 max-w-3xl text-base font-light leading-relaxed text-zinc-600 sm:text-lg">{specialty.shortDesc}</p>
 
           <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-            <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary px-7 py-3.5 text-center shadow-apple">Ver disponibilidade</a>
+            <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary px-7 py-3.5 text-center shadow-apple">Consultar horários</a>
             <Link href="/#especialidades" className="btn-outline px-7 py-3.5 text-center">Ver outras opções</Link>
           </div>
         </div>
@@ -75,29 +83,27 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
                     {specialty.num}
                   </div>
                   <div>
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">Acompanhamento individualizado</span>
-                    <p className="mt-3 text-base font-light leading-relaxed text-white/75">
-                      Cada acompanhamento é conduzido de forma individual, considerando a história, o contexto, as necessidades e os objetivos definidos ao longo do processo terapêutico.
-                    </p>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">Em foco</span>
+                    <p className="mt-3 text-base font-light leading-relaxed text-white/75">{summary}</p>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-6 text-base font-light leading-relaxed text-zinc-600 sm:text-lg">
-                <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">Como o acompanhamento pode ser conduzido</h2>
+                <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">Como essa frente pode ser trabalhada</h2>
                 {specialty.fullDesc.map((paragraph, idx) => <p key={idx}>{paragraph}</p>)}
               </div>
 
               <div className="grid gap-8 border-t border-zinc-100 pt-8 sm:grid-cols-2">
                 <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
-                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Demandas que podem ser avaliadas</h3>
+                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Situações que podem chegar à sessão</h3>
                   <ul className="space-y-3">
                     {specialty.indications.map((item, i) => <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-600"><span aria-hidden="true">•</span><span>{item}</span></li>)}
                   </ul>
                 </div>
 
                 <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
-                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Objetivos do acompanhamento</h3>
+                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Aspectos que podem ser trabalhados</h3>
                   <ul className="space-y-3">
                     {specialty.benefits.map((item, i) => <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-600"><span aria-hidden="true">•</span><span>{item}</span></li>)}
                   </ul>
@@ -119,12 +125,12 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
                 </div>
 
                 <div className="space-y-3 border-t border-zinc-200 pt-4 text-xs text-zinc-600">
-                  <p><strong className="text-black">Modalidade:</strong> presencial e online</p>
-                  <p><strong className="text-black">Presencial:</strong> {currentCities}</p>
-                  <p><strong className="text-black">Privacidade:</strong> atendimento sujeito ao dever de sigilo profissional e às normas aplicáveis.</p>
+                  <p><strong className="text-black">Formato:</strong> presencial e online</p>
+                  <p><strong className="text-black">Consultórios:</strong> {currentCities}</p>
+                  <p><strong className="text-black">Contato:</strong> agenda e dúvidas pelo WhatsApp</p>
                 </div>
 
-                <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 block w-full py-3 text-center text-xs">Falar sobre disponibilidade</a>
+                <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 block w-full py-3 text-center text-xs">Consultar disponibilidade</a>
               </div>
             </aside>
           </div>
