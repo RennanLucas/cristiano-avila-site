@@ -19,7 +19,6 @@
       }
     ],
     "paths": {
-      "@/data/content": ["./src/data/contact-content.ts"],
       "@/*": ["./src/*"]
     }
   },
