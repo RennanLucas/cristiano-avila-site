@@ -148,6 +148,41 @@
   animation: border-beam var(--duration) linear infinite;
 }
 
+@media (max-width: 767px) {
+  .btn-primary::after {
+    display: none;
+  }
+
+  .aurora-orb,
+  .floating-card,
+  .animate-border-beam {
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  .premium-card,
+  .premium-glass,
+  .btn-outline {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .premium-card {
+    background: rgba(255,255,255,0.94);
+    transition-duration: 180ms;
+  }
+
+  .premium-card:hover {
+    transform: none;
+    box-shadow: 0 18px 55px rgba(20,20,20,0.07), inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+
+  .premium-glass {
+    background: linear-gradient(135deg, rgba(255,255,255,0.97), rgba(255,255,255,0.90));
+    box-shadow: 0 18px 48px rgba(20,20,20,0.08), inset 0 1px 0 rgba(255,255,255,0.95);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 

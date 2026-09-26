@@ -12,13 +12,15 @@ export default function HeroVideoBackground({ children }: HeroVideoBackgroundPro
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const desktopLikeViewport = window.matchMedia("(min-width: 768px)").matches;
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
     const saveData = Boolean(connection?.saveData);
     const slowConnection = connection?.effectiveType === "2g" || connection?.effectiveType === "slow-2g";
 
-    if (!reducedMotion && !saveData && !slowConnection) {
-      setCanAnimate(true);
-    }
+    if (!desktopLikeViewport || reducedMotion || saveData || slowConnection) return;
+
+    const timer = window.setTimeout(() => setCanAnimate(true), 300);
+    return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function HeroVideoBackground({ children }: HeroVideoBackgroundPro
 
   return (
     <div className="relative w-full overflow-hidden bg-white">
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         {canAnimate && (
           <video
             ref={videoRef}
@@ -36,9 +38,9 @@ export default function HeroVideoBackground({ children }: HeroVideoBackgroundPro
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="none"
             poster="/videos/hero-clouds-poster.jpg"
-            className="w-full h-full object-cover opacity-[0.13]"
+            className="h-full w-full object-cover opacity-[0.13]"
           >
             <source src="/videos/hero-clouds.webm" type="video/webm" />
             <source src="/videos/hero-clouds.mp4" type="video/mp4" />
