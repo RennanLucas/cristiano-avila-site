@@ -2,94 +2,102 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
+import { buildWhatsAppLink } from "@/data/content";
+
+const PRINCIPLES = [
+  {
+    number: "01",
+    label: "Técnica",
+    title: "Planejamento individualizado",
+    text: "A condução é ajustada ao contexto e às necessidades apresentadas em cada acompanhamento.",
+    dark: false,
+  },
+  {
+    number: "02",
+    label: "Ética",
+    title: "Escuta qualificada e sigilo",
+    text: "O atendimento observa o Código de Ética Profissional e a legislação aplicável à proteção de dados.",
+    dark: true,
+  },
+  {
+    number: "03",
+    label: "Processo",
+    title: "Autonomia e compreensão",
+    text: "O acompanhamento busca ampliar repertório, compreensão e recursos para lidar com diferentes situações da vida.",
+    dark: false,
+  },
+];
 
 export default function Intro() {
   return (
-    <section className="py-24 lg:py-32 bg-white relative overflow-hidden border-t border-zinc-100">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
-          {/* Left Text Column (7 cols) */}
+    <section className="relative overflow-hidden border-t border-zinc-100 bg-white py-24 lg:py-32">
+      <div className="pointer-events-none absolute right-[-10rem] top-24 h-80 w-80 rounded-full bg-zinc-100 blur-[110px]" />
+      <div className="pointer-events-none absolute bottom-0 left-[-8rem] h-72 w-72 rounded-full bg-amber-50 blur-[100px]" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="lg:col-span-7 space-y-8"
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-8 lg:col-span-6"
           >
-            <div className="space-y-3">
-              <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-600 uppercase mb-3">
-                Uma Abordagem Integrada
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black leading-[1.15]">
-                Cada pessoa possui uma história única.{" "}
-                <span className="text-zinc-400 block sm:inline">
-                  O tratamento também deve ser individual.
-                </span>
+            <div>
+              <span className="editorial-label">Atendimento individualizado</span>
+              <h2 className="mt-4 text-3xl font-semibold leading-[1.08] tracking-[-0.045em] text-black sm:text-4xl lg:text-5xl">
+                Cada história pede uma escuta diferente.
               </h2>
-            </div>
-
-            <div className="space-y-5 text-textMuted text-base lg:text-lg leading-relaxed font-light">
-              <p>
-                O processo terapêutico parte da compreensão aprofundada das experiências, emoções, comportamentos e particularidades de cada pessoa. Não existem fórmulas prontas para dores humanas singulares.
-              </p>
-              <p>
-                Por meio da integração entre <strong className="text-black font-medium">psicoterapia clínica, neurociência aplicada e hipnoterapia</strong>, estruturamos caminhos seguros e práticos para identificar as origens do sofrimento, reestruturar padrões limitantes e promover transformações duradouras.
+              <p className="mt-5 max-w-xl text-lg font-light leading-relaxed text-zinc-500">
+                O acompanhamento não parte de fórmulas prontas. Ele é construído a partir da pessoa, do contexto e do momento de vida.
               </p>
             </div>
 
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <Link
-                href="/sobre"
-                className="btn-outline text-xs py-3 px-6 text-center"
-              >
-                Conheça a metodologia completa
-              </Link>
-              <a
-                href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de entender mais sobre o método de atendimento.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary text-xs py-3 px-6 text-center"
-              >
-                Falar com a equipe
+            <div className="max-w-xl space-y-5 text-base font-light leading-relaxed text-zinc-600 lg:text-lg">
+              <p>
+                O processo terapêutico considera experiências, emoções, comportamentos e circunstâncias atuais, respeitando a singularidade de cada demanda.
+              </p>
+              <p>
+                Quando pertinente, o trabalho pode integrar recursos da <strong className="font-medium text-black">psicologia clínica, neurociência e hipnoterapia</strong>, sempre dentro dos limites técnicos, éticos e profissionais.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-stretch gap-3 pt-2 sm:flex-row sm:items-center">
+              <Link href="/sobre" className="btn-outline px-6 py-3 text-center text-xs">Conhecer a abordagem</Link>
+              <a href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de entender melhor como funciona o atendimento.")} target="_blank" rel="noopener noreferrer" className="btn-primary px-6 py-3 text-center text-xs">
+                Tirar uma dúvida
               </a>
             </div>
           </motion.div>
 
-          {/* Right Highlights Column (5 cols) */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-            className="lg:col-span-5 space-y-4"
-          >
-            <div className="p-7 rounded-3xl bg-surface border border-zinc-200/80 shadow-apple">
-              <span className="text-xs font-mono font-bold text-zinc-400 block mb-2">01 / CIÊNCIA</span>
-              <h3 className="text-lg font-bold text-black tracking-tight mb-2">Base em Evidências</h3>
-              <p className="text-xs text-textMuted leading-relaxed font-light">
-                Intervenções validadas pela neurociência e psicologia contemporânea, sem promessas milagrosas.
-              </p>
-            </div>
+          <div className="relative lg:col-span-6 lg:min-h-[560px]">
+            <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-100 lg:block" />
+            <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-100 lg:block" />
 
-            <div className="p-7 rounded-3xl bg-surface border border-zinc-200/80 shadow-apple">
-              <span className="text-xs font-mono font-bold text-zinc-400 block mb-2">02 / HUMANIZAÇÃO</span>
-              <h3 className="text-lg font-bold text-black tracking-tight mb-2">Escuta Qualificada & Sigilo</h3>
-              <p className="text-xs text-textMuted leading-relaxed font-light">
-                Ambiente livre de julgamentos morais, com acolhimento rigoroso sob o código de ética do CFP.
-              </p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:block">
+              {PRINCIPLES.map((item, idx) => (
+                <motion.article
+                  key={item.number}
+                  initial={{ opacity: 0, y: 34, rotate: idx === 0 ? -2 : idx === 2 ? 2 : 0 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                  viewport={{ once: true, margin: "-70px" }}
+                  transition={{ duration: 0.62, delay: idx * 0.13, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -8, rotate: idx === 0 ? -1 : idx === 2 ? 1 : 0 }}
+                  className={`${item.dark ? "premium-dark text-white" : "premium-glass text-black"} relative overflow-hidden rounded-[28px] p-7 sm:p-8 lg:absolute lg:w-[68%] ${idx === 0 ? "lg:left-0 lg:top-0" : idx === 1 ? "lg:right-0 lg:top-[31%]" : "lg:bottom-0 lg:left-[7%]"}`}
+                >
+                  <div className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full border ${item.dark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200/70 bg-white/45"}`} />
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className={`text-[10px] font-mono font-semibold ${item.dark ? "text-white/35" : "text-zinc-400"}`}>{item.number}</span>
+                      <span className={`text-[9px] font-semibold uppercase tracking-[0.17em] ${item.dark ? "text-white/40" : "text-zinc-400"}`}>{item.label}</span>
+                    </div>
+                    <h3 className={`mt-8 text-xl font-semibold tracking-[-0.025em] ${item.dark ? "text-white" : "text-black"}`}>{item.title}</h3>
+                    <p className={`mt-3 text-sm font-light leading-relaxed ${item.dark ? "text-white/60" : "text-zinc-600"}`}>{item.text}</p>
+                  </div>
+                </motion.article>
+              ))}
             </div>
-
-            <div className="p-7 rounded-3xl bg-surface border border-zinc-200/80 shadow-apple">
-              <span className="text-xs font-mono font-bold text-zinc-400 block mb-2">03 / RESULTADOS</span>
-              <h3 className="text-lg font-bold text-black tracking-tight mb-2">Autonomia Emocional</h3>
-              <p className="text-xs text-textMuted leading-relaxed font-light">
-                O objetivo não é criar dependência da terapia, mas instrumentalizar você para assumir o controle da própria vida.
-              </p>
-            </div>
-          </motion.div>
-
+          </div>
         </div>
       </div>
     </section>

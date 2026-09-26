@@ -3,156 +3,111 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { motion, Variants } from "framer-motion";
-import { UNITS_DATA, CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
-import MagneticButton from "@/components/MagneticButton";
+import { CURRENT_UNITS } from "@/data/units";
+import { buildWhatsAppLink } from "@/data/content";
 
 const container: Variants = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15
-    }
-  }
+  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 const itemAnim: Variants = {
-  hidden: { opacity: 0, y: 25 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export default function UnidadesPage() {
   return (
-    <main className="min-h-screen bg-[#FAFAFA] text-[#111111] overflow-x-hidden selection:bg-black selection:text-white">
+    <main className="min-h-screen overflow-x-hidden bg-[#FAFAFA] text-[#111111] selection:bg-black selection:text-white">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="pt-36 sm:pt-44 pb-16 px-6 relative">
-        <div className="max-w-7xl mx-auto">
+
+      <section className="relative overflow-hidden px-6 pb-16 pt-36 sm:pt-44">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_15%,rgba(0,0,0,0.055),transparent_32%)]" />
+        <div className="relative z-10 mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-3xl"
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200/80 text-[11px] font-semibold tracking-wider uppercase text-zinc-600 mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Atendimento Presencial Especializado
-            </div>
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-black leading-[1.08] mb-6">
-              Consultórios <br className="hidden sm:inline" />
-              <span className="text-zinc-400 font-light">físicos de excelência.</span>
+            <span className="inline-flex rounded-full border border-zinc-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500 shadow-sm">
+              Atendimento presencial
+            </span>
+            <h1 className="mt-6 text-4xl font-semibold leading-[1.04] tracking-[-0.04em] text-black sm:text-6xl md:text-7xl">
+              Atendimento presencial em quatro cidades.
             </h1>
-            <p className="text-lg sm:text-xl text-zinc-600 font-light leading-relaxed max-w-2xl">
-              Ambientes privativos cuidadosamente projetados para garantir sigilo rigoroso, isolamento acústico e acolhimento clínico de alto padrão em 4 cidades estratégicas.
+            <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-zinc-600 sm:text-xl">
+              Encontre o endereço da unidade mais conveniente, consulte o mapa e verifique a disponibilidade de horários para atendimento.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Units Grid */}
-      <section className="pb-28 px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="grid lg:grid-cols-2 gap-8 lg:gap-10"
-          >
-            {UNITS_DATA.map((unit) => (
+      <section className="px-6 pb-28">
+        <div className="mx-auto max-w-7xl">
+          <motion.div variants={container} initial="hidden" animate="show" className="grid gap-7 lg:grid-cols-2">
+            {CURRENT_UNITS.map((unit, index) => (
               <motion.article
                 key={unit.id}
                 id={unit.id}
                 variants={itemAnim}
-                className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-zinc-200/70 shadow-sm hover:shadow-apple transition-all duration-500 scroll-mt-28"
+                whileHover={{ y: -4 }}
+                className="group scroll-mt-28 overflow-hidden rounded-[28px] border border-zinc-200 bg-white shadow-sm transition-shadow hover:shadow-[0_28px_70px_rgba(0,0,0,0.09)]"
               >
-                {/* Clinic Photo */}
-                <div className="relative h-72 sm:h-80 w-full overflow-hidden bg-zinc-900">
-                  <img 
-                    src={unit.imageUrl}
-                    alt={`Consultório Dr. Cristiano Ávila em ${unit.city} - ${unit.title}`}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                <div className="relative h-64 overflow-hidden border-b border-zinc-200 bg-zinc-950 sm:h-72">
+                  <iframe
+                    title={`Mapa da unidade de ${unit.city}`}
+                    src={unit.mapEmbedUrl}
+                    className="absolute inset-0 h-full w-full border-0 grayscale-[0.35] contrast-[0.96] transition duration-700 group-hover:grayscale-0"
                     loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  
-                  {/* Badge on Photo */}
-                  <div className="absolute top-5 left-5">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/90 backdrop-blur-md text-black shadow-sm">
-                      {unit.city} • {unit.state}
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-5 left-5 right-5">
-                    <p className="text-xs uppercase tracking-widest text-zinc-300 font-medium mb-1">
-                      {unit.complement || "Consultório Clínico"}
-                    </p>
-                    <h2 className="text-2xl font-bold text-white tracking-tight">
-                      {unit.title}
-                    </h2>
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                  <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 text-white">
+                    <div>
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/65">Unidade {String(index + 1).padStart(2, "0")}</span>
+                      <h2 className="mt-1 text-2xl font-semibold tracking-tight">{unit.city}</h2>
+                    </div>
+                    <span className="rounded-full border border-white/20 bg-black/30 px-3 py-1 text-[10px] font-medium backdrop-blur">Presencial</span>
                   </div>
                 </div>
 
-                {/* Details Content */}
-                <div className="p-7 sm:p-9 flex-1 flex flex-col justify-between">
-                  <div>
-                    {unit.tagline && (
-                      <p className="text-sm font-medium text-zinc-700 mb-6 pb-5 border-b border-zinc-100">
-                        {unit.tagline}
+                <div className="p-7 sm:p-8">
+                  <h3 className="text-xl font-semibold tracking-tight text-black">{unit.title}</h3>
+                  <p className="mt-2 text-sm font-light leading-relaxed text-zinc-600">{unit.tagline}</p>
+
+                  <div className="mt-7 grid gap-5 border-t border-zinc-100 pt-6 sm:grid-cols-2">
+                    <div>
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400">Endereço</span>
+                      <p className="mt-1.5 text-sm leading-relaxed text-zinc-700">
+                        {unit.address}
+                        {unit.complement ? <><br />{unit.complement}</> : null}
+                        {unit.neighborhood ? <><br />{unit.neighborhood}</> : null}
+                        <br />{unit.city}/{unit.state} • CEP {unit.zip}
                       </p>
-                    )}
-
-                    <div className="space-y-4 mb-8 text-sm text-zinc-600 font-light">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center shrink-0 mt-0.5 text-zinc-800">
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <strong className="block text-zinc-900 font-medium">Endereço</strong>
-                          <span>{unit.address} - {unit.neighborhood}</span>
-                          <span className="block text-xs text-zinc-400 mt-0.5">CEP {unit.zip}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center shrink-0 mt-0.5 text-zinc-800">
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <strong className="block text-zinc-900 font-medium">Horário de Atendimento</strong>
-                          <span>{unit.hours}</span>
-                          <span className="block text-xs text-emerald-600 font-medium mt-0.5">Consultas com hora marcada</span>
-                        </div>
-                      </div>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400">Agenda</span>
+                      <p className="mt-1.5 text-sm text-zinc-700">{unit.availability}</p>
                     </div>
                   </div>
 
-                  {/* Actions */}
-                  <div className="pt-4 border-t border-zinc-100 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+                  <div className="mt-7 flex flex-col gap-3 border-t border-zinc-100 pt-6 sm:flex-row">
                     <a
-                      href={buildWhatsAppLink(`Olá, Dr. Cristiano! Gostaria de informações sobre agendamento presencial na unidade de ${unit.city} (${unit.title}).`)}
+                      href={buildWhatsAppLink(`Olá, Dr. Cristiano. Gostaria de verificar disponibilidade de atendimento presencial em ${unit.city}.`)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary text-xs py-3 px-5 text-center flex-1 justify-center"
+                      className="btn-primary flex-1 px-5 py-3 text-center text-xs"
                     >
-                      Agendar em {unit.city}
+                      Consultar horários
                     </a>
-                    
                     <a
-                      href={unit.mapsExternalLink || `https://maps.google.com/?q=${encodeURIComponent(unit.address + ", " + unit.city)}`}
+                      href={unit.mapsExternalLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-outline text-xs py-3 px-5 text-center inline-flex items-center justify-center gap-1.5"
+                      className="btn-outline px-5 py-3 text-center text-xs"
                     >
-                      <span>Abrir no Mapa</span>
-                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
+                      Abrir no mapa
                     </a>
                   </div>
                 </div>
@@ -160,39 +115,27 @@ export default function UnidadesPage() {
             ))}
           </motion.div>
 
-          {/* Online Alternative Banner */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-16 bg-gradient-to-br from-zinc-900 to-black text-white rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-apple"
+            className="mt-16 overflow-hidden rounded-[30px] bg-black p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:p-12"
           >
-            <div className="max-w-xl text-center md:text-left">
-              <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-3">
-                Modalidade Online Internacional
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
-                Não está próximo de uma unidade física?
-              </h3>
-              <p className="text-sm text-zinc-400 font-light leading-relaxed">
-                O Dr. Cristiano Ávila realiza consultas por videoconferência em ambiente criptografado para todo o Brasil e brasileiros no exterior, com a mesma eficácia e rigor clínico.
-              </p>
-            </div>
-
-            <div className="shrink-0 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+            <div className="grid items-end gap-8 md:grid-cols-[1fr_auto]">
+              <div className="max-w-2xl">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45">Atendimento online</span>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Prefere atendimento online?</h3>
+                <p className="mt-3 text-sm font-light leading-relaxed text-white/65">
+                  O atendimento psicológico online oferece praticidade para quem busca acompanhamento à distância. Consulte a disponibilidade e tire suas dúvidas sobre essa modalidade.
+                </p>
+              </div>
               <a
-                href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de agendar uma consulta psicológica na modalidade Online.")}
+                href={buildWhatsAppLink("Olá, Dr. Cristiano. Gostaria de informações sobre atendimento psicológico online.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3.5 rounded-full bg-white text-black font-semibold text-xs text-center hover:bg-zinc-200 transition-colors shadow-sm"
+                className="rounded-full bg-white px-6 py-3.5 text-center text-xs font-semibold text-black transition-transform hover:-translate-y-0.5"
               >
-                Agendar Consulta Online
-              </a>
-              <a
-                href="/especialidades/psicologia-sem-fronteiras"
-                className="px-6 py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold text-xs text-center hover:bg-white/20 transition-colors"
-              >
-                Saiba como funciona
+                Consultar atendimento online
               </a>
             </div>
           </motion.div>

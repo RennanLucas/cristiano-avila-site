@@ -2,10 +2,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { CLINIC_CONTACT } from "@/data/content";
+import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export const metadata = {
-  title: "Política de Privacidade & Sigilo Clínico | Cristiano Ávila",
-  description: "Diretrizes de proteção de dados (LGPD) e sigilo profissional absoluto conforme o Código de Ética do Psicólogo (CFP).",
+  title: "Política de Privacidade | Cristiano Ávila",
+  description: "Informações sobre privacidade, LGPD, dados pessoais e sigilo profissional no site de Cristiano Ávila.",
 };
 
 export default function PoliticaPrivacidadePage() {
@@ -15,114 +16,76 @@ export default function PoliticaPrivacidadePage() {
 
       <section className="pt-40 pb-24 px-6">
         <div className="max-w-4xl mx-auto">
-          {/* Breadcrumb */}
-          <Link
-            href="/"
-            className="inline-flex items-center text-xs font-semibold text-zinc-500 hover:text-black transition-colors mb-10"
-          >
-            <svg className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Voltar ao Início
+          <Link href="/" className="inline-flex items-center text-xs font-semibold text-zinc-500 hover:text-black transition-colors mb-10">
+            ← Voltar ao início
           </Link>
 
-          <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-600 uppercase mb-4">
-            Conformidade LGPD & Código de Ética CFP
+          <span className="inline-block text-[11px] font-semibold tracking-[0.16em] text-zinc-500 uppercase mb-4">
+            Privacidade • LGPD • Ética profissional
           </span>
 
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-black mb-6">
-            Política de Privacidade & <br />
-            <span className="text-zinc-400">Sigilo Clínico.</span>
+          <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-black mb-6">
+            Política de Privacidade
           </h1>
 
-          <p className="text-base sm:text-lg text-textMuted font-light leading-relaxed mb-12">
-            Esta política estabelece os compromissos de confidencialidade, tratamento ético de dados e proteção da privacidade de pacientes e visitantes, em conformidade com a <strong>Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD)</strong> e o <strong>Código de Ética Profissional do Psicólogo (CFP)</strong>.
+          <p className="text-base sm:text-lg text-zinc-600 font-light leading-relaxed mb-12">
+            Esta página explica, em linguagem clara, como dados pessoais podem ser tratados nos canais digitais vinculados ao atendimento de <strong>{CLINIC_CONTACT.fullName}</strong>, Psicólogo • <strong>{PROFESSIONAL_REGISTRATION}</strong>.
           </p>
 
           <div className="space-y-10 text-zinc-700 font-light leading-relaxed text-sm sm:text-base border-t border-zinc-100 pt-10">
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-black tracking-tight mb-3">
-                1. Sigilo Profissional e Confidencialidade
-              </h2>
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">1. Sigilo profissional</h2>
+              <p>
+                Informações obtidas no contexto do atendimento psicológico são tratadas conforme o Código de Ética Profissional do Psicólogo e as normas aplicáveis. O dever de sigilo possui hipóteses e limites previstos nas normas profissionais e na legislação; quando houver fundamento para compartilhamento, devem ser observados necessidade, proporcionalidade e o menor prejuízo possível.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">2. Dados usados no primeiro contato</h2>
               <p className="mb-3">
-                O atendimento psicológico realizado pelo <strong>Dr. Cristiano Ávila da Silva</strong> é estritamente regido pelo Código de Ética Profissional do Psicólogo (Resolução CFP nº 010/2005). Todas as informações compartilhadas em consultas — presenciais ou online — são resguardadas por <strong>sigilo profissional absoluto</strong>.
+                O site direciona o visitante para canais como WhatsApp, telefone e e-mail. Para agendamento, recomenda-se compartilhar inicialmente apenas os dados necessários à organização do contato, como nome, modalidade desejada, cidade e preferência de horário.
               </p>
               <p>
-                Os registros e anotações clínicas (prontuários) são mantidos em ambiente seguro, protegido por senhas e criptografia, sem acesso a terceiros, exceto nos casos estritos previstos em lei ou ordem judicial fundamentada.
+                Para sua privacidade, evite enviar detalhes clínicos sensíveis em mensagens iniciais. Informações de saúde devem ser tratadas apenas quando necessárias e em contexto apropriado.
               </p>
-            </div>
+            </section>
 
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-black tracking-tight mb-3">
-                2. Coleta e Finalidade de Dados no Site
-              </h2>
-              <p className="mb-3">
-                Quando você utiliza os formulários ou canais de contato deste site (WhatsApp, telefone, e-mail), coletamos apenas as informações voluntariamente fornecidas por você:
-              </p>
-              <ul className="list-disc pl-5 space-y-2 mb-3">
-                <li><strong>Nome completo:</strong> para identificação no agendamento e acolhimento;</li>
-                <li><strong>Número de WhatsApp / telefone:</strong> para confirmação de horários e esclarecimento de dúvidas;</li>
-                <li><strong>Preferência de modalidade e horário:</strong> para viabilizar o alinhamento da agenda clínica.</li>
-              </ul>
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">3. Atendimento mediado por tecnologias</h2>
               <p>
-                Esses dados são utilizados <strong>exclusivamente</strong> para comunicação direta com a nossa equipe clínica. Jamais comercializamos, cedemos ou compartilhamos dados com terceiros para fins publicitários.
+                O atendimento psicológico por tecnologias digitais deve observar as regras profissionais vigentes do Conselho Federal de Psicologia, incluindo a Resolução CFP nº 9/2024 e eventuais normas posteriores que venham a substituí-la ou complementá-la.
               </p>
-            </div>
+            </section>
 
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-black tracking-tight mb-3">
-                3. Atendimento Psicológico Online e Segurança
-              </h2>
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">4. Cookies e armazenamento local</h2>
               <p>
-                As sessões online são conduzidas através de plataformas criptografadas que atendem integralmente à <strong>Resolução CFP nº 11/2018</strong>. Recomenda-se que o paciente participe das sessões em ambiente privativo, utilizando fones de ouvido e rede de internet segura para garantir a integridade da confidencialidade.
+                O site pode utilizar tecnologias estritamente necessárias para funcionamento, segurança e armazenamento de preferências, como o registro local da escolha feita no aviso de privacidade. Caso ferramentas adicionais de métricas ou publicidade sejam instaladas futuramente, esta política e o mecanismo de consentimento deverão ser atualizados antes da ativação.
               </p>
-            </div>
+            </section>
 
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-black tracking-tight mb-3">
-                4. Cookies e Tecnologias de Navegação
-              </h2>
-              <p>
-                Este site utiliza cookies essenciais para garantir o carregamento correto de estilos, vídeos de fundo, segurança e preferências de navegação. Não utilizamos cookies invasivos de rastreamento transacional.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-black tracking-tight mb-3">
-                5. Seus Direitos (Titular dos Dados)
-              </h2>
-              <p className="mb-3">
-                Nos termos do Art. 18 da LGPD, você possui o direito de:
-              </p>
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">5. Direitos do titular</h2>
+              <p className="mb-3">Nos termos da LGPD, o titular pode solicitar, quando aplicável:</p>
               <ul className="list-disc pl-5 space-y-2">
-                <li>Confirmar a existência de tratamento de seus dados pessoais;</li>
-                <li>Acessar, corrigir ou atualizar seus dados cadastrais;</li>
-                <li>Solicitar a eliminação de dados pessoais que não sejam de guarda obrigatória por exigência legal ou do Conselho Regional de Psicologia.</li>
+                <li>confirmação da existência de tratamento;</li>
+                <li>acesso e correção de dados;</li>
+                <li>informações sobre uso e compartilhamento;</li>
+                <li>eliminação ou anonimização quando cabível, respeitadas obrigações legais e profissionais de guarda.</li>
               </ul>
-            </div>
+            </section>
 
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-black tracking-tight mb-3">
-                6. Canal de Atendimento e Encarregado de Dados
-              </h2>
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">6. Contato sobre privacidade</h2>
               <p>
-                Para quaisquer solicitações, esclarecimentos ou exercício dos seus direitos de privacidade, entre em contato direto pelo e-mail oficial:{" "}
-                <a href={`mailto:${CLINIC_CONTACT.email}`} className="text-black font-semibold underline">
-                  {CLINIC_CONTACT.email}
-                </a>{" "}
-                ou via WhatsApp no número{" "}
-                <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-black font-semibold underline">
-                  {CLINIC_CONTACT.phone}
-                </a>.
+                Solicitações podem ser encaminhadas para <a href={`mailto:${CLINIC_CONTACT.email}`} className="text-black font-semibold underline">{CLINIC_CONTACT.email}</a> ou pelo telefone/WhatsApp <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-black font-semibold underline">{CLINIC_CONTACT.phone}</a>.
               </p>
-            </div>
+            </section>
           </div>
 
-          <div className="mt-16 pt-8 border-t border-zinc-100 flex items-center justify-between text-xs text-textMuted">
-            <span>Última atualização: Setembro de 2026</span>
-            <Link href="/" className="font-semibold text-black hover:underline">
-              Voltar ao Início
-            </Link>
+          <div className="mt-16 pt-8 border-t border-zinc-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-zinc-500">
+            <span>Última atualização: 25 de setembro de 2026</span>
+            <Link href="/" className="font-semibold text-black hover:underline">Voltar ao início</Link>
           </div>
         </div>
       </section>

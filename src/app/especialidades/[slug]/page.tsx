@@ -1,279 +1,146 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import { SPECIALTIES_DATA, CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
+import { CURRENT_UNITS } from "@/data/units";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingDock from "@/components/FloatingDock";
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import MagneticButton from "@/components/MagneticButton";
+import { isPublicSpecialty, PROFESSIONAL_REGISTRATION, SITE_URL } from "@/lib/site-policy";
 
 export function generateStaticParams() {
-  return SPECIALTIES_DATA.map((s) => ({
-    slug: s.slug,
-  }));
+  return SPECIALTIES_DATA.filter((s) => isPublicSpecialty(s.id)).map((s) => ({ slug: s.slug }));
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const specialty = SPECIALTIES_DATA.find((s) => s.slug === params.slug && isPublicSpecialty(s.id));
+  if (!specialty) return {};
+
+  const title = `${specialty.title} | Atendimento psicológico`;
+  const description = specialty.shortDesc.slice(0, 155);
+  const url = `${SITE_URL}/especialidades/${specialty.slug}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: "website", images: [`${SITE_URL}${CLINIC_CONTACT.avatarUrl}`] },
+  };
 }
 
 export default function SpecialtyPage({ params }: { params: { slug: string } }) {
-  const specialty = SPECIALTIES_DATA.find((s) => s.slug === params.slug);
+  const specialty = SPECIALTIES_DATA.find((s) => s.slug === params.slug && isPublicSpecialty(s.id));
+  if (!specialty) notFound();
 
-  if (!specialty) {
-    notFound();
-  }
-
-  // Próximas especialidades para navegação cruzada
-  const otherSpecialties = SPECIALTIES_DATA.filter((s) => s.slug !== specialty.slug).slice(0, 3);
-
-  const whatsappMessage = `Olá, Dr. Cristiano! Li sobre o tratamento de ${specialty.title} no seu site e gostaria de agendar uma consulta.`;
+  const otherSpecialties = SPECIALTIES_DATA.filter((s) => s.slug !== specialty.slug && isPublicSpecialty(s.id)).slice(0, 3);
+  const whatsappMessage = `Olá, Dr. Cristiano. Li a página sobre ${specialty.title} e gostaria de verificar a disponibilidade para uma consulta.`;
+  const currentCities = CURRENT_UNITS.map((unit) => unit.city).join(", ");
 
   return (
-    <main className="min-h-screen bg-white text-[#111111] overflow-x-hidden selection:bg-black selection:text-white pb-20 sm:pb-0">
+    <main className="min-h-screen overflow-x-hidden bg-white pb-20 text-[#111111] selection:bg-black selection:text-white sm:pb-0">
       <Header />
 
-      {/* Hero da Especialidade */}
-      <section className="pt-36 sm:pt-44 pb-16 px-4 sm:px-6 border-b border-zinc-100 bg-gradient-to-b from-zinc-50/50 to-white">
-        <div className="max-w-5xl mx-auto">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs text-zinc-400 mb-8 flex-wrap">
-            <Link href="/" className="hover:text-black transition-colors">
-              Início
-            </Link>
-            <span>/</span>
-            <Link href="/#especialidades" className="hover:text-black transition-colors">
-              Especialidades
-            </Link>
-            <span>/</span>
-            <span className="text-black font-semibold">{specialty.title}</span>
-          </div>
+      <section className="relative overflow-hidden border-b border-zinc-100 bg-gradient-to-b from-zinc-50/80 to-white px-4 pb-16 pt-36 sm:px-6 sm:pt-44">
+        <div className="pointer-events-none absolute right-[8%] top-24 h-64 w-64 rounded-full border border-zinc-200 bg-white/60 shadow-sm" />
+        <div className="pointer-events-none absolute right-[13%] top-36 h-40 w-40 rounded-full border border-zinc-100 bg-zinc-50" />
 
-          <div className="flex items-center gap-3 mb-6">
-            <span className="px-3 py-1 rounded-full bg-zinc-900 text-white text-[11px] font-mono font-bold tracking-wider">
-              {specialty.num}
-            </span>
-            <span className="px-3.5 py-1 rounded-full bg-zinc-100 border border-zinc-200/80 text-[11px] font-bold tracking-widest text-zinc-600 uppercase">
-              {specialty.badge}
-            </span>
-          </div>
+        <div className="relative z-10 mx-auto max-w-5xl">
+          <nav className="mb-8 flex flex-wrap items-center gap-2 text-xs text-zinc-400" aria-label="Breadcrumb">
+            <Link href="/" className="transition-colors hover:text-black">Início</Link><span>/</span>
+            <Link href="/#especialidades" className="transition-colors hover:text-black">Formas de atendimento</Link><span>/</span>
+            <span className="font-semibold text-black">{specialty.title}</span>
+          </nav>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tighter text-black leading-[1.08] mb-4">
-            {specialty.title}
-          </h1>
+          <span className="mb-5 inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">{specialty.badge}</span>
+          <h1 className="mb-4 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-black sm:text-6xl md:text-7xl">{specialty.title}</h1>
+          <p className="mb-6 text-lg font-light leading-relaxed text-zinc-500 sm:text-2xl">{specialty.subtitle}</p>
+          <p className="mb-9 max-w-3xl text-base font-light leading-relaxed text-zinc-600 sm:text-lg">{specialty.shortDesc}</p>
 
-          <p className="text-lg sm:text-2xl text-zinc-500 font-light leading-relaxed mb-6">
-            {specialty.subtitle}
-          </p>
-
-          <p className="text-base sm:text-lg text-textMuted font-light leading-relaxed max-w-3xl mb-10">
-            {specialty.shortDesc}
-          </p>
-
-          {/* Quick CTA */}
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <a
-              href={buildWhatsAppLink(whatsappMessage)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary shadow-apple w-full sm:w-auto text-center flex items-center justify-center gap-2 py-3.5 px-7"
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.675-.839-6.481-2.373l-.388-.322-2.65.889.889-2.65-.322-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
-              </svg>
-              <span>Agendar Avaliação para {specialty.title}</span>
-            </a>
-            <MagneticButton href="/#especialidades" className="w-full sm:w-auto">
-              <div className="btn-outline w-full sm:w-auto text-center py-3.5">
-                Ver Outras Especialidades
-              </div>
-            </MagneticButton>
+          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary px-7 py-3.5 text-center shadow-apple">Ver disponibilidade</a>
+            <Link href="/#especialidades" className="btn-outline px-7 py-3.5 text-center">Ver outras opções</Link>
           </div>
         </div>
       </section>
 
-      {/* Conteúdo Clínico Aprofundado */}
-      <section className="py-20 sm:py-28 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid lg:grid-cols-3 gap-12 sm:gap-16 items-start">
-            
-            {/* Coluna Principal: Texto Clínico */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Imagem de Capa em Alta Resolução */}
-              {specialty.imageUrl && (
-                <div className="relative rounded-3xl overflow-hidden border border-zinc-200/80 shadow-apple aspect-[16/9] mb-10">
-                  <img
-                    src={specialty.imageUrl}
-                    alt={specialty.title}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                  <span className="absolute bottom-4 left-6 text-xs text-white/90 font-medium tracking-wide">
-                    {specialty.title} • Abordagem Baseada em Evidências
-                  </span>
-                </div>
-              )}
-
-              <div className="space-y-6 text-base sm:text-lg text-textMuted font-light leading-relaxed">
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-black">
-                  Como funciona a intervenção terapêutica
-                </h2>
-                {specialty.fullDesc.map((paragraph, idx) => (
-                  <p key={idx} className="leading-relaxed">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-
-              {/* Grid: Indicações vs Benefícios */}
-              <div className="grid sm:grid-cols-2 gap-8 pt-8 border-t border-zinc-100">
-                {/* Indicações */}
-                <div className="bg-zinc-50/80 rounded-2xl p-6 border border-zinc-200/70">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="w-2 h-2 rounded-full bg-amber-500" />
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-black">
-                      Quando é Indicado
-                    </h3>
+      <section className="bg-white py-20 sm:py-28">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="grid items-start gap-12 sm:gap-16 lg:grid-cols-3">
+            <div className="space-y-10 lg:col-span-2">
+              <div className="relative overflow-hidden rounded-[28px] border border-zinc-200 bg-zinc-950 p-7 text-white shadow-[0_24px_70px_rgba(0,0,0,0.10)] sm:p-10">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_34%)]" />
+                <div className="relative z-10 grid gap-8 sm:grid-cols-[auto_1fr] sm:items-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 font-mono text-xl font-semibold text-white/80">
+                    {specialty.num}
                   </div>
-                  <ul className="space-y-3">
-                    {specialty.indications.map((ind, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-600 font-light leading-snug">
-                        <span className="text-emerald-600 font-bold shrink-0 mt-0.5">✓</span>
-                        <span>{ind}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Benefícios */}
-                <div className="bg-zinc-50/80 rounded-2xl p-6 border border-zinc-200/70">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-black">
-                      Resultados Esperados
-                    </h3>
-                  </div>
-                  <ul className="space-y-3">
-                    {specialty.benefits.map((ben, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-600 font-light leading-snug">
-                        <span className="text-black font-bold shrink-0 mt-0.5">★</span>
-                        <span>{ben}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Sidebar Clínica: Informações Práticas */}
-            <div className="space-y-6 lg:sticky lg:top-28">
-              {/* Card do Psicólogo */}
-              <div className="p-6 rounded-3xl bg-zinc-50 border border-zinc-200/80 shadow-apple text-left">
-                <div className="flex items-center gap-3.5 mb-5">
-                  <img
-                    src={CLINIC_CONTACT.avatarUrl}
-                    alt="Cristiano Ávila"
-                    className="w-14 h-14 rounded-2xl object-cover object-top border border-zinc-200 shadow-xs"
-                  />
                   <div>
-                    <h4 className="text-sm font-bold text-black tracking-tight">Cristiano Ávila</h4>
-                    <p className="text-xs text-textMuted font-light">Psicólogo Clínico & Neurocientista</p>
-                    <span className="inline-block text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold mt-1">
-                      CRP SP Ativo
-                    </span>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">Abordagem individualizada</span>
+                    <p className="mt-3 text-base font-light leading-relaxed text-white/75">
+                      O enquadre, a frequência e os recursos utilizados são definidos após avaliação profissional. Esta página é informativa e não representa promessa de resultado ou indicação automática de técnica.
+                    </p>
                   </div>
-                </div>
-
-                <div className="space-y-3 pt-4 border-t border-zinc-200/60 text-xs">
-                  <div className="flex justify-between py-1 border-b border-zinc-100">
-                    <span className="text-zinc-500">Modalidade</span>
-                    <span className="font-semibold text-black">Presencial & Online</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-100">
-                    <span className="text-zinc-500">Duração</span>
-                    <span className="font-semibold text-black">~50 minutos</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-100">
-                    <span className="text-zinc-500">Sigilo Profissional</span>
-                    <span className="font-semibold text-emerald-600">100% Protegido</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-zinc-100">
-                    <span className="text-zinc-500">Reembolso Saúde</span>
-                    <span className="font-semibold text-black">Recibo emitido</span>
-                  </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-zinc-500">Unidades Físicas</span>
-                    <span className="font-semibold text-black">SP, Atibaia, Santos, SBC</span>
-                  </div>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-zinc-200">
-                  <a
-                    href={buildWhatsAppLink(whatsappMessage)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary w-full text-center text-xs py-3 block shadow-sm"
-                  >
-                    Falar no WhatsApp
-                  </a>
                 </div>
               </div>
 
-              {/* Box de Segurança Ética */}
-              <div className="p-5 rounded-2xl bg-white border border-zinc-200/70 text-xs text-zinc-500 leading-relaxed space-y-2">
-                <p className="font-bold text-black flex items-center gap-1.5">
-                  <svg className="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  Atendimento Ético e Seguro
-                </p>
-                <p>
-                  Sessões conduzidas sob o Código de Ética do Conselho Federal de Psicologia e certificações internacionais OMNI.
-                </p>
+              <div className="space-y-6 text-base font-light leading-relaxed text-zinc-600 sm:text-lg">
+                <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">Como o acompanhamento pode ser conduzido</h2>
+                {specialty.fullDesc.map((paragraph, idx) => <p key={idx}>{paragraph}</p>)}
+              </div>
+
+              <div className="grid gap-8 border-t border-zinc-100 pt-8 sm:grid-cols-2">
+                <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
+                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Demandas que podem ser avaliadas</h3>
+                  <ul className="space-y-3">
+                    {specialty.indications.map((item, i) => <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-600"><span aria-hidden="true">•</span><span>{item}</span></li>)}
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
+                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Objetivos possíveis do processo</h3>
+                  <ul className="space-y-3">
+                    {specialty.benefits.map((item, i) => <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-600"><span aria-hidden="true">•</span><span>{item}</span></li>)}
+                  </ul>
+                  <p className="mt-5 text-[11px] leading-relaxed text-zinc-500">Objetivos e estratégias variam conforme avaliação profissional e não constituem promessa de resultado.</p>
+                </div>
               </div>
             </div>
 
+            <aside className="space-y-6 lg:sticky lg:top-28">
+              <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-6 text-left">
+                <div className="mb-5 flex items-center gap-3.5">
+                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-zinc-200 bg-white">
+                    <Image src={CLINIC_CONTACT.avatarUrl} alt="Cristiano Ávila" fill sizes="56px" className="object-cover object-top" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-black">{CLINIC_CONTACT.fullName}</h4>
+                    <p className="mt-0.5 text-xs text-zinc-500">Psicólogo Clínico</p>
+                    <p className="mt-1 text-[11px] text-zinc-500">{PROFESSIONAL_REGISTRATION}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3 border-t border-zinc-200 pt-4 text-xs text-zinc-600">
+                  <p><strong className="text-black">Modalidade:</strong> presencial e online</p>
+                  <p><strong className="text-black">Presencial:</strong> {currentCities}</p>
+                  <p><strong className="text-black">Privacidade:</strong> atendimento sujeito ao dever de sigilo profissional e às normas aplicáveis.</p>
+                </div>
+
+                <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 block w-full py-3 text-center text-xs">Falar sobre disponibilidade</a>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
 
-      {/* Outras Especialidades (Navegação Cruzada) */}
-      <section className="py-20 bg-zinc-50/70 border-t border-zinc-200/60">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-                Explore Outras Abordagens
-              </span>
-              <h3 className="text-2xl font-bold tracking-tight text-black">
-                Tratamentos Relacionados
-              </h3>
-            </div>
-            <Link
-              href="/#especialidades"
-              className="text-xs font-semibold text-zinc-600 hover:text-black transition-colors"
-            >
-              Ver todas →
-            </Link>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-6">
+      <section className="border-t border-zinc-200 bg-zinc-50 py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <h2 className="mb-8 text-2xl font-semibold tracking-tight text-black">Outras formas de atendimento</h2>
+          <div className="grid gap-6 sm:grid-cols-3">
             {otherSpecialties.map((item) => (
-              <Link
-                key={item.id}
-                href={`/especialidades/${item.slug}`}
-                className="group p-6 rounded-2xl bg-white border border-zinc-200/80 hover:border-black transition-all hover:shadow-apple flex flex-col justify-between"
-              >
-                <div>
-                  <span className="text-[10px] font-mono font-bold text-zinc-400 block mb-2">
-                    {item.num}
-                  </span>
-                  <h4 className="text-base font-bold text-black tracking-tight mb-2 group-hover:text-zinc-600 transition-colors">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs text-textMuted font-light line-clamp-3 leading-relaxed">
-                    {item.shortDesc}
-                  </p>
-                </div>
-                <div className="mt-6 pt-4 border-t border-zinc-100 flex items-center text-xs font-bold text-black group-hover:text-zinc-500 transition-colors">
-                  <span>Conhecer tratamento</span>
-                  <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
-                </div>
+              <Link key={item.id} href={`/especialidades/${item.slug}`} className="group rounded-2xl border border-zinc-200 bg-white p-6 transition-all hover:-translate-y-1 hover:border-zinc-400 hover:shadow-sm">
+                <h3 className="mb-2 text-base font-semibold text-black">{item.title}</h3>
+                <p className="line-clamp-3 text-xs leading-relaxed text-zinc-600">{item.shortDesc}</p>
+                <span className="mt-5 inline-block text-xs font-semibold text-black">Conhecer →</span>
               </Link>
             ))}
           </div>

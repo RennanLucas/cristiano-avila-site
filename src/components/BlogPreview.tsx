@@ -8,99 +8,81 @@ export default function BlogPreview() {
   const articles = ARTICLES_DATA.slice(0, 3);
 
   return (
-    <section id="blog" className="py-24 lg:py-32 bg-surface relative">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-3">
-              <span className="w-6 h-[1.5px] bg-zinc-200" />
-              <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-3">BLOG & ARTIGOS CLÍNICOS</span>
-            </div>
+    <section id="blog" className="relative overflow-hidden bg-[#F2F2F0] py-20 sm:py-24 lg:py-32">
+      <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.34] [mask-image:radial-gradient(circle_at_center,black,transparent_85%)]" />
+      <div className="aurora-orb absolute -left-20 top-8 h-64 w-64 rounded-full bg-sky-100/60 blur-[90px]" />
+      <div className="aurora-orb aurora-orb-delayed absolute -right-20 bottom-8 h-72 w-72 rounded-full bg-fuchsia-100/45 blur-[95px]" />
 
-            <h2 className="tracking-tight text-3xl sm:text-4xl lg:text-5xl text-black tracking-tight">
-              Conteúdos sobre Mente e Comportamento
+      <div className="relative z-10 mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
+        <motion.div
+          initial={{ opacity: 0.5, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-35px' }}
+          transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-12 flex flex-col justify-between gap-6 sm:mb-16 md:flex-row md:items-end"
+        >
+          <div className="max-w-2xl">
+            <span className="editorial-label">Blog & conteúdo</span>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-black sm:text-4xl lg:text-5xl">
+              Leituras para aprofundar a compreensão sobre mente e comportamento.
             </h2>
-
-            <p className="text-textMuted text-base lg:text-lg font-light leading-relaxed">
-              Reflexões baseadas em psicologia, neurociência e prática clínica para auxiliar na compreensão das suas emoções.
+            <p className="mt-4 text-[15px] font-light leading-relaxed text-zinc-600 sm:text-base lg:text-lg">
+              Artigos sobre psicologia, emoções, comportamento, relações e desenvolvimento pessoal.
             </p>
           </div>
 
-          <div>
-            <Link
-              href="/blog"
-              className="btn-outline text-xs inline-flex items-center gap-2"
-            >
-              <span>Acessar todo o blog</span>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-          </div>
-        </div>
+          <Link href="/blog" className="btn-outline inline-flex w-full items-center gap-2 text-xs sm:w-auto">Ver todos os artigos <span aria-hidden="true">→</span></Link>
+        </motion.div>
 
-        {/* 3 Editorial Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {articles.map((article, idx) => (
-            <motion.article
-              key={article.slug}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: idx * 0.1, ease: 'easeOut' }}
-              className="group bg-white rounded-2xl overflow-hidden border border-zinc-200/8 shadow-sm hover:shadow-apple-hover hover:-translate-y-1.5 transition-all duration-400 flex flex-col justify-between"
-            >
-              <div>
-                {/* Article Image */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
-                  <img
-                    src={article.imageUrl}
-                    alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <span className="absolute top-4 left-4 text-[10px] uppercase tracking-wider font-semibold bg-white/95 text-black px-3 py-1 rounded-full shadow-sm">
-                    {article.category}
-                  </span>
-                </div>
+        <div className="grid gap-5 sm:gap-6 lg:grid-cols-12">
+          {articles.map((article, idx) => {
+            const featured = idx === 0;
+            return (
+              <motion.article
+                key={article.slug}
+                initial={{ opacity: 0.55, y: 16, scale: 0.995 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-35px' }}
+                transition={{ duration: 0.42, delay: idx * 0.045, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -7 }}
+                className={`${featured ? 'lg:col-span-7 lg:row-span-2' : 'lg:col-span-5'} group relative overflow-hidden rounded-[26px] sm:rounded-[30px] ${featured ? 'premium-dark min-h-[410px] text-white sm:min-h-[470px] lg:min-h-[520px]' : 'premium-glass min-h-[230px] sm:min-h-[250px]'} p-6 sm:p-9`}
+              >
+                <div className={`pointer-events-none absolute ${featured ? '-right-24 -top-24 h-72 w-72 border-white/10 bg-white/[0.03]' : '-right-16 -top-16 h-44 w-44 border-zinc-200 bg-white/60'} rounded-full border transition-transform duration-700 group-hover:scale-125`} />
+                {featured && <div className="pointer-events-none absolute -bottom-20 -left-16 h-72 w-72 rounded-full bg-fuchsia-500/10 blur-[80px]" />}
 
-                {/* Article Text */}
-                <div className="p-7 space-y-4">
-                  <div className="flex items-center justify-between text-xs text-textMuted">
-                    <span>{article.date}</span>
-                    <span>{article.readTime}</span>
+                <div className="relative z-10 flex h-full flex-col justify-between">
+                  <div>
+                    <div className={`flex items-center justify-between gap-4 text-[9px] font-semibold uppercase tracking-[0.14em] sm:text-[10px] sm:tracking-[0.16em] ${featured ? 'text-white/40' : 'text-zinc-400'}`}>
+                      <span className="min-w-0 truncate">{article.category}</span>
+                      <span className="shrink-0">{String(idx + 1).padStart(2, '0')}</span>
+                    </div>
+
+                    <h3 className={`${featured ? 'mt-12 max-w-full text-[1.75rem] text-white min-[390px]:text-3xl sm:mt-20 sm:max-w-[90%] sm:text-4xl' : 'mt-8 text-[1.35rem] text-black sm:mt-10 sm:text-2xl'} font-semibold leading-[1.08] tracking-[-0.035em]`}>
+                      <Link href={`/blog/${article.slug}`}>{article.title}</Link>
+                    </h3>
+
+                    <p className={`${featured ? 'max-w-2xl text-white/60' : 'text-zinc-600'} mt-4 line-clamp-4 text-sm font-light leading-relaxed sm:mt-5`}>
+                      {article.excerpt}
+                    </p>
                   </div>
 
-                  <h3 className="tracking-tight text-xl sm:text-2xl text-black font-semibold leading-snug group-hover:text-zinc-500 transition-colors">
-                    <Link href={`/blog/${article.slug}`}>
-                      {article.title}
+                  <div className={`${featured ? 'border-white/10' : 'border-zinc-200/70'} mt-8 border-t pt-5 sm:mt-10`}>
+                    <div className={`flex flex-wrap items-center justify-between gap-2 text-[11px] sm:text-xs ${featured ? 'text-white/40' : 'text-zinc-500'}`}>
+                      <span>{article.date}</span>
+                      <span>{article.readTime}</span>
+                    </div>
+                    <Link
+                      href={`/blog/${article.slug}`}
+                      className={`mt-5 inline-flex items-center gap-2 text-xs font-semibold transition-all group-hover:gap-4 ${featured ? 'text-white' : 'text-black'}`}
+                    >
+                      Ler artigo <span aria-hidden="true">→</span>
                     </Link>
-                  </h3>
-
-                  <p className="text-textMuted text-sm leading-relaxed font-light line-clamp-3">
-                    {article.excerpt}
-                  </p>
+                  </div>
                 </div>
-              </div>
-
-              {/* Read More Link */}
-              <div className="px-7 pb-7 pt-2">
-                <Link
-                  href={`/blog/${article.slug}`}
-                  className="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-black group-hover:text-zinc-500 transition-colors"
-                >
-                  <span>Ler artigo completo</span>
-                  <svg className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            );
+          })}
         </div>
-
       </div>
     </section>
   );

@@ -1,152 +1,102 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { TESTIMONIALS_DATA } from "@/data/content";
+import { motion } from "framer-motion";
+import { CLINIC_CONTACT } from "@/data/content";
+
+const PLATFORMS = [
+  {
+    name: "Doctoralia",
+    href: CLINIC_CONTACT.doctoraliaUrl,
+    text: "Consulte avaliações e informações do perfil profissional na Doctoralia.",
+    code: "01",
+  },
+  {
+    name: "Zenklub",
+    href: CLINIC_CONTACT.zenklubUrl,
+    text: "Acesse o perfil profissional e as informações disponíveis no Zenklub.",
+    code: "02",
+  },
+];
 
 export default function Testimonials() {
-  const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
-
-  const next = useCallback(() => {
-    setDirection(1);
-    setIndex((prev) => (prev + 1) % TESTIMONIALS_DATA.length);
-  }, []);
-
-  const prev = useCallback(() => {
-    setDirection(-1);
-    setIndex((prev) => (prev - 1 + TESTIMONIALS_DATA.length) % TESTIMONIALS_DATA.length);
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      next();
-    }, 9000);
-    return () => clearInterval(timer);
-  }, [next]);
-
-  const current = TESTIMONIALS_DATA[index];
-
   return (
-    <section id="depoimentos" className="py-24 lg:py-32 bg-surface relative overflow-hidden">
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
-        
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-600 uppercase mb-3">
-            Depoimentos Reais de Pacientes
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black mb-4">
-            Experiências de quem passou pelo acompanhamento
-          </h2>
-          <p className="text-textMuted text-base font-light leading-relaxed">
-            Relatos espontâneos registrados por pessoas atendidas presencialmente e de forma online.
-          </p>
-        </div>
+    <section id="depoimentos" className="relative overflow-hidden border-y border-zinc-200/60 bg-[#F3F3F1] py-24 lg:py-32">
+      <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.22] [mask-image:radial-gradient(circle_at_center,black,transparent_84%)]" />
+      <div className="aurora-orb absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-amber-100/60 blur-[100px]" />
+      <div className="aurora-orb aurora-orb-delayed absolute -right-20 top-10 h-72 w-72 rounded-full bg-fuchsia-100/45 blur-[100px]" />
 
-        {/* Testimonial Card Slider */}
-        <div className="relative">
-          <div className="min-h-[360px] sm:min-h-[300px] relative flex items-center">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={current.id}
-                custom={direction}
-                initial={{ opacity: 0, x: direction * 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -direction * 40 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="w-full bg-white rounded-3xl p-8 sm:p-12 lg:p-14 shadow-apple border border-zinc-200/80 relative"
-              >
-                {/* Quotation mark decoration */}
-                <div className="absolute top-6 right-8 text-zinc-100 text-7xl font-serif leading-none select-none pointer-events-none">
-                  “
-                </div>
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        <div className="grid items-stretch gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="premium-dark relative overflow-hidden rounded-[32px] p-7 text-white sm:p-10 lg:p-12"
+          >
+            <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-fuchsia-500/10 blur-[90px]" />
+            <div className="pointer-events-none absolute -bottom-24 right-[-3rem] h-72 w-72 rounded-full bg-amber-300/10 blur-[95px]" />
+            <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.06]" />
 
-                {/* Stars and verified tag */}
-                <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
-                  <div className="flex items-center gap-1 text-zinc-800">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-
-                  <span className="inline-flex items-center gap-1.5 text-xs text-zinc-700 bg-zinc-50 px-3 py-1 rounded-full border border-zinc-200 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Paciente Verificado
-                  </span>
-                </div>
-
-                {/* Testimonial Quote */}
-                <p className="text-black text-base sm:text-lg font-light leading-relaxed mb-8 italic">
-                  &ldquo;{current.text}&rdquo;
+            <div className="relative z-10 flex h-full flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">Avaliações</span>
+                <h2 className="mt-5 max-w-xl text-3xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
+                  Conheça avaliações em plataformas especializadas.
+                </h2>
+                <p className="mt-5 max-w-xl text-sm font-light leading-relaxed text-white/55 sm:text-base">
+                  Acesse os perfis de Cristiano Ávila na Doctoralia e no Zenklub para consultar informações e avaliações publicadas nessas plataformas.
                 </p>
+              </div>
 
-                {/* Author Info */}
-                <div className="flex items-center gap-4 pt-6 border-t border-zinc-100">
-                  <div className="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center text-sm font-bold shrink-0">
-                    {current.initials}
-                  </div>
+              <div className="mt-10 border-t border-white/10 pt-6">
+                <div className="flex items-center gap-3 text-xs text-white/40">
+                  <span className="h-px w-8 bg-white/20" />
+                  Perfis profissionais externos
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {PLATFORMS.map((platform, index) => (
+              <motion.a
+                key={platform.name}
+                href={platform.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 26, scale: 0.985 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.58, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -8 }}
+                className="group premium-glass relative min-h-[330px] overflow-hidden rounded-[30px] p-7 sm:p-8"
+              >
+                <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full border border-zinc-200/60 bg-white/50 transition-transform duration-700 group-hover:scale-125" />
+                <div className="pointer-events-none absolute -bottom-20 -left-20 h-48 w-48 rounded-full bg-zinc-100 blur-[60px] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                <div className="relative z-10 flex h-full flex-col justify-between">
                   <div>
-                    <h4 className="text-base text-black font-bold tracking-tight">
-                      {current.name}
-                    </h4>
-                    <p className="text-xs text-textMuted font-light">
-                      {current.treatment} • Atendido em {current.date}
-                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[10px] text-zinc-400">{platform.code}</span>
+                      <span className="rounded-full border border-zinc-200 bg-white/75 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.15em] text-zinc-400">
+                        Perfil externo
+                      </span>
+                    </div>
+
+                    <h3 className="mt-16 text-3xl font-semibold tracking-[-0.035em] text-black">{platform.name}</h3>
+                    <p className="mt-4 text-sm font-light leading-relaxed text-zinc-600">{platform.text}</p>
+                  </div>
+
+                  <div className="mt-10 flex items-center justify-between border-t border-zinc-200/70 pt-5">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400">Acessar perfil</span>
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black text-white transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg" aria-hidden="true">↗</span>
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </motion.a>
+            ))}
           </div>
-
-          {/* Navigation Controls */}
-          <div className="flex items-center justify-between mt-8">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={prev}
-                className="w-10 h-10 rounded-full bg-white border border-zinc-200 text-black hover:bg-black hover:text-white flex items-center justify-center transition-all shadow-sm focus:outline-none"
-                aria-label="Depoimento anterior"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={next}
-                className="w-10 h-10 rounded-full bg-white border border-zinc-200 text-black hover:bg-black hover:text-white flex items-center justify-center transition-all shadow-sm focus:outline-none"
-                aria-label="Próximo depoimento"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Dots */}
-            <div className="flex items-center gap-2">
-              {TESTIMONIALS_DATA.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => {
-                    setDirection(i > index ? 1 : -1);
-                    setIndex(i);
-                  }}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === index ? "w-7 bg-black" : "w-2 bg-zinc-300 hover:bg-zinc-400"
-                  }`}
-                  aria-label={`Ir para depoimento ${i + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-
         </div>
-
       </div>
     </section>
   );

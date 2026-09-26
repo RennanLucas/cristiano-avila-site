@@ -8,20 +8,15 @@ export default function CookieBanner() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('ca_cookie_consent');
-    if (!consent) {
-      const timer = setTimeout(() => setShow(true), 1500);
+    const acknowledged = localStorage.getItem('ca_privacy_notice_seen');
+    if (!acknowledged) {
+      const timer = setTimeout(() => setShow(true), 1200);
       return () => clearTimeout(timer);
     }
   }, []);
 
-  const accept = () => {
-    localStorage.setItem('ca_cookie_consent', 'accepted');
-    setShow(false);
-  };
-
-  const decline = () => {
-    localStorage.setItem('ca_cookie_consent', 'declined');
+  const close = () => {
+    localStorage.setItem('ca_privacy_notice_seen', '1');
     setShow(false);
   };
 
@@ -29,41 +24,30 @@ export default function CookieBanner() {
     <AnimatePresence>
       {show && (
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 30 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="fixed bottom-6 left-6 right-6 sm:left-6 sm:right-auto sm:max-w-md z-50 bg-white rounded-2xl p-5 shadow-2xl border border-zinc-200/10"
+          exit={{ opacity: 0, y: 24 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          className="fixed bottom-5 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-50 bg-white rounded-2xl p-5 shadow-2xl border border-zinc-200"
+          role="dialog"
+          aria-label="Aviso de privacidade"
         >
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-zinc-200" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-black">
-                Privacidade & Cookies (LGPD)
-              </span>
-            </div>
-
+            <p className="text-xs font-semibold uppercase tracking-wider text-black">Privacidade</p>
             <p className="text-xs text-textMuted leading-relaxed">
-              Utilizamos cookies essenciais para garantir o correto funcionamento e segurança da sua navegação. Respeitamos sua privacidade conforme as diretrizes da LGPD.{' '}
-              <Link href="/politica-de-privacidade" className="text-black font-medium underline">
-                Saiba mais
-              </Link>.
+              O site utiliza apenas recursos necessários ao funcionamento e às preferências de navegação. Consulte a{' '}
+              <Link href="/politica-de-privacidade" className="text-black font-medium underline underline-offset-2">
+                Política de Privacidade
+              </Link>{' '}
+              para saber mais.
             </p>
-
-            <div className="flex items-center gap-2.5 pt-1">
-              <button
-                onClick={accept}
-                className="flex-1 py-2 px-3 rounded-lg text-xs font-semibold bg-black text-white hover:bg-[#0F262B] transition-colors"
-              >
-                Aceitar todos
-              </button>
-              <button
-                onClick={decline}
-                className="flex-1 py-2 px-3 rounded-lg text-xs font-medium border border-gray-200 text-textMuted hover:text-black hover:bg-gray-50 transition-colors"
-              >
-                Apenas necessários
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={close}
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-black text-white hover:bg-zinc-800 transition-colors"
+            >
+              Entendi
+            </button>
           </div>
         </motion.div>
       )}

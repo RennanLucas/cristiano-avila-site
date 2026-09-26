@@ -1,74 +1,152 @@
-export default function TrustBadges() {
-  const badges = [
-    {
-      title: "Registro Profissional Ativo",
-      subtitle: "Conselho Regional de Psicologia (CRP SP)",
-      description: "Prática em estrita conformidade com o Código de Ética Profissional.",
-      icon: (
-        <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
-      ),
-    },
-    {
-      title: "Resolução CFP nº 11/2018",
-      subtitle: "Terapia Online Habilitada",
-      description: "Atendimento remoto regulamentado com criptografia ponta a ponta.",
-      icon: (
-        <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-        </svg>
-      ),
-    },
-    {
-      title: "OMNI Training Center",
-      subtitle: "Padrão Suíço ISO 9001",
-      description: "Certificação internacional de excelência em hipnoterapia clínica.",
-      icon: (
-        <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-        </svg>
-      ),
-    },
-    {
-      title: "Sigilo & LGPD Rigorosa",
-      subtitle: "Privacidade Garantida",
-      description: "Prontuário sob sigilo médico legal absoluto e proteção de dados.",
-      icon: (
-        <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-        </svg>
-      ),
-    },
-  ];
+"use client";
+
+import { motion } from "framer-motion";
+import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
+
+const CREDENTIALS = [
+  {
+    label: "Registro profissional",
+    value: PROFESSIONAL_REGISTRATION,
+    detail: "Psicologia clínica",
+    accent: "from-sky-300/80 via-cyan-200/45 to-transparent",
+  },
+  {
+    label: "Experiência",
+    value: "+10 anos",
+    detail: "Atuação clínica e institucional",
+    accent: "from-fuchsia-300/80 via-violet-200/45 to-transparent",
+  },
+  {
+    label: "Atendimento presencial",
+    value: "4 cidades",
+    detail: "Praia Grande • Atibaia • SBC • Santos",
+    accent: "from-amber-200/90 via-orange-200/45 to-transparent",
+  },
+  {
+    label: "Formação complementar",
+    value: "OMNI",
+    detail: "Hipnoterapia clínica",
+    accent: "from-emerald-200/80 via-teal-200/40 to-transparent",
+  },
+];
+
+function CredentialIcon({ index }: { index: number }) {
+  const common = "h-[18px] w-[18px]";
+
+  if (index === 0) {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="M12 3 6.5 5v5.2c0 4 2.3 7.6 5.5 9.1 3.2-1.5 5.5-5.1 5.5-9.1V5L12 3Z" strokeWidth="1.55" />
+        <path d="m9.4 11.9 1.6 1.6 3.7-4" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (index === 1) {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <circle cx="12" cy="12" r="7.5" strokeWidth="1.55" />
+        <path d="M12 8v4.4l2.8 1.7" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (index === 2) {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="M12 20s5-4.6 5-9a5 5 0 1 0-10 0c0 4.4 5 9 5 9Z" strokeWidth="1.55" />
+        <circle cx="12" cy="11" r="1.8" strokeWidth="1.55" />
+      </svg>
+    );
+  }
 
   return (
-    <section className="py-12 border-y border-zinc-100 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {badges.map((badge, idx) => (
-            <div
-              key={idx}
-              className="flex items-start gap-4 p-4 rounded-2xl bg-zinc-50/70 border border-zinc-100 hover:border-zinc-200 transition-colors"
-            >
-              <div className="w-10 h-10 rounded-xl bg-white border border-zinc-200/80 flex items-center justify-center shrink-0 shadow-sm">
-                {badge.icon}
+    <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M7 4.5h8.5A1.5 1.5 0 0 1 17 6v12H8a2 2 0 0 1-2-2V5.5A1 1 0 0 1 7 4.5Z" strokeWidth="1.55" />
+      <path d="M9.5 8h4.5M9.5 11h4.5M9.5 14h3" strokeWidth="1.55" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export default function TrustBadges() {
+  return (
+    <div className="mx-auto w-full max-w-6xl">
+      <section className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#101012] p-2.5 text-white shadow-[0_42px_120px_rgba(0,0,0,0.22)] sm:rounded-[34px] sm:p-3">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_0%,rgba(217,70,239,0.10),transparent_34%),radial-gradient(circle_at_92%_100%,rgba(251,191,36,0.08),transparent_31%)]" />
+        <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.045]" />
+
+        <div className="relative z-10 overflow-hidden rounded-[23px] border border-white/[0.07] bg-white/[0.025] sm:rounded-[29px]">
+          <div className="grid gap-7 border-b border-white/[0.07] px-5 py-7 sm:px-8 sm:py-9 lg:grid-cols-[1.1fr_.9fr] lg:items-end lg:px-10 lg:py-10">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-3">
+                <span className="h-px w-7 bg-white/20" />
+                <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/45 sm:text-[10px]">
+                  Perfil profissional
+                </span>
               </div>
-              <div className="space-y-1">
-                <p className="text-xs font-bold text-black tracking-tight leading-tight">
-                  {badge.title}
-                </p>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-                  {badge.subtitle}
-                </p>
-                <p className="text-[11px] text-textMuted leading-relaxed font-light">
-                  {badge.description}
-                </p>
+
+              <h2 className="mt-4 max-w-xl text-[1.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.15rem]">
+                Credenciais e formas de atendimento
+              </h2>
+            </div>
+
+            <div className="lg:justify-self-end lg:text-right">
+              <p className="max-w-lg text-[11px] font-light leading-[1.75] text-white/58 sm:text-[13px]">
+                Psicologia clínica com atendimento presencial e online, experiência profissional e formação complementar em hipnoterapia.
+              </p>
+              <div className="mt-4 flex items-center gap-2 lg:justify-end">
+                <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
+                <span className="text-[9px] font-medium uppercase tracking-[0.16em] text-white/32">
+                  Atendimento profissional
+                </span>
               </div>
             </div>
-          ))}
+          </div>
+
+          <div className="grid gap-2.5 p-2.5 min-[390px]:grid-cols-2 sm:gap-3 sm:p-3 lg:grid-cols-4">
+            {CREDENTIALS.map((item, index) => (
+              <motion.article
+                key={item.label}
+                initial={{ opacity: 0.5, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.4, delay: index * 0.055, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -5 }}
+                className="group relative min-h-[172px] overflow-hidden rounded-[20px] border border-white/[0.07] bg-white/[0.032] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-500 hover:border-white/[0.12] hover:bg-white/[0.052] hover:shadow-[0_22px_55px_rgba(0,0,0,0.20)] sm:min-h-[205px] sm:rounded-[22px] sm:p-6"
+              >
+                <div className="pointer-events-none absolute -right-14 -top-14 h-32 w-32 rounded-full border border-white/[0.055] bg-white/[0.018] transition-transform duration-700 group-hover:scale-125" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/[0.018] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                <div className="relative z-10 flex h-full flex-col">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-mono text-[9px] tracking-[0.1em] text-white/28 sm:text-[10px]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <span className="flex h-9 w-9 items-center justify-center rounded-[14px] border border-white/[0.09] bg-white/[0.035] text-white/48 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-500 group-hover:scale-105 group-hover:border-white/[0.16] group-hover:bg-white/[0.075] group-hover:text-white/85 sm:h-10 sm:w-10">
+                      <CredentialIcon index={index} />
+                    </span>
+                  </div>
+
+                  <div className="mt-auto pt-7 sm:pt-9">
+                    <span className="block text-[8px] font-semibold uppercase tracking-[0.17em] text-white/44 sm:text-[9px]">
+                      {item.label}
+                    </span>
+                    <strong className="mt-2.5 block text-[1.22rem] font-semibold leading-tight tracking-[-0.035em] text-white sm:text-[1.55rem]">
+                      {item.value}
+                    </strong>
+                    <span className="mt-2.5 block text-[10px] font-light leading-relaxed text-white/54 sm:text-[11px]">
+                      {item.detail}
+                    </span>
+                  </div>
+                </div>
+
+                <div className={`absolute inset-x-5 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r ${item.accent} transition-transform duration-500 group-hover:scale-x-100 sm:inset-x-6`} />
+              </motion.article>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

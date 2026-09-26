@@ -19,15 +19,14 @@ export default function SpotlightCard({
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
-    // Cálculo de inclinação 3D sutil (máximo 4 graus para elegância)
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -3.5;
-    const rotateY = ((x - centerX) / centerX) * 3.5;
 
     setMousePos({ x, y, opacity: 1 });
-    setTilt({ rotateX, rotateY });
+    setTilt({
+      rotateX: ((y - centerY) / centerY) * -4.5,
+      rotateY: ((x - centerX) / centerX) * 4.5,
+    });
   };
 
   const handleMouseLeave = () => {
@@ -40,34 +39,34 @@ export default function SpotlightCard({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{
-        rotateX: tilt.rotateX,
-        rotateY: tilt.rotateY,
-      }}
-      transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      style={{ transformStyle: "preserve-3d" }}
-      className={`relative overflow-hidden rounded-3xl border border-zinc-200/90 bg-white transition-shadow duration-300 hover:shadow-apple-hover ${className}`}
+      animate={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY }}
+      transition={{ type: "spring", stiffness: 190, damping: 20, mass: 0.7 }}
+      whileHover={{ y: -7, scale: 1.012 }}
+      style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+      className={`group relative overflow-hidden rounded-[28px] border border-white/80 bg-white/80 backdrop-blur-xl transition-shadow duration-500 hover:shadow-[0_35px_90px_rgba(0,0,0,0.13)] ${className}`}
     >
-      {/* Luz Spotlight Radial que segue o mouse em JavaScript */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.9),rgba(244,244,245,0.48))]" />
+      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full border border-zinc-200/80 bg-zinc-100/70 transition-transform duration-700 group-hover:scale-125" />
+      <div className="pointer-events-none absolute -bottom-24 -left-20 h-44 w-44 rounded-full bg-fuchsia-100/40 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
       <div
         className="pointer-events-none absolute -inset-px transition-opacity duration-300"
         style={{
           opacity: mousePos.opacity,
-          background: `radial-gradient(420px circle at ${mousePos.x}px ${mousePos.y}px, rgba(0, 0, 0, 0.05), transparent 70%)`,
+          background: `radial-gradient(460px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.95), rgba(250,204,21,0.07) 28%, rgba(217,70,239,0.05) 45%, transparent 72%)`,
         }}
       />
 
-      {/* Borda Iluminada no ponto do cursor */}
       <div
-        className="pointer-events-none absolute -inset-px rounded-3xl transition-opacity duration-300 border border-black/25"
+        className="pointer-events-none absolute -inset-px rounded-[28px] border border-black/20 transition-opacity duration-300"
         style={{
           opacity: mousePos.opacity,
-          maskImage: `radial-gradient(180px circle at ${mousePos.x}px ${mousePos.y}px, black, transparent)`,
-          WebkitMaskImage: `radial-gradient(180px circle at ${mousePos.x}px ${mousePos.y}px, black, transparent)`,
+          maskImage: `radial-gradient(220px circle at ${mousePos.x}px ${mousePos.y}px, black, transparent)`,
+          WebkitMaskImage: `radial-gradient(220px circle at ${mousePos.x}px ${mousePos.y}px, black, transparent)`,
         }}
       />
 
-      <div className="relative z-10 h-full flex flex-col justify-between">
+      <div className="relative z-10 flex h-full flex-col justify-between" style={{ transform: "translateZ(18px)" }}>
         {children}
       </div>
     </motion.div>

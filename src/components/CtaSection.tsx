@@ -14,107 +14,117 @@ export default function CtaSection() {
   };
 
   return (
-    <section className="py-24 lg:py-32 bg-black text-white relative overflow-hidden">
-      {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-zinc-200/10 blur-[150px]" />
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: "radial-gradient(circle, #FFFFFF 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-        />
-      </div>
+    <section className="relative overflow-hidden bg-black py-24 text-white lg:py-32">
+      <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.08]" />
+      <motion.div
+        aria-hidden="true"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.07]"
+      >
+        <span className="absolute left-1/2 top-[-5px] h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-white/30 shadow-[0_0_25px_rgba(255,255,255,0.35)]" />
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.06]"
+      >
+        <span className="absolute right-8 top-8 h-2 w-2 rounded-full bg-fuchsia-300/50 shadow-[0_0_28px_rgba(240,171,252,0.5)]" />
+      </motion.div>
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/[0.07] blur-[100px]" />
+      <div className="pointer-events-none absolute left-[58%] top-[48%] h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300/[0.06] blur-[95px]" />
 
-      <div className="max-w-4xl mx-auto px-6 text-center relative z-10 space-y-8">
+      <div className="relative z-10 mx-auto max-w-5xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="space-y-4"
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="overflow-hidden rounded-[34px] border border-white/10 bg-white/[0.045] p-7 text-center shadow-[0_40px_120px_rgba(0,0,0,0.38)] backdrop-blur-xl sm:p-10 lg:p-14"
         >
-          <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-400 block">
-            Agende Seu Atendimento
-          </span>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, delay: 0.08 }}
+          >
+            <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/40">Primeiro contato</span>
+            <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-semibold leading-[1.08] tracking-[-0.04em] text-white sm:text-4xl lg:text-6xl">
+              Um primeiro passo pode começar com uma conversa simples.
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-white/60 lg:text-lg">
+              Entre em contato para consultar modalidades de atendimento, horários e disponibilidade de agenda.
+            </p>
+          </motion.div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.18]">
-            Comece uma conversa sobre o que você está vivenciando.
-          </h2>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, delay: 0.18 }}
+            className="mt-9"
+          >
+            <a
+              href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de obter informações sobre horários disponíveis para consulta.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-xs font-semibold text-black shadow-[0_18px_50px_rgba(255,255,255,0.12)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.015] hover:shadow-[0_22px_70px_rgba(255,255,255,0.18)] active:translate-y-0 active:scale-[0.99]"
+            >
+              <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.675-.839-6.481-2.373l-.388-.322-2.65.889.889-2.65-.322-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+              </svg>
+              <span>Falar pelo WhatsApp</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+            </a>
+          </motion.div>
 
-          <p className="text-white/70 text-base lg:text-lg font-light leading-relaxed max-w-2xl mx-auto">
-            Entre em contato para obter informações sobre modalidades de atendimento presencial ou online, horários e disponibilidade de agenda com Cristiano Ávila.
-          </p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, delay: 0.28 }}
+            className="relative mt-10 grid gap-3 border-t border-white/10 pt-7 sm:grid-cols-3"
+          >
+            <button
+              type="button"
+              onClick={() => copyToClipboard(CLINIC_CONTACT.phone, "Telefone")}
+              className="rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-4 text-left transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.07]"
+              title="Clique para copiar o telefone"
+            >
+              <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Telefone</span>
+              <strong className="mt-1.5 block text-sm font-medium text-white">{CLINIC_CONTACT.phone}</strong>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => copyToClipboard(CLINIC_CONTACT.email, "E-mail")}
+              className="rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-4 text-left transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.07]"
+              title="Clique para copiar o e-mail"
+            >
+              <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">E-mail</span>
+              <strong className="mt-1.5 block truncate text-sm font-medium text-white">{CLINIC_CONTACT.email}</strong>
+            </button>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-4 text-left">
+              <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-white/35">Modalidades</span>
+              <strong className="mt-1.5 block text-sm font-medium text-white">Presencial & online</strong>
+            </div>
+
+            <AnimatePresence>
+              {copiedText && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  className="absolute -top-10 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold text-black shadow-lg"
+                >
+                  ✓ {copiedText} copiado
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-          className="pt-4"
-        >
-          <a
-            href={buildWhatsAppLink("Olá, Dr. Cristiano! Gostaria de obter informações sobre horários disponíveis para consulta.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-white text-black px-9 py-4 rounded-full text-xs font-semibold hover:bg-zinc-100 transition-all shadow-apple active:scale-[0.98]"
-          >
-            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.675-.839-6.481-2.373l-.388-.322-2.65.889.889-2.65-.322-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
-            </svg>
-            <span>Falar pelo WhatsApp</span>
-          </a>
-        </motion.div>
-
-        {/* Copy to clipboard interactive buttons */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-xs text-white/70 relative">
-          <button
-            type="button"
-            onClick={() => copyToClipboard(CLINIC_CONTACT.phone, "Telefone")}
-            className="flex items-center gap-2 hover:text-white px-3 py-1.5 rounded-full hover:bg-white/10 transition-all"
-            title="Clique para copiar o telefone"
-          >
-            <svg className="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-            <span className="font-medium text-white">{CLINIC_CONTACT.phone}</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => copyToClipboard(CLINIC_CONTACT.email, "E-mail")}
-            className="flex items-center gap-2 hover:text-white px-3 py-1.5 rounded-full hover:bg-white/10 transition-all"
-            title="Clique para copiar o e-mail"
-          >
-            <svg className="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            <span>{CLINIC_CONTACT.email}</span>
-          </button>
-
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Presencial e Online</span>
-          </div>
-
-          {/* Feedback Toast */}
-          <AnimatePresence>
-            {copiedText && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.9 }}
-                className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold shadow-lg flex items-center gap-1.5"
-              >
-                <span>✓</span>
-                <span>{copiedText} copiado com sucesso!</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
       </div>
     </section>
   );
