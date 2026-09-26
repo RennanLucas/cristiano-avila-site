@@ -148,16 +148,20 @@
   animation: border-beam var(--duration) linear infinite;
 }
 
-@media (max-width: 767px) {
-  .btn-primary::after {
-    display: none;
-  }
-
+/* Tablets e celulares recebem a versão estática dos efeitos decorativos.
+   Isso reduz composição contínua e consumo de GPU durante o scroll. */
+@media (max-width: 1023px) {
   .aurora-orb,
   .floating-card,
   .animate-border-beam {
     animation: none !important;
     will-change: auto !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .btn-primary::after {
+    display: none;
   }
 
   .premium-card,

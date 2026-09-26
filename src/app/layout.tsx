@@ -9,6 +9,7 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -21,9 +22,8 @@ export const metadata: Metadata = {
   applicationName: "Cristiano Ávila Psicólogo",
   alternates: { canonical: "/" },
   icons: {
-    icon: "/images/logo-icon.png",
-    shortcut: "/images/logo-icon.png",
-    apple: "/images/logo-icon.png",
+    icon: [{ url: "/favicon-64.png", type: "image/png", sizes: "64x64" }],
+    shortcut: "/favicon-64.png",
   },
   openGraph: {
     title: "Cristiano Ávila | Psicólogo Clínico",
@@ -51,7 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" className={`${inter.variable} scroll-smooth`}>
       <head><JsonLd /></head>
-      <body className="bg-white text-[#111111] font-sans antialiased selection:bg-black selection:text-white overflow-x-hidden relative">
+      <body className="relative overflow-x-hidden bg-white font-sans text-[#111111] antialiased selection:bg-black selection:text-white">
         {children}
       </body>
     </html>

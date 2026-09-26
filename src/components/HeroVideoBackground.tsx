@@ -7,34 +7,68 @@ interface HeroVideoBackgroundProps {
 }
 
 export default function HeroVideoBackground({ children }: HeroVideoBackgroundProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [canAnimate, setCanAnimate] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const desktopLikeViewport = window.matchMedia("(min-width: 768px)").matches;
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    const desktopViewport = window.matchMedia("(min-width: 1024px)").matches;
+    const connection = (navigator as Navigator & {
+      connection?: { saveData?: boolean; effectiveType?: string };
+    }).connection;
+
     const saveData = Boolean(connection?.saveData);
-    const slowConnection = connection?.effectiveType === "2g" || connection?.effectiveType === "slow-2g";
+    const constrainedConnection = ["slow-2g", "2g", "3g"].includes(connection?.effectiveType ?? "");
 
-    if (!desktopLikeViewport || reducedMotion || saveData || slowConnection) return;
+    if (!desktopViewport || reducedMotion || saveData || constrainedConnection) return;
 
-    const timer = window.setTimeout(() => setCanAnimate(true), 300);
+    const timer = window.setTimeout(() => setCanAnimate(true), 1200);
     return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (!canAnimate || !videoRef.current) return;
-    videoRef.current.play().catch(() => undefined);
-  }, [canAnimate]);
+    const node = wrapperRef.current;
+    if (!node || !("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!canAnimate || !video) return;
+
+    if (isVisible && !document.hidden) {
+      video.play().catch(() => undefined);
+    } else {
+      video.pause();
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.hidden || !isVisible) {
+        video.pause();
+      } else {
+        video.play().catch(() => undefined);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [canAnimate, isVisible]);
 
   return (
-    <div className="relative w-full overflow-hidden bg-white">
+    <div ref={wrapperRef} className="relative w-full overflow-hidden bg-white">
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         {canAnimate && (
           <video
             ref={videoRef}
-            autoPlay
             loop
             muted
             playsInline
