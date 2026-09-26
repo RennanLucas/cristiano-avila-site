@@ -21,13 +21,13 @@ export default function CtaSection() {
       <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.08]" />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.07] sm:block"
+        className="cta-orbit pointer-events-none absolute left-1/2 top-1/2 hidden h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.07] md:block"
       >
         <span className="absolute left-1/2 top-[-5px] h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-white/30 shadow-[0_0_25px_rgba(255,255,255,0.35)]" />
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.06] md:block"
+        className="cta-orbit-reverse pointer-events-none absolute left-1/2 top-1/2 hidden h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.06] md:block"
       >
         <span className="absolute right-8 top-8 h-2 w-2 rounded-full bg-fuchsia-300/50 shadow-[0_0_28px_rgba(240,171,252,0.5)]" />
       </div>
@@ -98,6 +98,21 @@ export default function CtaSection() {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes ctaOrbitClockwise {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes ctaOrbitCounterClockwise {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(-360deg); }
+        }
+        @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+          .cta-orbit { animation: ctaOrbitClockwise 28s linear infinite; }
+          .cta-orbit-reverse { animation: ctaOrbitCounterClockwise 20s linear infinite; }
+        }
+      `}</style>
     </section>
   );
 }
