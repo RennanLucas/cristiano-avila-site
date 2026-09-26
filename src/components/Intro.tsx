@@ -34,7 +34,7 @@ export default function Intro() {
       <div className="pointer-events-none absolute right-[-10rem] top-24 h-80 w-80 rounded-full bg-zinc-100 blur-[110px]" />
       <div className="pointer-events-none absolute bottom-0 left-[-8rem] h-72 w-72 rounded-full bg-amber-50 blur-[100px]" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
@@ -48,7 +48,7 @@ export default function Intro() {
               <h2 className="mt-4 text-3xl font-semibold leading-[1.08] tracking-[-0.045em] text-black sm:text-4xl lg:text-5xl">
                 Cada história pede uma escuta diferente.
               </h2>
-              <p className="mt-5 max-w-xl text-lg font-light leading-relaxed text-zinc-500">
+              <p className="mt-5 max-w-xl text-base font-light leading-relaxed text-zinc-500 min-[390px]:text-lg">
                 O acompanhamento não parte de fórmulas prontas. Ele é construído a partir da pessoa, do contexto e do momento de vida.
               </p>
             </div>
@@ -83,7 +83,7 @@ export default function Intro() {
                   viewport={{ once: true, margin: "-70px" }}
                   transition={{ duration: 0.62, delay: idx * 0.13, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ y: -8, rotate: idx === 0 ? -1 : idx === 2 ? 1 : 0 }}
-                  className={`${item.dark ? "premium-dark text-white" : "premium-glass text-black"} relative overflow-hidden rounded-[28px] p-7 sm:p-8 lg:absolute lg:w-[68%] ${idx === 0 ? "lg:left-0 lg:top-0" : idx === 1 ? "lg:right-0 lg:top-[31%]" : "lg:bottom-0 lg:left-[7%]"}`}
+                  className={`${item.dark ? "premium-dark text-white" : "premium-glass text-black"} relative overflow-hidden rounded-[28px] p-7 sm:p-8 ${idx === 2 ? "sm:col-span-2" : ""} lg:absolute lg:w-[68%] ${idx === 0 ? "lg:left-0 lg:top-0" : idx === 1 ? "lg:right-0 lg:top-[31%]" : "lg:bottom-0 lg:left-[7%]"}`}
                 >
                   <div className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full border ${item.dark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200/70 bg-white/45"}`} />
                   <div className="relative z-10">

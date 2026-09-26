@@ -34,15 +34,24 @@ export default function Header() {
       if (event.key === "Escape") setMobileMenuOpen(false);
     };
 
-    if (mobileMenuOpen) window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    const previousOverflow = document.documentElement.style.overflow;
+
+    if (mobileMenuOpen) {
+      document.documentElement.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      document.documentElement.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [mobileMenuOpen]);
 
   useEffect(() => {
-    lastScrollY.current = window.scrollY;
+    lastScrollY.current = Math.max(0, window.scrollY);
 
     const updateHeader = () => {
-      const currentY = window.scrollY;
+      const currentY = Math.max(0, window.scrollY);
       const delta = currentY - lastScrollY.current;
 
       setIsScrolled(currentY > 16);
@@ -91,13 +100,13 @@ export default function Header() {
       }}
     >
       <div
-        className="relative mx-auto max-w-7xl overflow-visible rounded-[19px] border transition-[background-color,border-color,box-shadow] duration-200 sm:rounded-[22px]"
+        className={`relative mx-auto max-w-7xl overflow-visible rounded-[19px] border transition-[background-color,border-color,box-shadow] duration-200 sm:rounded-[22px] ${
+          isScrolled ? "sm:backdrop-blur-[14px] sm:backdrop-saturate-[1.15]" : ""
+        }`}
         style={{
           backgroundColor: isScrolled ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0)",
           borderColor: isScrolled ? "rgba(228,228,231,0.86)" : "rgba(255,255,255,0)",
           boxShadow: isScrolled ? "0 14px 42px rgba(0,0,0,0.09)" : "0 0 0 rgba(0,0,0,0)",
-          backdropFilter: isScrolled ? "blur(14px) saturate(1.15)" : "none",
-          WebkitBackdropFilter: isScrolled ? "blur(14px) saturate(1.15)" : "none",
         }}
       >
         <div className="flex items-center justify-between gap-2 px-2.5 py-2.5 min-[390px]:gap-3 min-[390px]:px-3 sm:px-4 lg:gap-4 lg:px-5">
@@ -165,7 +174,7 @@ export default function Header() {
 
         <div
           id="mobile-navigation"
-          className={`absolute inset-x-0 top-[calc(100%+8px)] max-h-[calc(100vh-86px)] overflow-y-auto rounded-[20px] border border-zinc-200/90 bg-white/[0.985] p-2.5 shadow-[0_22px_60px_rgba(0,0,0,0.14)] transition-[opacity,transform,visibility] duration-150 ease-out will-change-transform sm:rounded-[22px] sm:p-3 lg:hidden ${
+          className={`absolute inset-x-0 top-[calc(100%+8px)] max-h-[calc(100dvh-86px)] overscroll-contain overflow-y-auto rounded-[20px] border border-zinc-200/90 bg-white/[0.985] p-2.5 shadow-[0_22px_60px_rgba(0,0,0,0.14)] transition-[opacity,transform,visibility] duration-150 ease-out will-change-transform sm:rounded-[22px] sm:p-3 lg:hidden ${
             mobileMenuOpen
               ? "visible translate-y-0 opacity-100 pointer-events-auto"
               : "invisible -translate-y-1 opacity-0 pointer-events-none"

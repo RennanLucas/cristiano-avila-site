@@ -28,15 +28,15 @@ export default function CookieBanner() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="fixed bottom-5 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-50 bg-white rounded-2xl p-5 shadow-2xl border border-zinc-200"
+          className="fixed bottom-24 left-3 right-3 z-50 rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl min-[390px]:left-4 min-[390px]:right-4 min-[390px]:p-5 sm:bottom-5 sm:left-6 sm:right-auto sm:max-w-md"
           role="dialog"
           aria-label="Aviso de privacidade"
         >
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-wider text-black">Privacidade</p>
-            <p className="text-xs text-textMuted leading-relaxed">
+            <p className="text-xs leading-relaxed text-textMuted">
               O site utiliza apenas recursos necessários ao funcionamento e às preferências de navegação. Consulte a{' '}
-              <Link href="/politica-de-privacidade" className="text-black font-medium underline underline-offset-2">
+              <Link href="/politica-de-privacidade" className="font-medium text-black underline underline-offset-2">
                 Política de Privacidade
               </Link>{' '}
               para saber mais.
@@ -44,7 +44,7 @@ export default function CookieBanner() {
             <button
               type="button"
               onClick={close}
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-black text-white hover:bg-zinc-800 transition-colors"
+              className="w-full rounded-xl bg-black px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-zinc-800"
             >
               Entendi
             </button>
