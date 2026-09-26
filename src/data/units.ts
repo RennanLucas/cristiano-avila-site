@@ -8,6 +8,7 @@ export interface CurrentUnit {
   neighborhood?: string;
   zip: string;
   mapsExternalLink: string;
+  appleMapsExternalLink: string;
   mapEmbedUrl: string;
   availability: string;
   tagline: string;
@@ -17,6 +18,7 @@ function mapLinks(query: string) {
   const encoded = encodeURIComponent(query);
   return {
     mapsExternalLink: `https://www.google.com/maps/search/?api=1&query=${encoded}`,
+    appleMapsExternalLink: `https://maps.apple.com/?q=${encoded}`,
     mapEmbedUrl: `https://www.google.com/maps?q=${encoded}&output=embed`,
   };
 }

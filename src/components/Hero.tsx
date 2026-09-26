@@ -7,7 +7,7 @@ import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 export default function Hero() {
   return (
     <HeroVideoBackground>
-      <section className="relative overflow-hidden pb-10 pt-28 sm:pb-12 sm:pt-32 md:pb-16 md:pt-40">
+      <section id="inicio" className="relative overflow-hidden pb-10 pt-28 sm:pb-12 sm:pt-32 md:pb-16 md:pt-40">
         <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.45] [mask-image:linear-gradient(to_bottom,black,transparent_78%)]" />
         <div className="aurora-orb absolute -left-28 top-24 h-80 w-80 rounded-full bg-fuchsia-200/30 blur-[80px]" />
         <div className="aurora-orb aurora-orb-delayed absolute right-[-7rem] top-10 h-[26rem] w-[26rem] rounded-full bg-amber-100/55 blur-[95px]" />

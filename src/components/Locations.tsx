@@ -55,9 +55,10 @@ export default function Locations() {
                 <div><span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">Disponibilidade</span><p className="mt-1.5 text-sm text-white/90">{selectedUnit.availability}</p></div>
               </div>
             </div>
-            <div className="relative z-10 mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row">
-              <a href={buildWhatsAppLink(`Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade de atendimento presencial em ${selectedUnit.city}.`)} target="_blank" rel="noopener noreferrer" className="w-full rounded-full bg-white px-5 py-3 text-center text-xs font-semibold text-black transition-transform md:hover:-translate-y-0.5 sm:w-auto">Consultar horários</a>
-              <a href={selectedUnit.mapsExternalLink} target="_blank" rel="noopener noreferrer" className="w-full rounded-full border border-white/15 bg-white/5 px-5 py-3 text-center text-xs font-semibold text-white transition-colors hover:bg-white/10 sm:w-auto">Abrir no Google Maps</a>
+            <div className="relative z-10 mt-8 grid gap-3 sm:mt-9 sm:grid-cols-2">
+              <a href={buildWhatsAppLink(`Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade de atendimento presencial em ${selectedUnit.city}.`)} target="_blank" rel="noopener noreferrer" className="w-full rounded-full bg-white px-5 py-3 text-center text-xs font-semibold text-black transition-transform md:hover:-translate-y-0.5 sm:col-span-2">Consultar horários</a>
+              <a href={selectedUnit.mapsExternalLink} target="_blank" rel="noopener noreferrer" className="w-full rounded-full border border-white/15 bg-white/5 px-5 py-3 text-center text-xs font-semibold text-white transition-colors hover:bg-white/10">Google Maps</a>
+              <a href={selectedUnit.appleMapsExternalLink} target="_blank" rel="noopener noreferrer" className="w-full rounded-full border border-white/15 bg-white/5 px-5 py-3 text-center text-xs font-semibold text-white transition-colors hover:bg-white/10">Apple Maps</a>
             </div>
           </div>
           <div className="relative min-h-[300px] border-t border-zinc-800 bg-zinc-900 sm:min-h-[360px] lg:min-h-[520px] lg:border-l lg:border-t-0">
@@ -67,7 +68,7 @@ export default function Locations() {
               <div className="absolute inset-0 flex items-center justify-center bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_58%)] p-6 text-center">
                 <div className="max-w-xs">
                   <p className="text-sm font-medium text-white">Mapa sob demanda</p>
-                  <p className="mt-2 text-xs leading-relaxed text-white/50">No celular, o Google Maps só é carregado quando você pedir. Isso deixa a página mais leve.</p>
+                  <p className="mt-2 text-xs leading-relaxed text-white/50">No celular, o mapa só é carregado quando você pedir. Assim a página abre mais rápido.</p>
                   <button type="button" onClick={() => setShowMap(true)} className="mt-5 rounded-full bg-white px-5 py-3 text-xs font-semibold text-black">Carregar mapa</button>
                 </div>
               </div>

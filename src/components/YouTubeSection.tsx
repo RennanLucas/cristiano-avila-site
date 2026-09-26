@@ -31,7 +31,7 @@ export default function YouTubeSection() {
                 <div className="mt-6 grid gap-3 min-[390px]:grid-cols-2 sm:mt-8">
                   {[{ label: "Formato", value: "Conteúdo psicoeducativo" },{ label: "Temas", value: "Mente & comportamento" }].map((item) => <div key={item.label} className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition-[transform,background-color] duration-200 md:hover:-translate-y-1 md:hover:bg-white/[0.06]"><span className="block text-[8px] font-semibold uppercase tracking-[0.14em] text-white/30 sm:text-[9px] sm:tracking-[0.16em]">{item.label}</span><strong className="mt-1.5 block text-sm font-medium text-white">{item.value}</strong></div>)}
                 </div>
-                <div className="mt-6 border-t border-white/10 pt-5 sm:mt-7 sm:pt-6"><p className="text-[10px] font-light leading-relaxed text-white/40 sm:text-[11px]">Os conteúdos do canal são informativos e não substituem avaliação ou acompanhamento psicológico individualizado.</p></div>
+                <div className="mt-6 border-t border-white/10 pt-5 sm:mt-7 sm:pt-6"><p className="text-[10px] font-light leading-relaxed text-white/40 sm:text-[11px]">Conteúdo psicoeducativo sobre psicologia, comportamento, emoções e saúde mental.</p></div>
               </div>
             </div>
           </div>

@@ -92,12 +92,12 @@ export default function UnidadesPage() {
                     </div>
                   </div>
 
-                  <div className="mt-7 flex flex-col gap-3 border-t border-zinc-100 pt-6 sm:flex-row">
+                  <div className="mt-7 grid gap-3 border-t border-zinc-100 pt-6 sm:grid-cols-2">
                     <a
                       href={buildWhatsAppLink(`Olá, Dr. Cristiano. Gostaria de verificar disponibilidade de atendimento presencial em ${unit.city}.`)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary flex-1 px-5 py-3 text-center text-xs"
+                      className="btn-primary px-5 py-3 text-center text-xs sm:col-span-2"
                     >
                       Consultar horários
                     </a>
@@ -107,7 +107,15 @@ export default function UnidadesPage() {
                       rel="noopener noreferrer"
                       className="btn-outline px-5 py-3 text-center text-xs"
                     >
-                      Abrir no mapa
+                      Google Maps
+                    </a>
+                    <a
+                      href={unit.appleMapsExternalLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-outline px-5 py-3 text-center text-xs"
+                    >
+                      Apple Maps
                     </a>
                   </div>
                 </div>

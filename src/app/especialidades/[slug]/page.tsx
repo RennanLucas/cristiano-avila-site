@@ -75,9 +75,9 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
                     {specialty.num}
                   </div>
                   <div>
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">Abordagem individualizada</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">Acompanhamento individualizado</span>
                     <p className="mt-3 text-base font-light leading-relaxed text-white/75">
-                      O enquadre, a frequência e os recursos utilizados são definidos após avaliação profissional. Esta página é informativa e não representa promessa de resultado ou indicação automática de técnica.
+                      Cada acompanhamento é conduzido de forma individual, considerando a história, o contexto, as necessidades e os objetivos definidos ao longo do processo terapêutico.
                     </p>
                   </div>
                 </div>
@@ -97,11 +97,10 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
                 </div>
 
                 <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
-                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Objetivos possíveis do processo</h3>
+                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Objetivos do acompanhamento</h3>
                   <ul className="space-y-3">
                     {specialty.benefits.map((item, i) => <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-600"><span aria-hidden="true">•</span><span>{item}</span></li>)}
                   </ul>
-                  <p className="mt-5 text-[11px] leading-relaxed text-zinc-500">Objetivos e estratégias variam conforme avaliação profissional e não constituem promessa de resultado.</p>
                 </div>
               </div>
             </div>

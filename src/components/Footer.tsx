@@ -46,7 +46,7 @@ export default function Footer() {
 
         <div className="flex flex-col items-start justify-between gap-4 pt-7 text-[11px] font-light leading-relaxed text-zinc-500 sm:pt-8 sm:text-xs lg:flex-row lg:items-center">
           <p>© {new Date().getFullYear()} {CLINIC_CONTACT.fullName}. Todos os direitos reservados.</p>
-          <p className="max-w-xl">Conteúdos informativos sobre psicologia e saúde mental não substituem avaliação ou acompanhamento profissional.</p>
+          <p className="max-w-xl">Conteúdo profissional e psicoeducativo sobre psicologia, comportamento e saúde mental.</p>
           <div className="flex flex-wrap items-center gap-5"><Link href="/politica-de-privacidade" className="hover:text-black">Privacidade</Link><Link href="/contato" className="hover:text-black">Contato</Link></div>
         </div>
       </div>
