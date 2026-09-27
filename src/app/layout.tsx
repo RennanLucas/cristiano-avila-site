@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "./premium-desktop.css";
 import JsonLd from "@/components/JsonLd";
+import DesktopExperience from "@/components/DesktopExperience";
 import { CURRENT_CITIES_TEXT } from "@/data/units";
 import { SITE_URL } from "@/lib/site-policy";
 
@@ -53,6 +55,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head><JsonLd /></head>
       <body className="relative overflow-x-hidden bg-white font-sans text-[#111111] antialiased selection:bg-black selection:text-white">
         {children}
+        <DesktopExperience />
       </body>
     </html>
   );
