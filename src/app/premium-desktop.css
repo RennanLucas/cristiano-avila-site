@@ -1,0 +1,180 @@
+/* Premium desktop-only experience. Mobile/tablet keep the lightweight rendering path. */
+
+.desktop-scroll-progress {
+  display: none;
+}
+
+@keyframes route-premium-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  html.desktop-premium,
+  html.desktop-premium body {
+    scroll-behavior: auto !important;
+  }
+
+  .route-transition-frame {
+    animation: route-premium-enter 440ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .desktop-scroll-progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 80;
+    display: block;
+    height: 2px;
+    pointer-events: none;
+    background: rgba(17, 17, 17, 0.04);
+  }
+
+  .desktop-scroll-progress > span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: linear-gradient(90deg, #111111 0%, #52525b 55%, #a1a1aa 100%);
+    box-shadow: 0 0 18px rgba(17, 17, 17, 0.14);
+    will-change: transform;
+  }
+
+  html.desktop-premium .premium-reveal-section {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translate3d(0, 34px, 0) scale(0.997);
+    transition:
+      opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+      filter 760ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
+  }
+
+  html.desktop-premium .premium-reveal-section.is-premium-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  #inicio {
+    --hero-copy-y: 0px;
+    --hero-visual-y: 0px;
+    --hero-pointer-x: 62%;
+    --hero-pointer-y: 32%;
+  }
+
+  #inicio::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(520px circle at var(--hero-pointer-x) var(--hero-pointer-y), rgba(255,255,255,0.42), transparent 62%),
+      radial-gradient(380px circle at calc(var(--hero-pointer-x) + 7%) calc(var(--hero-pointer-y) + 8%), rgba(244,244,245,0.24), transparent 70%);
+    mix-blend-mode: soft-light;
+    opacity: 0.8;
+    transition: opacity 300ms ease;
+  }
+
+  #inicio .hero-cinematic-copy,
+  #inicio .hero-cinematic-visual {
+    will-change: transform;
+    transition: transform 80ms linear;
+  }
+
+  #inicio .hero-cinematic-copy {
+    transform: translate3d(0, var(--hero-copy-y), 0);
+  }
+
+  #inicio .hero-cinematic-visual {
+    transform: translate3d(0, var(--hero-visual-y), 0);
+  }
+
+  #inicio .hero-cinematic-visual > div:first-child {
+    isolation: isolate;
+  }
+
+  #inicio .hero-cinematic-visual > div:first-child::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    z-index: 5;
+    pointer-events: none;
+    background: linear-gradient(110deg, transparent 36%, rgba(255,255,255,0.16) 49%, transparent 62%);
+    transform: translateX(-80%) rotate(2deg);
+    opacity: 0;
+    transition: transform 1000ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease;
+  }
+
+  #inicio .hero-cinematic-visual:hover > div:first-child::after {
+    transform: translateX(68%) rotate(2deg);
+    opacity: 1;
+  }
+
+  .editorial-label::before {
+    content: "";
+    display: inline-block;
+    width: 1.6rem;
+    height: 1px;
+    margin-right: 0.65rem;
+    vertical-align: middle;
+    background: #d4d4d8;
+    transform-origin: left center;
+    transition: width 320ms cubic-bezier(0.16, 1, 0.3, 1), background-color 320ms ease;
+  }
+
+  section:hover .editorial-label::before {
+    width: 2.25rem;
+    background: #52525b;
+  }
+
+  .premium-card,
+  .premium-glass,
+  .premium-dark {
+    transform-style: preserve-3d;
+  }
+
+  .premium-card:hover,
+  .premium-glass:hover {
+    border-color: rgba(255,255,255,0.96);
+  }
+
+  a.btn-primary,
+  a.btn-outline,
+  button.btn-primary,
+  button.btn-outline {
+    position: relative;
+    isolation: isolate;
+  }
+
+  a.btn-primary::before,
+  button.btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.18), transparent 58%);
+    opacity: 0;
+    transition: opacity 260ms ease;
+  }
+
+  a.btn-primary:hover::before,
+  button.btn-primary:hover::before {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1023px), (prefers-reduced-motion: reduce) {
+  .route-transition-frame {
+    animation: none !important;
+  }
+}
