@@ -30,12 +30,12 @@ export default function Intro() {
             </div>
           </div>
 
-          <div className="relative lg:col-span-6 lg:min-h-[560px]">
+          <div className="relative lg:col-span-6">
             <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-100 lg:block" />
             <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-100 lg:block" />
-            <div className="grid gap-4 sm:grid-cols-2 lg:block">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 lg:gap-5">
               {PRINCIPLES.map((item, idx) => (
-                <article key={item.number} className={`${item.dark ? "premium-dark text-white" : "premium-glass text-black"} relative overflow-hidden rounded-[28px] p-7 transition-transform duration-300 md:hover:-translate-y-2 sm:p-8 ${idx === 2 ? "sm:col-span-2" : ""} lg:absolute lg:w-[68%] ${idx === 0 ? "lg:left-0 lg:top-0" : idx === 1 ? "lg:right-0 lg:top-[31%]" : "lg:bottom-0 lg:left-[7%]"}`}>
+                <article key={item.number} className={`${item.dark ? "premium-dark text-white" : "premium-glass text-black"} relative overflow-hidden rounded-[28px] p-7 transition-transform duration-300 md:hover:-translate-y-2 sm:p-8 ${idx === 2 ? "sm:col-span-2 lg:col-span-1" : ""} lg:w-[70%] ${idx === 0 ? "lg:justify-self-start" : idx === 1 ? "lg:justify-self-end" : "lg:ml-[7%] lg:justify-self-start"}`}>
                   <div className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full border ${item.dark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200/70 bg-white/45"}`} />
                   <div className="relative z-10">
                     <div className="flex items-center justify-between gap-4"><span className={`font-mono text-[10px] font-semibold ${item.dark ? "text-white/35" : "text-zinc-400"}`}>{item.number}</span><span className={`text-[9px] font-semibold uppercase tracking-[0.17em] ${item.dark ? "text-white/40" : "text-zinc-400"}`}>{item.label}</span></div>
