@@ -30,7 +30,7 @@ export default function DesktopExperience() {
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.04, rootMargin: "0px 0px -3% 0px" },
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -44,24 +44,16 @@ export default function DesktopExperience() {
     heroVisual?.classList.add("hero-cinematic-visual");
 
     let scrollFrame = 0;
-    const updateScrollEffects = () => {
+    const updateProgress = () => {
       scrollFrame = 0;
-
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
       if (progressRef.current) progressRef.current.style.transform = `scaleX(${progress})`;
-
-      if (hero) {
-        const rect = hero.getBoundingClientRect();
-        const heroProgress = Math.min(1, Math.max(0, -rect.top / Math.max(1, rect.height)));
-        hero.style.setProperty("--hero-copy-y", `${heroProgress * -14}px`);
-        hero.style.setProperty("--hero-visual-y", `${heroProgress * 22}px`);
-      }
     };
 
     const requestScrollUpdate = () => {
       if (scrollFrame) return;
-      scrollFrame = window.requestAnimationFrame(updateScrollEffects);
+      scrollFrame = window.requestAnimationFrame(updateProgress);
     };
 
     const updatePointer = (event: PointerEvent) => {
@@ -75,38 +67,13 @@ export default function DesktopExperience() {
 
     window.addEventListener("scroll", requestScrollUpdate, { passive: true });
     hero?.addEventListener("pointermove", updatePointer, { passive: true });
-    updateScrollEffects();
-
-    let cancelled = false;
-    let rafId = 0;
-    let lenis: { raf: (time: number) => void; destroy: () => void } | null = null;
-
-    import("@studio-freight/lenis").then(({ default: Lenis }) => {
-      if (cancelled) return;
-
-      lenis = new Lenis({
-        duration: 1.05,
-        smoothWheel: true,
-        wheelMultiplier: 0.88,
-        easing: (t: number) => 1 - Math.pow(1 - t, 4),
-      });
-
-      const raf = (time: number) => {
-        lenis?.raf(time);
-        rafId = window.requestAnimationFrame(raf);
-      };
-
-      rafId = window.requestAnimationFrame(raf);
-    });
+    updateProgress();
 
     return () => {
-      cancelled = true;
       observer.disconnect();
       window.removeEventListener("scroll", requestScrollUpdate);
       hero?.removeEventListener("pointermove", updatePointer);
       if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
-      if (rafId) window.cancelAnimationFrame(rafId);
-      lenis?.destroy();
       sections.forEach((section) => section.classList.remove("premium-reveal-section", "is-premium-visible"));
       heroCopy?.classList.remove("hero-cinematic-copy");
       heroVisual?.classList.remove("hero-cinematic-visual");
