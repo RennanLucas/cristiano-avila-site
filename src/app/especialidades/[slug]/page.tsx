@@ -46,106 +46,106 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
   const currentCities = CURRENT_UNITS.map((unit) => unit.city).join(", ");
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-white pb-20 text-[#111111] selection:bg-black selection:text-white sm:pb-0">
+    <main className="min-h-screen overflow-x-hidden bg-[#f5f5f2] pb-20 text-[#111111] selection:bg-black selection:text-white sm:pb-0">
       <Header />
 
-      <section className="relative overflow-hidden border-b border-zinc-100 bg-gradient-to-b from-zinc-50/80 to-white px-4 pb-16 pt-36 sm:px-6 sm:pt-44">
-        <div className="pointer-events-none absolute right-[8%] top-24 h-64 w-64 rounded-full border border-zinc-200 bg-white/60 shadow-sm" />
-        <div className="pointer-events-none absolute right-[13%] top-36 h-40 w-40 rounded-full border border-zinc-100 bg-zinc-50" />
-
-        <div className="relative z-10 mx-auto max-w-5xl">
-          <nav className="mb-8 flex flex-wrap items-center gap-2 text-xs text-zinc-400" aria-label="Breadcrumb">
-            <Link href="/" className="transition-colors hover:text-black">Início</Link><span>/</span>
-            <Link href="/#especialidades" className="transition-colors hover:text-black">Formas de atendimento</Link><span>/</span>
-            <span className="font-semibold text-black">{specialty.title}</span>
+      <section data-tone="dark" className="relative overflow-hidden bg-black px-4 pb-20 pt-36 text-white sm:px-6 sm:pb-24 sm:pt-44 lg:pb-32">
+        <div className="cta-cinematic-grid pointer-events-none absolute inset-0 opacity-60" />
+        <div className="pointer-events-none absolute -right-8 top-24 font-serif text-[10rem] italic leading-none text-white/[0.04] sm:text-[16rem] lg:right-[5%] lg:text-[22rem]">{specialty.num}</div>
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <nav className="mb-10 flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/35" aria-label="Breadcrumb">
+            <Link href="/" className="transition-colors hover:text-white">Início</Link><span>/</span>
+            <Link href="/#especialidades" className="transition-colors hover:text-white">Atendimentos</Link><span>/</span>
+            <span className="text-white/70">{specialty.title}</span>
           </nav>
 
-          <span className="mb-5 inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">{specialty.badge}</span>
-          <h1 className="mb-4 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-black sm:text-6xl md:text-7xl">{specialty.title}</h1>
-          <p className="mb-6 text-lg font-light leading-relaxed text-zinc-500 sm:text-2xl">{specialty.subtitle}</p>
-          <p className="mb-9 max-w-3xl text-base font-light leading-relaxed text-zinc-600 sm:text-lg">{specialty.shortDesc}</p>
-
-          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-            <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary px-7 py-3.5 text-center shadow-apple">Consultar horários</a>
-            <Link href="/#especialidades" className="btn-outline px-7 py-3.5 text-center">Ver outras opções</Link>
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-end lg:gap-16">
+            <div>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/38">{specialty.badge}</span>
+              <h1 className="mt-5 max-w-5xl text-[3.15rem] font-medium leading-[0.92] tracking-[-0.06em] text-white sm:text-6xl lg:text-[7.2rem]">{specialty.title}</h1>
+              <p className="mt-6 max-w-3xl font-serif text-2xl italic leading-snug text-white/58 sm:text-3xl">{specialty.subtitle}</p>
+            </div>
+            <div className="max-w-xl lg:justify-self-end">
+              <p className="text-base font-light leading-relaxed text-white/55 sm:text-lg">{specialty.shortDesc}</p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white px-7 py-3.5 text-center text-xs font-semibold text-black transition-transform hover:scale-[1.02]">Consultar horários ↗</a>
+                <Link href="/#especialidades" className="rounded-full border border-white/15 px-7 py-3.5 text-center text-xs font-semibold text-white/75 transition-colors hover:bg-white/10 hover:text-white">Outras opções</Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <div className="grid items-start gap-12 sm:gap-16 lg:grid-cols-3">
-            <div className="space-y-10 lg:col-span-2">
-              <div className="relative overflow-hidden rounded-[28px] border border-zinc-200 bg-zinc-950 p-7 text-white shadow-[0_24px_70px_rgba(0,0,0,0.10)] sm:p-10">
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_34%)]" />
-                <div className="relative z-10 grid gap-8 sm:grid-cols-[auto_1fr] sm:items-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 font-mono text-xl font-semibold text-white/80">
-                    {specialty.num}
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">Em foco</span>
-                    <p className="mt-3 text-base font-light leading-relaxed text-white/75">{summary}</p>
-                  </div>
+      <section className="relative py-20 sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_330px] lg:gap-16">
+            <div className="space-y-12">
+              <section className="premium-dark relative overflow-hidden rounded-[32px] p-7 text-white sm:p-10 lg:p-12">
+                <div className="pointer-events-none absolute -right-10 -top-20 font-serif text-[12rem] italic leading-none text-white/[0.04]">{specialty.num}</div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between gap-5"><span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/35">Em foco</span><span className="font-mono text-[10px] text-white/28">{specialty.num}</span></div>
+                  <p className="mt-16 max-w-4xl text-2xl font-light leading-[1.35] tracking-[-0.025em] text-white/78 sm:text-3xl lg:text-4xl">{summary}</p>
                 </div>
-              </div>
+              </section>
 
-              <div className="space-y-6 text-base font-light leading-relaxed text-zinc-600 sm:text-lg">
-                <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">Como essa frente pode ser trabalhada</h2>
-                {specialty.fullDesc.map((paragraph, idx) => <p key={idx}>{paragraph}</p>)}
-              </div>
+              <section>
+                <span className="editorial-label">Como funciona</span>
+                <h2 className="mt-4 max-w-4xl text-3xl font-semibold leading-[1.03] tracking-[-0.045em] text-black sm:text-5xl">Como essa frente pode ser trabalhada.</h2>
+                <div className="mt-8 grid gap-6 text-base font-light leading-[1.85] text-zinc-650 sm:text-lg">
+                  {specialty.fullDesc.map((paragraph, idx) => <p key={idx} className="max-w-4xl">{paragraph}</p>)}
+                </div>
+              </section>
 
-              <div className="grid gap-8 border-t border-zinc-100 pt-8 sm:grid-cols-2">
-                <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
-                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Situações que podem chegar à sessão</h3>
-                  <ul className="space-y-3">
-                    {specialty.indications.map((item, i) => <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-600"><span aria-hidden="true">•</span><span>{item}</span></li>)}
+              <div className="grid gap-5 md:grid-cols-2">
+                <section className="premium-glass rounded-[30px] p-7 sm:p-9">
+                  <div className="flex items-center justify-between"><span className="font-mono text-[10px] text-zinc-400">01</span><span className="text-[9px] font-semibold uppercase tracking-[0.17em] text-zinc-400">Situações</span></div>
+                  <h3 className="mt-10 text-2xl font-semibold leading-tight tracking-[-0.035em] text-black">O que pode chegar à sessão</h3>
+                  <ul className="mt-6 space-y-4">
+                    {specialty.indications.map((item, i) => <li key={i} className="grid grid-cols-[18px_1fr] gap-3 border-t border-zinc-200/70 pt-4 text-sm font-light leading-relaxed text-zinc-600 first:border-t-0 first:pt-0"><span className="font-mono text-[9px] text-zinc-300">{String(i + 1).padStart(2, "0")}</span><span>{item}</span></li>)}
                   </ul>
-                </div>
+                </section>
 
-                <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
-                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-black">Aspectos que podem ser trabalhados</h3>
-                  <ul className="space-y-3">
-                    {specialty.benefits.map((item, i) => <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-600"><span aria-hidden="true">•</span><span>{item}</span></li>)}
+                <section className="premium-dark rounded-[30px] p-7 text-white sm:p-9">
+                  <div className="flex items-center justify-between"><span className="font-mono text-[10px] text-white/28">02</span><span className="text-[9px] font-semibold uppercase tracking-[0.17em] text-white/35">Trabalho clínico</span></div>
+                  <h3 className="mt-10 text-2xl font-semibold leading-tight tracking-[-0.035em] text-white">Aspectos que podem ser trabalhados</h3>
+                  <ul className="mt-6 space-y-4">
+                    {specialty.benefits.map((item, i) => <li key={i} className="grid grid-cols-[18px_1fr] gap-3 border-t border-white/10 pt-4 text-sm font-light leading-relaxed text-white/58 first:border-t-0 first:pt-0"><span className="font-mono text-[9px] text-white/25">{String(i + 1).padStart(2, "0")}</span><span>{item}</span></li>)}
                   </ul>
-                </div>
+                </section>
               </div>
             </div>
 
-            <aside className="space-y-6 lg:sticky lg:top-28">
-              <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-6 text-left">
-                <div className="mb-5 flex items-center gap-3.5">
-                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-zinc-200 bg-white">
-                    <Image src={CLINIC_CONTACT.avatarUrl} alt="Cristiano Ávila" fill sizes="56px" className="object-cover object-top" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-black">{CLINIC_CONTACT.fullName}</h4>
-                    <p className="mt-0.5 text-xs text-zinc-500">Psicólogo Clínico</p>
-                    <p className="mt-1 text-[11px] text-zinc-500">{PROFESSIONAL_REGISTRATION}</p>
-                  </div>
+            <aside className="lg:sticky lg:top-28 lg:h-fit">
+              <div className="overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-[0_24px_70px_rgba(0,0,0,0.06)]">
+                <div className="relative aspect-[4/3] bg-zinc-100">
+                  <Image src={CLINIC_CONTACT.avatarUrl} alt="Cristiano Ávila" fill sizes="330px" className="object-cover object-top" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 text-white"><p className="text-lg font-semibold">{CLINIC_CONTACT.fullName}</p><p className="mt-1 text-[10px] text-white/55">Psicólogo Clínico • {PROFESSIONAL_REGISTRATION}</p></div>
                 </div>
-
-                <div className="space-y-3 border-t border-zinc-200 pt-4 text-xs text-zinc-600">
-                  <p><strong className="text-black">Formato:</strong> presencial e online</p>
-                  <p><strong className="text-black">Consultórios:</strong> {currentCities}</p>
-                  <p><strong className="text-black">Contato:</strong> agenda e dúvidas pelo WhatsApp</p>
+                <div className="p-6 sm:p-7">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Atendimento</span>
+                  <div className="mt-4 space-y-4 border-y border-zinc-200 py-5 text-xs font-light leading-relaxed text-zinc-600">
+                    <p><strong className="font-semibold text-black">Formato</strong><br />Presencial e online</p>
+                    <p><strong className="font-semibold text-black">Consultórios</strong><br />{currentCities}</p>
+                    <p><strong className="font-semibold text-black">Contato</strong><br />Agenda e dúvidas pelo WhatsApp</p>
+                  </div>
+                  <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 block w-full py-3.5 text-center text-xs">Consultar disponibilidade ↗</a>
                 </div>
-
-                <a href={buildWhatsAppLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 block w-full py-3 text-center text-xs">Consultar disponibilidade</a>
               </div>
             </aside>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-zinc-200 bg-zinc-50 py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <h2 className="mb-8 text-2xl font-semibold tracking-tight text-black">Outras formas de atendimento</h2>
-          <div className="grid gap-6 sm:grid-cols-3">
-            {otherSpecialties.map((item) => (
-              <Link key={item.id} href={`/especialidades/${item.slug}`} className="group rounded-2xl border border-zinc-200 bg-white p-6 transition-all hover:-translate-y-1 hover:border-zinc-400 hover:shadow-sm">
-                <h3 className="mb-2 text-base font-semibold text-black">{item.title}</h3>
-                <p className="line-clamp-3 text-xs leading-relaxed text-zinc-600">{item.shortDesc}</p>
-                <span className="mt-5 inline-block text-xs font-semibold text-black">Conhecer →</span>
+      <section className="border-t border-zinc-200 bg-white py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="mb-10 flex items-end justify-between gap-6"><div><span className="editorial-label">Continuar explorando</span><h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-black sm:text-5xl">Outras formas de atendimento.</h2></div></div>
+          <div className="divide-y divide-zinc-200 border-y border-zinc-200">
+            {otherSpecialties.map((item, index) => (
+              <Link key={item.id} href={`/especialidades/${item.slug}`} className="group grid gap-3 py-6 transition-colors hover:bg-zinc-50 sm:grid-cols-[54px_1fr_auto] sm:items-center sm:px-3 sm:py-8">
+                <span className="font-mono text-[10px] text-zinc-400">{String(index + 1).padStart(2, "0")}</span>
+                <div><h3 className="text-2xl font-semibold tracking-[-0.035em] text-black sm:text-3xl">{item.title}</h3><p className="mt-2 max-w-3xl text-sm font-light leading-relaxed text-zinc-500">{item.shortDesc}</p></div>
+                <span className="text-xl text-zinc-300 transition-transform group-hover:translate-x-1 group-hover:text-black">↗</span>
               </Link>
             ))}
           </div>

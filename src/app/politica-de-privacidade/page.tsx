@@ -1,12 +1,14 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { CLINIC_CONTACT } from "@/data/content";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
-export const metadata = {
-  title: "Política de Privacidade | Cristiano Ávila",
+export const metadata: Metadata = {
+  title: "Política de Privacidade",
   description: "Informações sobre privacidade, LGPD, dados pessoais e sigilo profissional no site de Cristiano Ávila.",
+  alternates: { canonical: "/politica-de-privacidade" },
 };
 
 export default function PoliticaPrivacidadePage() {
@@ -23,15 +25,10 @@ export default function PoliticaPrivacidadePage() {
 
           <div className="space-y-10 text-zinc-700 font-light leading-relaxed text-sm sm:text-base border-t border-zinc-100 pt-10">
             <section><h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">1. Sigilo profissional</h2><p>Informações obtidas no contexto do atendimento psicológico são tratadas conforme o Código de Ética Profissional do Psicólogo e as normas aplicáveis. O dever de sigilo possui hipóteses e limites previstos nas normas profissionais e na legislação; quando houver fundamento para compartilhamento, devem ser observados necessidade, proporcionalidade e o menor prejuízo possível.</p></section>
-
             <section><h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">2. Dados usados no primeiro contato</h2><p className="mb-3">O site direciona o visitante principalmente para WhatsApp e telefone. Para agendamento, recomenda-se compartilhar inicialmente apenas os dados necessários à organização do contato, como nome, modalidade desejada, cidade e preferência de horário.</p><p>Para sua privacidade, evite enviar detalhes clínicos sensíveis em mensagens iniciais. Informações de saúde devem ser tratadas apenas quando necessárias e em contexto apropriado.</p></section>
-
             <section><h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">3. Atendimento mediado por tecnologias</h2><p>O atendimento psicológico por tecnologias digitais deve observar as regras profissionais vigentes do Conselho Federal de Psicologia, incluindo a Resolução CFP nº 9/2024 e eventuais normas posteriores que venham a substituí-la ou complementá-la.</p></section>
-
             <section><h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">4. Cookies e armazenamento local</h2><p>O site pode utilizar tecnologias estritamente necessárias para funcionamento, segurança e armazenamento de preferências. Caso ferramentas adicionais de métricas ou publicidade sejam instaladas futuramente, esta política e o mecanismo de consentimento deverão ser atualizados antes da ativação.</p></section>
-
             <section><h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">5. Direitos do titular</h2><p className="mb-3">Nos termos da LGPD, o titular pode solicitar, quando aplicável:</p><ul className="list-disc pl-5 space-y-2"><li>confirmação da existência de tratamento;</li><li>acesso e correção de dados;</li><li>informações sobre uso e compartilhamento;</li><li>eliminação ou anonimização quando cabível, respeitadas obrigações legais e profissionais de guarda.</li></ul></section>
-
             <section><h2 className="text-xl sm:text-2xl font-semibold text-black tracking-tight mb-3">6. Contato sobre privacidade</h2><p>Solicitações podem ser encaminhadas pelo telefone/WhatsApp <a href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-black font-semibold underline">{CLINIC_CONTACT.phone}</a>. O site não publica um endereço de e-mail até que exista um canal de domínio confirmado para esse uso.</p></section>
           </div>
 

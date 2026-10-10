@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -5,9 +6,10 @@ import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
 import { CURRENT_CITIES_TEXT } from "@/data/units";
 import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
-export const metadata = {
-  title: "Sobre | Cristiano Ávila, Psicólogo Clínico",
+export const metadata: Metadata = {
+  title: "Sobre | Psicólogo Clínico",
   description: "Trajetória profissional de Cristiano Ávila, psicólogo clínico com atendimento presencial e online.",
+  alternates: { canonical: "/sobre" },
 };
 
 export default function SobrePage() {

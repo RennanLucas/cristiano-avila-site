@@ -1,11 +1,19 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { ARTICLES_DATA } from "@/data/content";
 
-export const metadata = {
-  title: "Blog | Psicologia, Saúde Mental e Comportamento | Cristiano Ávila",
+export const metadata: Metadata = {
+  title: "Blog | Psicologia, Saúde Mental e Comportamento",
   description: "Artigos psicoeducativos sobre psicologia, saúde mental, emoções, comportamento e relações por Cristiano Ávila.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Blog | Psicologia, Saúde Mental e Comportamento",
+    description: "Artigos psicoeducativos sobre psicologia, saúde mental, emoções, comportamento e relações por Cristiano Ávila.",
+    url: "/blog",
+    type: "website",
+  },
 };
 
 export default function BlogIndexPage() {
