@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import SpotlightCard from "./SpotlightCard";
 
 export type SpecialtySummary = {
   id: string;
@@ -21,59 +20,84 @@ const CATEGORIES = [
 
 export default function SpecialtiesClient({ items }: { items: SpecialtySummary[] }) {
   const [filter, setFilter] = useState("todos");
-  const filteredData = items.filter((item) => {
+  const filteredData = useMemo(() => items.filter((item) => {
     if (filter === "todos") return true;
     if (filter === "clinica") return ["psicoterapia", "neuropsicologia", "pnl"].includes(item.id);
     if (filter === "hipnose") return item.id === "hipnoterapia";
     if (filter === "online") return item.id === "psicologia-sem-fronteiras";
     return true;
-  });
+  }), [filter, items]);
+
+  const [activeId, setActiveId] = useState(items[0]?.id ?? "");
+
+  useEffect(() => {
+    if (!filteredData.some((item) => item.id === activeId)) setActiveId(filteredData[0]?.id ?? "");
+  }, [activeId, filteredData]);
+
+  const activeItem = filteredData.find((item) => item.id === activeId) ?? filteredData[0];
+  const activeIndex = activeItem ? items.findIndex((item) => item.id === activeItem.id) : 0;
 
   return (
-    <section id="especialidades" className="relative overflow-hidden border-t border-zinc-200/60 bg-[#F5F5F3] py-20 sm:py-24 lg:py-32">
-      <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.38] [mask-image:radial-gradient(circle_at_center,black,transparent_85%)]" />
-      <div className="aurora-orb absolute -right-20 top-20 h-72 w-72 rounded-full bg-amber-100/60 blur-[90px]" />
-      <div className="aurora-orb aurora-orb-delayed absolute -left-24 bottom-10 h-72 w-72 rounded-full bg-fuchsia-100/45 blur-[95px]" />
-
+    <section id="especialidades" className="specialties-editorial relative overflow-hidden border-t border-zinc-200/60 bg-[#F2F1EE] py-20 sm:py-24 lg:py-32">
+      <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.24] [mask-image:radial-gradient(circle_at_center,black,transparent_88%)]" />
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="mb-12 flex flex-col justify-between gap-7 sm:mb-14 md:flex-row md:items-end">
-          <div className="max-w-2xl">
+        <div className="mb-12 grid gap-8 lg:mb-16 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="max-w-4xl">
             <span className="editorial-label">Formas de atendimento</span>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-black md:text-5xl">Conheça as frentes de trabalho disponíveis.</h2>
-            <p className="mt-4 text-[15px] font-light leading-relaxed text-zinc-600 sm:text-lg">Cada opção abaixo tem um foco diferente. Abra a página para entender como funciona, quais temas podem ser levados à sessão e em quais formatos o atendimento acontece.</p>
+            <h2 className="mt-4 max-w-4xl text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-black sm:text-5xl lg:text-7xl">Escolha uma frente e <span className="font-serif font-normal italic text-zinc-600">explore o foco.</span></h2>
           </div>
+          <p className="max-w-sm text-sm font-light leading-relaxed text-zinc-600 lg:pb-1">Passe pelas opções para ver como cada frente se diferencia antes de abrir a página completa.</p>
+        </div>
 
-          <div className="-mx-1 flex max-w-full flex-nowrap gap-1.5 overflow-x-auto rounded-[22px] border border-white/80 bg-white/65 p-1.5 shadow-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:flex-wrap md:rounded-full md:backdrop-blur-xl" role="group" aria-label="Filtrar formas de atendimento">
-            {CATEGORIES.map((cat) => {
-              const active = filter === cat.id;
+        <div className="mb-8 flex max-w-full flex-nowrap gap-1.5 overflow-x-auto rounded-full border border-white/80 bg-white/60 p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:w-fit" role="group" aria-label="Filtrar formas de atendimento">
+          {CATEGORIES.map((cat) => {
+            const active = filter === cat.id;
+            return <button key={cat.id} type="button" onClick={() => setFilter(cat.id)} aria-pressed={active} className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-colors ${active ? "bg-black text-white" : "text-zinc-600 hover:bg-white hover:text-black"}`}>{cat.label}</button>;
+          })}
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
+          <div className="divide-y divide-black/10 border-y border-black/10">
+            {filteredData.map((item, index) => {
+              const active = item.id === activeItem?.id;
               return (
-                <button key={cat.id} type="button" onClick={() => setFilter(cat.id)} aria-pressed={active} className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-[background-color,color,transform] duration-200 active:scale-[0.98] ${active ? "bg-black text-white shadow-lg" : "text-zinc-600 hover:bg-white hover:text-black"}`}>
-                  {cat.label}
+                <button
+                  key={item.id}
+                  type="button"
+                  onMouseEnter={() => setActiveId(item.id)}
+                  onFocus={() => setActiveId(item.id)}
+                  onClick={() => setActiveId(item.id)}
+                  className={`specialty-row group flex w-full items-center gap-4 py-5 text-left transition-opacity sm:gap-6 sm:py-6 ${active ? "opacity-100" : "opacity-45 hover:opacity-80"}`}
+                  aria-pressed={active}
+                  data-cursor-label="Explorar"
+                >
+                  <span className="w-8 shrink-0 font-mono text-[10px] text-zinc-400">{String(index + 1).padStart(2, "0")}</span>
+                  <span className={`min-w-0 flex-1 text-[1.55rem] font-semibold leading-none tracking-[-0.04em] transition-transform duration-200 sm:text-3xl lg:text-[2.35rem] ${active ? "translate-x-1" : ""}`}>{item.title}</span>
+                  <span className={`shrink-0 text-lg transition-transform duration-200 ${active ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"}`} aria-hidden="true">↗</span>
                 </button>
               );
             })}
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredData.map((item, index) => (
-            <div key={item.id} className="h-full min-w-0">
-              <SpotlightCard className="h-full min-h-[290px] p-6 sm:min-h-[320px] sm:p-8">
-                <div>
-                  <div className="mb-8 flex items-start justify-between gap-4 sm:mb-10 sm:gap-5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-zinc-200/80 bg-white/80 shadow-sm sm:h-12 sm:w-12"><span className="font-mono text-xs font-semibold text-zinc-500">{String(index + 1).padStart(2, "0")}</span></div>
-                    <span className="max-w-[150px] break-words text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-zinc-400 sm:tracking-[0.16em]">{item.badge}</span>
+          {activeItem ? (
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <div key={activeItem.id} className="specialty-focus-panel relative min-h-[430px] overflow-hidden rounded-[30px] bg-black p-7 text-white shadow-[0_40px_110px_rgba(0,0,0,0.18)] sm:p-9 lg:min-h-[560px] lg:rounded-[38px] lg:p-11" data-cursor-label="Abrir">
+                <div className="specialty-focus-grid pointer-events-none absolute inset-0" />
+                <span className="pointer-events-none absolute -right-5 -top-12 font-serif text-[11rem] italic leading-none text-white/[0.045] sm:text-[15rem]">{String(activeIndex + 1).padStart(2, "0")}</span>
+                <div className="relative z-10 flex h-full min-h-[370px] flex-col justify-between lg:min-h-[470px]">
+                  <div>
+                    <div className="flex items-center justify-between gap-4"><span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/40">{activeItem.badge}</span><span className="font-mono text-[10px] text-white/30">{String(activeIndex + 1).padStart(2, "0")}</span></div>
+                    <h3 className="mt-16 max-w-xl text-4xl font-semibold leading-[0.96] tracking-[-0.05em] text-white sm:text-5xl lg:text-6xl">{activeItem.title}</h3>
+                    <p className="mt-7 max-w-xl text-base font-light leading-relaxed text-white/58 sm:text-lg">{activeItem.shortDesc}</p>
                   </div>
-                  <h3 className="max-w-full text-[1.4rem] font-semibold tracking-[-0.03em] text-black sm:max-w-[90%] sm:text-2xl">{item.title}</h3>
-                  <p className="mt-4 text-sm font-light leading-relaxed text-zinc-600">{item.shortDesc}</p>
+                  <div className="mt-12 flex items-end justify-between gap-5 border-t border-white/10 pt-6">
+                    <div><span className="block text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">Conteúdo completo</span><span className="mt-1 block text-xs text-white/55">Como funciona • indicações • formatos</span></div>
+                    <Link href={`/especialidades/${activeItem.slug}`} data-cursor-label="Abrir" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-lg text-black transition-transform duration-200 hover:scale-105" aria-label={`Conhecer ${activeItem.title}`}>↗</Link>
+                  </div>
                 </div>
-                <div className="mt-8 flex items-center justify-between border-t border-zinc-200/70 pt-5 sm:mt-10">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-400">Entender melhor</span>
-                  <Link href={`/especialidades/${item.slug}`} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black text-white transition-transform duration-200 md:hover:scale-110" aria-label={`Conhecer ${item.title}`}><span aria-hidden="true">↗</span></Link>
-                </div>
-              </SpotlightCard>
+              </div>
             </div>
-          ))}
+          ) : null}
         </div>
       </div>
     </section>

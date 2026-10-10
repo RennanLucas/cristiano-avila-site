@@ -1,8 +1,10 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import MarqueeBand from "@/components/MarqueeBand";
 import Intro from "@/components/Intro";
 import Specialties from "@/components/Specialties";
 import QuickTriage from "@/components/QuickTriage";
+import CinematicManifesto from "@/components/CinematicManifesto";
 import About from "@/components/About";
 import Method from "@/components/Method";
 import Testimonials from "@/components/Testimonials";
@@ -20,9 +22,11 @@ export default function Home() {
     <main className="relative min-h-screen overflow-x-hidden bg-white text-[#111111] selection:bg-black selection:text-white">
       <Header />
       <Hero />
+      <MarqueeBand />
       <Intro />
       <Specialties />
       <QuickTriage />
+      <CinematicManifesto />
       <About />
       <Method />
       <Locations />
