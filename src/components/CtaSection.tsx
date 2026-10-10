@@ -28,7 +28,7 @@ export default function CtaSection() {
 
           <div className="mt-12 grid gap-3 border-t border-white/10 pt-7 sm:grid-cols-3 lg:mt-16">
             <a data-cursor-label="Ligar" href={`tel:+${CLINIC_CONTACT.phoneRaw}`} className="cta-meta-card"><span>Telefone</span><strong>{CLINIC_CONTACT.phone}</strong></a>
-            <a data-cursor-label="E-mail" href={`mailto:${CLINIC_CONTACT.email}`} className="cta-meta-card"><span>E-mail</span><strong className="truncate">{CLINIC_CONTACT.email}</strong></a>
+            <a data-cursor-label="WhatsApp" href={CLINIC_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="cta-meta-card"><span>Contato</span><strong>WhatsApp direto</strong></a>
             <div className="cta-meta-card"><span>Formato</span><strong>Presencial & online</strong></div>
           </div>
         </div>

@@ -8,7 +8,7 @@ export const CLINIC_CONTACT = {
   fullName: "Cristiano Ávila da Silva",
   phone: WHATSAPP_PHONE,
   phoneRaw: WHATSAPP_PHONE_RAW,
-  email: "contato@cristianoavilapsicologo.com.br",
+  email: "",
   avatarUrl: "/images/cristiano_avila.jpg",
   whatsappUrl: `https://wa.me/${WHATSAPP_PHONE_RAW}?text=${encodeURIComponent(DEFAULT_WHATSAPP_MESSAGE)}`,
 };

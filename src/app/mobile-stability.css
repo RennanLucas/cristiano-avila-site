@@ -1,0 +1,54 @@
+/* Mobile/tablet stability overrides. Keep native scrolling and avoid Safari paint gaps. */
+@media (max-width: 1023px) {
+  html,
+  body {
+    scroll-behavior: auto !important;
+    overscroll-behavior-y: auto;
+  }
+
+  .route-transition-frame {
+    transform: none !important;
+  }
+
+  .premium-section-rail,
+  .premium-cursor-orb,
+  .desktop-scroll-progress {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .manifesto-section,
+  .cta-cinematic,
+  .locations-stage {
+    content-visibility: visible !important;
+    contain: none !important;
+    contain-intrinsic-size: auto !important;
+  }
+
+  .editorial-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .specialty-focus-panel,
+  .location-detail-enter,
+  .faq-answer {
+    animation: none !important;
+  }
+
+  .hero-scroll-visual,
+  .hero-title-line,
+  .manifesto-line {
+    animation: none !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .cta-circle,
+  .premium-glass,
+  .premium-dark,
+  .premium-card {
+    will-change: auto !important;
+  }
+}

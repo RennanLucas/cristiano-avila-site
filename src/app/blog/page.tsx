@@ -5,70 +5,43 @@ import { ARTICLES_DATA } from "@/data/content";
 
 export const metadata = {
   title: "Blog | Psicologia, Saúde Mental e Comportamento | Cristiano Ávila",
-  description: "Artigos e reflexões sobre psicologia, saúde mental, emoções, comportamento e hipnoterapia por Cristiano Ávila.",
+  description: "Artigos psicoeducativos sobre psicologia, saúde mental, emoções, comportamento e relações por Cristiano Ávila.",
 };
 
 export default function BlogIndexPage() {
   return (
-    <main className="min-h-screen bg-white text-[#111111] overflow-x-hidden selection:bg-black selection:text-white">
+    <main className="min-h-screen overflow-x-hidden bg-[#f5f5f2] text-[#111111] selection:bg-black selection:text-white">
       <Header />
 
-      <section className="pt-40 pb-20 px-6 border-b border-zinc-100">
-        <div className="max-w-4xl mx-auto">
-          <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-6">
-            Psicologia & comportamento
-          </span>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-black leading-tight mb-6">
-            Conteúdos sobre <br />
-            <span className="text-zinc-400">psicologia e saúde mental.</span>
-          </h1>
-          <p className="text-xl text-textMuted font-light max-w-2xl leading-relaxed">
-            Artigos e reflexões para ampliar a compreensão sobre emoções, relações, comportamento e desenvolvimento pessoal.
-          </p>
+      <section data-tone="dark" className="relative overflow-hidden bg-black px-4 pb-20 pt-36 text-white sm:px-6 sm:pb-24 sm:pt-44 lg:pb-32">
+        <div className="cta-cinematic-grid pointer-events-none absolute inset-0 opacity-60" />
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.26em] text-white/35">Blog • Psicologia & comportamento</span>
+          <div className="mt-6 grid gap-10 lg:grid-cols-[1.2fr_.8fr] lg:items-end">
+            <h1 className="max-w-5xl text-[3rem] font-medium leading-[0.94] tracking-[-0.06em] text-white sm:text-6xl lg:text-[6.4rem]">Leituras para <span className="font-serif font-normal italic text-white/58">pensar com mais clareza.</span></h1>
+            <p className="max-w-md text-sm font-light leading-relaxed text-white/52 sm:text-base lg:justify-self-end">Conteúdo psicoeducativo sobre emoções, relações e comportamento. Os artigos não substituem avaliação ou acompanhamento psicológico individual.</p>
+          </div>
         </div>
       </section>
 
-      <section className="py-24 bg-surface">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {ARTICLES_DATA.map((article) => (
-              <article
-                key={article.slug}
-                className="group flex flex-col justify-between bg-white rounded-3xl p-7 border border-zinc-200/80 hover:border-black hover:shadow-apple transition-all duration-300"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-xs text-textMuted mb-4">
-                    <span className="font-semibold text-black bg-zinc-100 px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wide">
-                      {article.category}
-                    </span>
-                    <span className="font-mono text-[11px]">{article.readTime}</span>
+      <section className="relative py-20 sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="grid gap-5 lg:grid-cols-12">
+            {ARTICLES_DATA.map((article, index) => {
+              const featured = index === 0;
+              return (
+                <article key={article.slug} className={`${featured ? "premium-dark text-white lg:col-span-7 lg:row-span-2 lg:min-h-[520px]" : "premium-glass text-black lg:col-span-5 lg:min-h-[250px]"} group relative overflow-hidden rounded-[30px] p-7 transition-transform duration-300 md:hover:-translate-y-1.5 sm:p-9`}>
+                  <div className="relative z-10 flex h-full flex-col justify-between">
+                    <div>
+                      <div className={`flex items-center justify-between gap-4 text-[9px] font-semibold uppercase tracking-[0.16em] ${featured ? "text-white/38" : "text-zinc-400"}`}><span>{article.category}</span><span className="font-mono">{String(index + 1).padStart(2, "0")}</span></div>
+                      <h2 className={`${featured ? "mt-16 max-w-2xl text-3xl text-white sm:mt-24 sm:text-5xl" : "mt-10 text-2xl text-black sm:text-3xl"} font-semibold leading-[1.04] tracking-[-0.04em]`}><Link href={`/blog/${article.slug}`}>{article.title}</Link></h2>
+                      <p className={`${featured ? "text-white/55" : "text-zinc-600"} mt-5 max-w-2xl text-sm font-light leading-relaxed`}>{article.excerpt}</p>
+                    </div>
+                    <div className={`${featured ? "border-white/10 text-white/38" : "border-zinc-200/80 text-zinc-500"} mt-10 flex items-center justify-between gap-4 border-t pt-5 text-xs`}><span>{article.date} • {article.readTime}</span><Link href={`/blog/${article.slug}`} className={`${featured ? "text-white" : "text-black"} font-semibold transition-transform group-hover:translate-x-1`}>Ler →</Link></div>
                   </div>
-
-                  <h2 className="text-xl font-bold text-black tracking-tight leading-snug mb-3 group-hover:text-black">
-                    <Link href={`/blog/${article.slug}`}>
-                      {article.title}
-                    </Link>
-                  </h2>
-
-                  <p className="text-xs text-textMuted font-light leading-relaxed mb-6 line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-semibold text-black">
-                  <span>{article.date}</span>
-                  <Link
-                    href={`/blog/${article.slug}`}
-                    className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform"
-                  >
-                    Ler artigo
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
