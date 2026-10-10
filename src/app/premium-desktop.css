@@ -1,6 +1,8 @@
-/* Premium desktop-only experience. Native scrolling is intentionally preserved for maximum responsiveness. */
+/* Premium desktop-only experience. Native scrolling is preserved; interactions respond to pointer, not scroll interpolation. */
 
-.desktop-scroll-progress {
+.desktop-scroll-progress,
+.premium-cursor-orb,
+.premium-section-rail {
   display: none;
 }
 
@@ -148,6 +150,232 @@
   a.btn-primary:hover::before,
   button.btn-primary:hover::before {
     opacity: 1;
+  }
+
+  header nav a {
+    position: relative;
+  }
+
+  header nav a::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    bottom: 5px;
+    left: 16px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: center;
+    opacity: 0.45;
+    transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  header nav a:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .premium-cursor-orb {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 95;
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin-top: -14px;
+    margin-left: -14px;
+    border: 1px solid rgba(17,17,17,0.22);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.07);
+    pointer-events: none;
+    opacity: 0.72;
+    scale: 1;
+    transition: scale 120ms ease, opacity 120ms ease, background-color 120ms ease;
+    will-change: transform;
+  }
+
+  .premium-cursor-orb::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: 3px;
+    border-radius: 999px;
+    background: #111111;
+    transform: translate(-50%, -50%);
+  }
+
+  .premium-cursor-orb.is-interactive {
+    scale: 1.55;
+    opacity: 0.88;
+    background: rgba(255,255,255,0.22);
+  }
+
+  .premium-pointer-surface {
+    --surface-x: 50%;
+    --surface-y: 50%;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .premium-pointer-surface::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(280px circle at var(--surface-x) var(--surface-y), rgba(255,255,255,0.30), transparent 58%),
+      linear-gradient(135deg, rgba(255,255,255,0.06), transparent 46%);
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+
+  .premium-dark.premium-pointer-surface::after {
+    background:
+      radial-gradient(300px circle at var(--surface-x) var(--surface-y), rgba(255,255,255,0.12), transparent 60%),
+      linear-gradient(135deg, rgba(255,255,255,0.035), transparent 50%);
+  }
+
+  .premium-pointer-surface.is-pointer-active {
+    transform: perspective(980px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0, -3px, 0);
+    box-shadow: 0 34px 86px rgba(20,20,20,0.13), inset 0 1px 0 rgba(255,255,255,0.98);
+    will-change: transform;
+  }
+
+  .premium-dark.premium-pointer-surface.is-pointer-active {
+    box-shadow: 0 38px 100px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.10);
+  }
+
+  .premium-pointer-surface.is-pointer-active::after {
+    opacity: 1;
+  }
+
+  .premium-magnetic {
+    --mag-x: 0px;
+    --mag-y: 0px;
+    translate: var(--mag-x) var(--mag-y);
+    transition-property: translate, transform, box-shadow, background-color, border-color, color !important;
+    transition-duration: 90ms, 180ms, 180ms, 180ms, 180ms, 180ms !important;
+    transition-timing-function: ease-out !important;
+  }
+}
+
+@media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
+  .premium-section-rail {
+    position: fixed;
+    top: 50%;
+    right: 18px;
+    z-index: 44;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+    transform: translateY(-50%);
+  }
+
+  .premium-section-rail-line {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    bottom: 10px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(24,24,27,0.11) 14%, rgba(24,24,27,0.11) 86%, transparent);
+    pointer-events: none;
+  }
+
+  .premium-section-rail-item {
+    position: relative;
+    display: flex;
+    min-height: 20px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    border: 0;
+    background: transparent;
+    color: #a1a1aa;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .premium-section-rail-index {
+    width: 18px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-align: right;
+    opacity: 0;
+    transform: translateX(3px);
+    transition: opacity 140ms ease, transform 140ms ease, color 140ms ease;
+  }
+
+  .premium-section-rail-dot {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 11px;
+    height: 11px;
+    border: 1px solid rgba(24,24,27,0.15);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.92);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    scale: 0.68;
+    transition: scale 150ms ease, background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+  }
+
+  .premium-section-rail-label {
+    position: absolute;
+    top: 50%;
+    right: 42px;
+    max-width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid rgba(228,228,231,0.88);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.93);
+    padding: 6px 10px;
+    color: #3f3f46;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(8px, -50%, 0);
+    transition: opacity 140ms ease, transform 140ms ease;
+  }
+
+  .premium-section-rail-item:hover .premium-section-rail-label {
+    opacity: 1;
+    transform: translate3d(0, -50%, 0);
+  }
+
+  .premium-section-rail-item:hover .premium-section-rail-index,
+  .premium-section-rail-item.is-active .premium-section-rail-index {
+    opacity: 1;
+    transform: translateX(0);
+    color: #52525b;
+  }
+
+  .premium-section-rail-item:hover .premium-section-rail-dot {
+    scale: 0.9;
+    border-color: rgba(24,24,27,0.35);
+  }
+
+  .premium-section-rail-item.is-active .premium-section-rail-dot {
+    scale: 1;
+    border-color: #111111;
+    background: #111111;
+    box-shadow: 0 0 0 4px rgba(17,17,17,0.07), 0 5px 14px rgba(0,0,0,0.12);
   }
 }
 
