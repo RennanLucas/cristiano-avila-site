@@ -7,6 +7,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { PROFESSIONAL_REGISTRATION, SITE_URL } from "@/lib/site-policy";
 
+function articleDateToIso(date: string) {
+  const [day, month, year] = date.split("/");
+  return `${year}-${month}-${day}`;
+}
+
 export function generateStaticParams() {
   return ARTICLES_DATA.map((a) => ({ slug: a.slug }));
 }
@@ -16,6 +21,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (!article) return {};
 
   const url = `${SITE_URL}/blog/${article.slug}`;
+  const publishedTime = articleDateToIso(article.date);
+
   return {
     title: article.title,
     description: article.excerpt,
@@ -25,7 +32,15 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       description: article.excerpt,
       url,
       type: "article",
-      images: [`${SITE_URL}${CLINIC_CONTACT.avatarUrl}`],
+      publishedTime,
+      authors: [article.author],
+      images: [{ url: article.imageUrl, alt: article.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [article.imageUrl],
     },
   };
 }
@@ -34,8 +49,28 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   const article = ARTICLES_DATA.find((a) => a.slug === params.slug);
   if (!article) notFound();
 
+  const articleUrl = `${SITE_URL}/blog/${article.slug}`;
+  const publishedDate = articleDateToIso(article.date);
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${articleUrl}#article`,
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: publishedDate,
+    mainEntityOfPage: articleUrl,
+    image: article.imageUrl,
+    author: {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#professional`,
+      name: CLINIC_CONTACT.fullName,
+      url: SITE_URL,
+    },
+  };
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#f6f6f3] text-[#111111] selection:bg-black selection:text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <Header />
 
       <article>
@@ -43,7 +78,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <div className="cta-cinematic-grid pointer-events-none absolute inset-0 opacity-60" />
           <div className="relative z-10 mx-auto max-w-5xl">
             <Link href="/blog" className="inline-flex items-center text-[10px] font-semibold uppercase tracking-[0.16em] text-white/42 transition-colors hover:text-white">← Voltar para o blog</Link>
-            <div className="mt-10 flex flex-wrap items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/38"><span>{article.category}</span><span>•</span><span>{article.date}</span><span>•</span><span>{article.readTime}</span></div>
+            <div className="mt-10 flex flex-wrap items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/38"><span>{article.category}</span><span>•</span><time dateTime={publishedDate}>{article.date}</time><span>•</span><span>{article.readTime}</span></div>
             <h1 className="mt-6 max-w-5xl text-[2.65rem] font-medium leading-[0.98] tracking-[-0.055em] text-white sm:text-5xl lg:text-7xl">{article.title}</h1>
             <p className="mt-7 max-w-3xl text-base font-light leading-relaxed text-white/55 sm:text-lg">{article.excerpt}</p>
 
