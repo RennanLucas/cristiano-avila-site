@@ -7,6 +7,7 @@ import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 
 export default function FloatingDock() {
   const [visible, setVisible] = useState(false);
+  const [sectionBlockingDock, setSectionBlockingDock] = useState(false);
   const visibleRef = useRef(false);
   const frameRef = useRef<number | null>(null);
 
@@ -36,7 +37,20 @@ export default function FloatingDock() {
     };
   }, []);
 
-  if (!visible) return null;
+  useEffect(() => {
+    const locations = document.getElementById("unidades");
+    if (!locations) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setSectionBlockingDock(entry.isIntersecting),
+      { threshold: 0.05, rootMargin: "-40px 0px -40px 0px" },
+    );
+
+    observer.observe(locations);
+    return () => observer.disconnect();
+  }, []);
+
+  if (!visible || sectionBlockingDock) return null;
 
   return (
     <aside
