@@ -9,7 +9,7 @@ const PRINCIPLES = [
 
 export default function Intro() {
   return (
-    <section id="na-pratica" className="relative overflow-hidden border-t border-zinc-100 bg-white py-24 lg:py-32">
+    <section id="na-pratica" className="relative overflow-hidden border-t border-zinc-100 bg-white py-16 sm:py-24 lg:py-32">
       <div className="pointer-events-none absolute right-[-10rem] top-24 h-80 w-80 rounded-full bg-zinc-100 blur-[110px]" />
       <div className="pointer-events-none absolute bottom-0 left-[-8rem] h-72 w-72 rounded-full bg-amber-50 blur-[100px]" />
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">

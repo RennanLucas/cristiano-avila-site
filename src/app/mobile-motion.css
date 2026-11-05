@@ -1,0 +1,50 @@
+/* Lightweight mobile motion: no scroll interception and no hidden content. */
+@media (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
+  /* The duplicate text line makes -50% a seamless, lightweight loop. */
+  .editorial-marquee {
+    overflow: hidden;
+  }
+
+  .editorial-marquee-track {
+    overflow: visible;
+    padding-inline: 0;
+    animation: marquee-flow 44s linear infinite;
+  }
+
+  /* UI changes get a fast opacity transition instead of a costly filter or slide. */
+  .specialty-focus-panel,
+  .location-detail-enter {
+    animation: mobile-panel-fade 180ms ease-out both !important;
+  }
+
+  .faq-answer {
+    animation: mobile-panel-fade 150ms ease-out both !important;
+  }
+
+  .cta-circle,
+  .cta-meta-card,
+  .method-step-number {
+    transition: transform 160ms ease-out, opacity 160ms ease-out;
+  }
+
+  .cta-circle:active,
+  .cta-meta-card:active {
+    transform: scale(0.98);
+  }
+
+  .method-step:active .method-step-number {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes mobile-panel-fade {
+  from { opacity: 0.78; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 1023px) and (prefers-reduced-motion: reduce) {
+  .editorial-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}

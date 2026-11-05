@@ -26,11 +26,6 @@
     contain-intrinsic-size: auto !important;
   }
 
-  .editorial-marquee-track {
-    animation: none !important;
-    transform: none !important;
-  }
-
   .specialty-focus-panel,
   .location-detail-enter,
   .faq-answer {

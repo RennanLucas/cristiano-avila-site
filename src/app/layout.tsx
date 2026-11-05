@@ -4,8 +4,10 @@ import "./globals.css";
 import "./premium-desktop.css";
 import "./editorial-hard.css";
 import "./mobile-stability.css";
+import "./mobile-motion.css";
 import JsonLd from "@/components/JsonLd";
 import DesktopExperience from "@/components/DesktopExperience";
+import MobileMotion from "@/components/MobileMotion";
 import { CURRENT_CITIES_TEXT } from "@/data/units";
 import { SITE_URL } from "@/lib/site-policy";
 
@@ -30,6 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="relative overflow-x-hidden bg-white font-sans text-[#111111] antialiased selection:bg-black selection:text-white">
         {children}
         <DesktopExperience />
+        <MobileMotion />
       </body>
     </html>
   );
