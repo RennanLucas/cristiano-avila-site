@@ -19,7 +19,6 @@ export default function JsonLd() {
     },
     sameAs: [
       CLINIC_CONTACT.instagram,
-      CLINIC_CONTACT.doctoraliaUrl,
       CLINIC_CONTACT.zenklubUrl,
       CLINIC_CONTACT.youtube,
       CLINIC_CONTACT.facebook,

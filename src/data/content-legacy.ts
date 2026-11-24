@@ -61,7 +61,6 @@ export const CLINIC_CONTACT = {
   phoneRaw: "5511995235839",
   email: "contato@cristianoavilapsicologo.com.br",
   whatsappUrl: "https://wa.me/5511995235839?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20atendimento%20psicol%C3%B3gico%20com%20Cristiano%20%C3%81vila.",
-  doctoraliaUrl: "https://www.doctoralia.com.br/cristiano-avila-da-silva/psicologo/sao-bernardo-do-campo",
   zenklubUrl: "https://zenklub.com.br/psicologos/cristiano-avila-da-silva/",
   instagram: "https://www.instagram.com/dr.cristianoavilla/",
   facebook: "https://www.facebook.com/share/17h4a7qP6Y/",

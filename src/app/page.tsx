@@ -7,7 +7,6 @@ import QuickTriage from "@/components/QuickTriage";
 import CinematicManifesto from "@/components/CinematicManifesto";
 import About from "@/components/About";
 import Method from "@/components/Method";
-import Testimonials from "@/components/Testimonials";
 import YouTubeSection from "@/components/YouTubeSection";
 import Locations from "@/components/Locations";
 import FaqSection from "@/components/FaqSection";
@@ -15,7 +14,6 @@ import BlogPreview from "@/components/BlogPreview";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 import FloatingDock from "@/components/FloatingDock";
-import CookieBanner from "@/components/CookieBanner";
 
 export default function Home() {
   return (
@@ -30,14 +28,12 @@ export default function Home() {
       <About />
       <Method />
       <Locations />
-      <Testimonials />
       <YouTubeSection />
       <FaqSection />
       <BlogPreview />
       <CtaSection />
       <Footer />
       <FloatingDock />
-      <CookieBanner />
     </main>
   );
 }

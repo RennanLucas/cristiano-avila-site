@@ -31,7 +31,7 @@ export default function Hero() {
               <p className="mb-8 max-w-xl text-[15px] font-light leading-relaxed text-zinc-600 sm:mb-9 sm:text-lg md:text-xl">Psicoterapia presencial e online com Cristiano Ávila para questões emocionais, comportamentais e relacionais.</p>
 
               <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
-                <a data-cursor-label="Agendar" href={buildWhatsAppLink("Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.")} target="_blank" rel="noopener noreferrer" className="btn-primary w-full py-3.5 text-center text-sm sm:w-auto">Consultar horários</a>
+                <a data-contact-action="booking_click" data-cursor-label="Agendar" href={buildWhatsAppLink("Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.")} target="_blank" rel="noopener noreferrer" className="btn-primary w-full py-3.5 text-center text-sm sm:w-auto">Consultar horários no WhatsApp</a>
                 <a data-cursor-label="Explorar" href="#especialidades" className="btn-outline w-full py-3.5 text-center text-sm sm:w-auto">Ver formas de atendimento</a>
               </div>
 

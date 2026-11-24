@@ -79,7 +79,7 @@ export default function Header() {
             <span className="hidden text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-500 2xl:inline">
               Presencial & online
             </span>
-            <a
+            <a data-contact-action="booking_click"
               href={CLINIC_CONTACT.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -128,7 +128,7 @@ export default function Header() {
             ))}
 
             <div className="mt-2 border-t border-zinc-100 p-2 pt-4">
-              <a
+              <a data-contact-action="booking_click"
                 href={CLINIC_CONTACT.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"

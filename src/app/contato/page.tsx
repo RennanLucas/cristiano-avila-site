@@ -47,10 +47,10 @@ export default function ContatoPage() {
                   <strong className="mt-2 block text-lg tracking-tight text-black">{CLINIC_CONTACT.phone}</strong>
                 </a>
 
-                <div className="premium-glass rounded-[24px] p-5">
-                  <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Canal principal</span>
-                  <strong className="mt-2 block text-sm tracking-tight text-black">Agenda e dúvidas pelo WhatsApp</strong>
-                </div>
+                <a href={`tel:+${CLINIC_CONTACT.phoneRaw}`} className="premium-glass rounded-[24px] p-5 transition-transform duration-300 hover:-translate-y-1">
+                  <span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Telefone</span>
+                  <strong className="mt-2 block text-lg tracking-tight text-black">{CLINIC_CONTACT.phone}</strong>
+                </a>
               </div>
             </motion.div>
 
@@ -58,13 +58,13 @@ export default function ContatoPage() {
               <div className="border-b border-zinc-200/80 bg-zinc-950 px-6 py-6 text-white sm:px-8">
                 <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/40">Mensagem rápida</span>
                 <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">Já deixe o assunto pronto.</h2>
-                <p className="mt-2 max-w-xl text-xs font-light leading-relaxed text-white/55">Preencha seu nome, escolha o motivo do contato e abra a conversa no WhatsApp.</p>
+                <p className="mt-2 max-w-xl text-xs font-light leading-relaxed text-white/55">Prepare a mensagem e abra o WhatsApp para enviá-la ao consultório.</p>
               </div>
 
-              <form className="space-y-7 p-6 sm:p-8" onSubmit={handleSubmit}>
+              <form className="space-y-7 p-6 sm:p-8" data-contact-action="whatsapp_click" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="name" className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-500">Seu nome</label>
-                  <input type="text" id="name" required autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 text-sm outline-none transition-all focus:border-black focus:ring-1 focus:ring-black" placeholder="Digite seu nome" />
+                  <input type="text" id="name" required autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 text-base outline-none transition-all focus:border-black focus:ring-1 focus:ring-black" placeholder="Digite seu nome" />
                 </div>
 
                 <fieldset>

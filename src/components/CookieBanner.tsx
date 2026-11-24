@@ -1,32 +1,96 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+
+const preferenceKey = "ca_metrics_preference";
+const containerId = "GTM-KGGKLHNK";
+const allowedPaths = new Set(["/", "/contato", "/sobre", "/unidades", "/especialidades/psicoterapia"]);
+
+type ContactEvent = "booking_click" | "phone_click" | "whatsapp_click";
+type DataLayer = { event: string; "gtm.start"?: number }[];
+
+function loadContainer() {
+  const browser = window as Window & { dataLayer?: DataLayer };
+  const dataLayer = (browser.dataLayer ??= []);
+
+  if (!document.getElementById(containerId)) {
+    dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+    const script = document.createElement("script");
+    script.id = containerId;
+    script.async = true;
+    script.referrerPolicy = "no-referrer";
+    script.src = `https://www.googletagmanager.com/gtm.js?id=${containerId}`;
+    document.head.append(script);
+  }
+  return dataLayer;
+}
 
 export default function CookieBanner() {
-  const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    const acknowledged = localStorage.getItem('ca_privacy_notice_seen');
-    if (!acknowledged) {
-      const timer = window.setTimeout(() => setShow(true), 1600);
-      return () => window.clearTimeout(timer);
-    }
+    const preference = localStorage.getItem(preferenceKey);
+    setAllowed(preference === "allow");
+    setOpen(!preference);
+    const showPreferences = () => setOpen(true);
+    window.addEventListener("clinic-metrics-preferences", showPreferences);
+    return () => window.removeEventListener("clinic-metrics-preferences", showPreferences);
   }, []);
 
-  const close = () => {
-    localStorage.setItem('ca_privacy_notice_seen', '1');
-    setShow(false);
-  };
+  useEffect(() => {
+    if (!allowed) return;
 
-  if (!show) return null;
+    const record = (event: ContactEvent) => {
+      if (!allowedPaths.has(location.pathname)) return;
+      loadContainer().push({ event });
+    };
+    const trackClick = (event: MouseEvent) => {
+      const link = event.target instanceof Element ? event.target.closest("a[href]") : null;
+      if (!(link instanceof HTMLAnchorElement)) return;
+
+      if (link.protocol === "tel:") {
+        record("phone_click");
+      } else if (link.hostname === "wa.me") {
+        const isBooking = link.dataset.contactAction === "booking_click";
+        record(isBooking ? "booking_click" : "whatsapp_click");
+      }
+    };
+    const trackSubmit = (event: SubmitEvent) => {
+      if (event.target instanceof HTMLFormElement && event.target.dataset.contactAction === "whatsapp_click") {
+        record("whatsapp_click");
+      }
+    };
+
+    if (allowedPaths.has(location.pathname)) loadContainer();
+    document.addEventListener("click", trackClick, true);
+    document.addEventListener("submit", trackSubmit, true);
+    return () => {
+      document.removeEventListener("click", trackClick, true);
+      document.removeEventListener("submit", trackSubmit, true);
+    };
+  }, [allowed]);
+
+  function choose(allow: boolean) {
+    localStorage.setItem(preferenceKey, allow ? "allow" : "deny");
+    if (!allow && allowed) {
+      window.location.reload();
+      return;
+    }
+    setAllowed(allow);
+    setOpen(false);
+  }
+
+  if (!open) return null;
 
   return (
-    <div className="fixed bottom-24 left-3 right-3 z-50 rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl min-[390px]:left-4 min-[390px]:right-4 min-[390px]:p-5 sm:bottom-5 sm:left-6 sm:right-auto sm:max-w-md" role="dialog" aria-label="Aviso de privacidade">
-      <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-wider text-black">Privacidade</p>
-        <p className="text-xs leading-relaxed text-textMuted">O site utiliza apenas recursos necessários ao funcionamento e às preferências de navegação. Consulte a{' '}<Link href="/politica-de-privacidade" className="font-medium text-black underline underline-offset-2">Política de Privacidade</Link>{' '}para saber mais.</p>
-        <button type="button" onClick={close} className="w-full rounded-xl bg-black px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-zinc-800">Entendi</button>
+    <div className="fixed bottom-24 left-3 right-3 z-50 rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl min-[390px]:left-4 min-[390px]:right-4 min-[390px]:p-5 sm:bottom-5 sm:left-6 sm:right-auto sm:max-w-md" role="dialog" aria-label="Preferências de métricas">
+      <p className="text-sm font-semibold text-black">Preferências de métricas</p>
+      <p className="mt-2 text-xs leading-relaxed text-zinc-600">Com sua autorização, medimos o uso dos botões de contato. Leia a <Link href="/politica-de-privacidade" className="font-medium text-black underline">Política de Privacidade</Link>.</p>
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        <button type="button" onClick={() => choose(false)} className="min-h-11 rounded-xl border border-zinc-300 px-2 text-xs font-semibold text-black">Recusar métricas</button>
+        <button type="button" onClick={() => choose(true)} className="min-h-11 rounded-xl border border-zinc-300 px-2 text-xs font-semibold text-black">Permitir métricas</button>
       </div>
     </div>
   );

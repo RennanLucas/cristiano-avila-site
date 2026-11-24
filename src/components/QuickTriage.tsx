@@ -80,7 +80,7 @@ export default function QuickTriage() {
                 </div>
                 <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                   <p className="max-w-xl text-[10px] font-light leading-relaxed text-zinc-400">{FIRST_CONTACT_PRIVACY_NOTE}</p>
-                  <a href={buildWhatsAppLink(customMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary w-full shrink-0 px-7 py-3.5 text-center text-xs md:w-auto">Ver horários no WhatsApp <span className="ml-2" aria-hidden="true">↗</span></a>
+                  <a data-contact-action="booking_click" href={buildWhatsAppLink(customMessage)} target="_blank" rel="noopener noreferrer" className="btn-primary w-full shrink-0 px-7 py-3.5 text-center text-xs md:w-auto">Ver horários no WhatsApp <span className="ml-2" aria-hidden="true">↗</span></a>
                 </div>
               </div>
             </div>

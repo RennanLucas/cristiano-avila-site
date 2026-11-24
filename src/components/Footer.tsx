@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import MetricsPreferences from "@/components/MetricsPreferences";
 import { CLINIC_CONTACT, SPECIALTIES_DATA } from "@/data/content";
 import { CURRENT_UNITS } from "@/data/units";
 import { isPublicSpecialty, PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
@@ -35,7 +36,6 @@ export default function Footer() {
             <div className="flex flex-wrap gap-2 pt-1">
               <a href={CLINIC_CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="rounded-full border border-zinc-200 bg-white px-3 py-2 text-xs font-medium transition-colors hover:border-zinc-400">Instagram</a>
               <a href={CLINIC_CONTACT.youtube} target="_blank" rel="noopener noreferrer" className="rounded-full border border-zinc-200 bg-white px-3 py-2 text-xs font-medium transition-colors hover:border-zinc-400">YouTube</a>
-              <a href={CLINIC_CONTACT.doctoraliaUrl} target="_blank" rel="noopener noreferrer" className="rounded-full border border-zinc-200 bg-white px-3 py-2 text-xs font-medium transition-colors hover:border-zinc-400">Doctoralia</a>
             </div>
           </div>
 
@@ -47,7 +47,7 @@ export default function Footer() {
         <div className="flex flex-col items-start justify-between gap-4 pt-7 text-[11px] font-light leading-relaxed text-zinc-500 sm:pt-8 sm:text-xs lg:flex-row lg:items-center">
           <p>© {new Date().getFullYear()} {CLINIC_CONTACT.fullName}. Todos os direitos reservados.</p>
           <p className="max-w-xl">Conteúdo informativo sobre psicologia, comportamento, saúde mental e atendimento clínico.</p>
-          <div className="flex flex-wrap items-center gap-5"><Link href="/politica-de-privacidade" className="hover:text-black">Privacidade</Link><Link href="/contato" className="hover:text-black">Contato</Link></div>
+          <div className="flex flex-wrap items-center gap-5"><Link href="/politica-de-privacidade" className="hover:text-black">Privacidade</Link><MetricsPreferences /><Link href="/contato" className="hover:text-black">Contato</Link></div>
         </div>
       </div>
     </footer>
