@@ -3,7 +3,7 @@ import { PROFESSIONAL_REGISTRATION } from "@/lib/site-policy";
 const CREDENTIALS = [
   { label: "Registro profissional", value: PROFESSIONAL_REGISTRATION, detail: "Psicologia clínica", accent: "from-sky-300/80 via-cyan-200/45 to-transparent" },
   { label: "Experiência", value: "+10 anos", detail: "Atuação clínica e institucional", accent: "from-fuchsia-300/80 via-violet-200/45 to-transparent" },
-  { label: "Atendimento presencial", value: "4 cidades", detail: "Praia Grande • Atibaia • SBC • Santos", accent: "from-amber-200/90 via-orange-200/45 to-transparent" },
+  { label: "Atendimento presencial", value: "4 cidades", detail: "Praia Grande • Santos • Atibaia • SBC", accent: "from-amber-200/90 via-orange-200/45 to-transparent" },
   { label: "Formação complementar", value: "OMNI", detail: "Hipnoterapia clínica", accent: "from-emerald-200/80 via-teal-200/40 to-transparent" },
 ];
 

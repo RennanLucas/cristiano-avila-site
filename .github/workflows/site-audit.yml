@@ -38,12 +38,14 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/site-audit" --no-package-lock playwright@1.65.1 @axe-core/playwright@4.11.1 lighthouse@12.8.2
           cp tests/site-audit/*.mjs "$RUNNER_TEMP/site-audit/"
           "$RUNNER_TEMP/site-audit/node_modules/.bin/playwright" install --with-deps chromium firefox webkit
-      - name: Start server
+      - name: Start HTTP and HTTPS test servers
         id: server
         run: |
           npm run start -- --hostname 127.0.0.1 > "$RUNNER_TEMP/site.log" 2>&1 &
+          openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj /CN=127.0.0.1 -addext subjectAltName=IP:127.0.0.1 -keyout "$RUNNER_TEMP/audit-key.pem" -out "$RUNNER_TEMP/audit-cert.pem" 2>/dev/null
+          node tests/site-audit/https-test-server.mjs "$RUNNER_TEMP/audit-key.pem" "$RUNNER_TEMP/audit-cert.pem" &
           for attempt in $(seq 1 40); do
-            if curl -fsS "$AUDIT_ORIGIN/" > /dev/null; then exit 0; fi
+            if curl -fsS --cacert "$RUNNER_TEMP/audit-cert.pem" https://127.0.0.1:3443/ > /dev/null; then exit 0; fi
             sleep 1
           done
           cat "$RUNNER_TEMP/site.log"
@@ -52,7 +54,7 @@ jobs:
         run: AUDIT_BASELINE=1 AUDIT_ORIGIN=https://cristiano-avila-site.vercel.app AUDIT_OUTPUT="$RUNNER_TEMP/audit-evidence/before" node "$RUNNER_TEMP/site-audit/browser-audit.mjs"
       - name: Browser matrix and accessibility
         if: ${{ !cancelled() && steps.server.outcome == 'success' }}
-        run: AUDIT_OUTPUT="$RUNNER_TEMP/audit-evidence/after" node "$RUNNER_TEMP/site-audit/browser-audit.mjs"
+        run: AUDIT_ORIGIN=https://127.0.0.1:3443 NODE_EXTRA_CA_CERTS="$RUNNER_TEMP/audit-cert.pem" AUDIT_OUTPUT="$RUNNER_TEMP/audit-evidence/after" node "$RUNNER_TEMP/site-audit/browser-audit.mjs"
       - name: Lighthouse for each template
         if: ${{ !cancelled() && steps.server.outcome == 'success' }}
         run: AUDIT_OUTPUT="$RUNNER_TEMP/audit-evidence/lighthouse" node "$RUNNER_TEMP/site-audit/lighthouse-audit.mjs"

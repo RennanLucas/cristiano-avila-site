@@ -24,11 +24,11 @@ export default function Method() {
             {METHOD_STEPS.map((step, idx) => (
               <article key={step.num} className="method-step relative grid gap-5 border-t border-zinc-200/80 py-8 first:border-t-0 sm:grid-cols-[110px_1fr] sm:gap-8 sm:py-10 lg:min-h-[230px] lg:items-start" data-cursor-label={`Etapa ${step.num}`}>
                 <div className="relative">
-                  <span className="method-step-number block font-serif text-[4.8rem] italic leading-[0.78] tracking-[-0.07em] text-zinc-200 sm:text-[6.6rem]">{step.num}</span>
+                  <span aria-hidden="true" className="method-step-number block font-serif text-[4.8rem] italic leading-[0.78] tracking-[-0.07em] text-zinc-200 sm:text-[6.6rem]">{step.num}</span>
                   <span className="method-step-dot" aria-hidden="true" />
                 </div>
                 <div className="pt-1 sm:pt-2">
-                  <div className="flex flex-wrap items-center gap-3"><span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-zinc-400">Etapa {String(idx + 1).padStart(2, "0")}</span><span className="h-px w-8 bg-zinc-200" /><span className="text-[10px] text-zinc-400">{step.badge}</span></div>
+                  <div className="flex flex-wrap items-center gap-3"><span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-zinc-600">Etapa {String(idx + 1).padStart(2, "0")}</span><span className="h-px w-8 bg-zinc-200" /><span className="text-[10px] text-zinc-600">{step.badge}</span></div>
                   <h3 className="mt-4 text-2xl font-semibold tracking-[-0.035em] text-black sm:text-3xl">{step.title}</h3>
                   <p className="mt-4 max-w-xl text-sm font-light leading-relaxed text-zinc-600 sm:text-base">{step.desc}</p>
                 </div>

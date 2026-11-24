@@ -7,6 +7,7 @@ import AxeBuilder from '@axe-core/playwright';
 const origin = new URL(process.env.AUDIT_ORIGIN ?? 'http://127.0.0.1:3000');
 const destination = resolve(process.env.AUDIT_OUTPUT ?? './audit-output');
 const baseline = process.env.AUDIT_BASELINE === '1';
+const localTLS = origin.protocol === 'https:' && origin.hostname === '127.0.0.1';
 const viewportSizes = [
   [320, 568], [375, 812], [390, 844], [430, 932], [768, 1024], [1024, 768],
   [1280, 800], [1366, 768], [1440, 900], [1920, 1080], [2560, 1440],
@@ -28,7 +29,7 @@ const slug = path => path === '/' ? 'home' : path.slice(1).replaceAll('/', '--')
 async function visit(page, path) {
   const response = await page.goto(new URL(path, origin).href, { waitUntil: 'domcontentloaded' });
   await page.locator('h1').first().waitFor({ state: 'visible' });
-  return response.status();
+  return response?.status() ?? null;
 }
 
 async function capture(page, path, name) {
@@ -48,7 +49,7 @@ async function scan(browserType, viewports, captureEvidence) {
   const browser = await browserType.launch();
   try {
     for (const [width, height] of viewports) {
-      const context = await browser.newContext({ viewport: { width, height }, reducedMotion: 'reduce' });
+      const context = await browser.newContext({ viewport: { width, height }, reducedMotion: 'reduce', ignoreHTTPSErrors: localTLS });
       await context.route('https://www.googletagmanager.com/**', route => route.abort());
       const page = await context.newPage();
       let pageErrors = [];
@@ -115,7 +116,7 @@ async function check(context, label, test) {
 async function checkFlows() {
   for (const [type, device] of [[chromium, devices['Pixel 7']], [webkit, devices['iPhone 13']]]) {
     const browser = await type.launch();
-    const context = await browser.newContext(device);
+    const context = await browser.newContext({ ...device, ignoreHTTPSErrors: localTLS });
     await context.route('https://www.googletagmanager.com/**', route => route.abort());
     await context.addInitScript(() => localStorage.setItem('ca_metrics_preference', 'deny'));
     await check(context, `${type.name()} menu and FAQ`, async page => {
@@ -164,7 +165,7 @@ async function checkFlows() {
 
 async function checkLinks() {
   const browser = await chromium.launch();
-  const page = await browser.newPage({ reducedMotion: 'reduce' });
+  const page = await browser.newPage({ reducedMotion: 'reduce', ignoreHTTPSErrors: localTLS });
   const edges = new Map();
   for (const path of paths) {
     await visit(page, path);
@@ -202,5 +203,6 @@ for (const result of await Promise.allSettled(engines)) {
 }
 reports.failures = failures;
 await writeFile(resolve(destination, 'matrix.json'), JSON.stringify(reports, null, 2));
-console.log(JSON.stringify({ pages: allPaths.length, renders: reports.runs.length, links: reports.routes.length, checks: reports.checks, axe: reports.accessibility, failures }, null, 2));
+const overflowExamples = reports.runs.filter(run => run.overflowCandidates.length).slice(0, 3);
+console.log(JSON.stringify({ pages: allPaths.length, renders: reports.runs.length, links: reports.routes.length, checks: reports.checks, axe: reports.accessibility, overflowExamples, failures }, null, 2));
 if (failures.length && !baseline) process.exitCode = 1;

@@ -20,7 +20,10 @@ export default function ContatoPage() {
   const [formReady, setFormReady] = useState(false);
   const [contactReason, setContactReason] = useState(CONTACT_REASONS[0]);
 
-  useEffect(() => setFormReady(true), []);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setFormReady(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +64,7 @@ export default function ContatoPage() {
 
             <motion.div initial={{ opacity: 0.45, x: 14 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.05, ease: [0.16, 1, 0.3, 1] }} className="premium-card overflow-hidden rounded-[30px] bg-white/85">
               <div className="border-b border-zinc-200/80 bg-zinc-950 px-6 py-6 text-white sm:px-8">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/40">Mensagem rápida</span>
+                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/70">Mensagem rápida</span>
                 <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">Já deixe o assunto pronto.</h2>
                 <p className="mt-2 max-w-xl text-xs font-light leading-relaxed text-white/55">Prepare a mensagem e abra o WhatsApp para enviá-la ao consultório.</p>
               </div>

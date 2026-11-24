@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { CLINIC_CONTACT, buildWhatsAppLink } from "@/data/content";
+import { buildWhatsAppLink } from "@/data/content";
 
 export default function NotFound() {
   return (
@@ -10,7 +10,7 @@ export default function NotFound() {
 
       <section className="pt-44 pb-28 px-6 flex-1 flex items-center justify-center">
         <div className="max-w-2xl mx-auto text-center">
-          <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-6">
+          <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 text-[10px] font-bold tracking-widest text-zinc-600 uppercase mb-6">
             Erro 404 • Página não encontrada
           </span>
 

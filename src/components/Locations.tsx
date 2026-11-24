@@ -58,7 +58,7 @@ export default function Locations() {
                     className={`group flex scroll-mt-28 focus-visible:outline-white min-h-[66px] min-w-0 w-full items-center gap-3 rounded-2xl px-3 py-3 text-left transition-all lg:min-h-0 lg:rounded-none lg:border-b lg:border-white/10 lg:px-0 lg:py-6 ${active ? "bg-white text-black lg:bg-transparent lg:text-white" : "border border-white/10 text-white/60 lg:border-x-0 lg:border-t-0 lg:hover:text-white"}`}
                     data-cursor-label="Selecionar"
                   >
-                    <span className={`shrink-0 font-mono text-[9px] ${active ? "text-black/50 lg:text-white/35" : "text-white/25"}`}>{String(index + 1).padStart(2, "0")}</span>
+                    <span className={`shrink-0 font-mono text-[9px] ${active ? "text-black/65 lg:text-white/65" : "text-white/60"}`}>{String(index + 1).padStart(2, "0")}</span>
                     <span className="min-w-0 text-[13px] font-semibold leading-[1.12] sm:text-sm lg:text-xl">{unit.city}</span>
                     <span className={`ml-auto hidden text-base transition-transform lg:block ${active ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-70"}`}>↗</span>
                   </button>
