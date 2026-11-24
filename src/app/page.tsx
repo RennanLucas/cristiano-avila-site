@@ -15,7 +15,6 @@ import BlogPreview from "@/components/BlogPreview";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 import FloatingDock from "@/components/FloatingDock";
-import CookieBanner from "@/components/CookieBanner";
 
 export default function Home() {
   return (
@@ -37,7 +36,6 @@ export default function Home() {
       <CtaSection />
       <Footer />
       <FloatingDock />
-      <CookieBanner />
     </main>
   );
 }
