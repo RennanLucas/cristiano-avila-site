@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - 'audit/**'
+      - 'fix/integracao-final-site'
   pull_request:
     branches:
       - master
@@ -15,16 +16,18 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -35,3 +38,35 @@ jobs:
 
       - name: Production build
         run: npm run build
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+        continue-on-error: true
+
+      - name: Install browser test tooling
+        run: npm install --no-save --package-lock=false @playwright/test@1.65.1
+
+      - name: Install Chromium and WebKit
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Start production server
+        run: |
+          npm run start > /tmp/site.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl -fsS http://localhost:3000/ > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/site.log
+          exit 1
+
+      - name: HTTP smoke tests
+        run: npm run test:smoke
+
+      - name: Browser checks
+        run: npx playwright test --config=playwright.config.mjs
+
+      - name: Lighthouse mobile
+        run: npx --yes lighthouse@12.8.2 http://localhost:3000 --chrome-flags="--headless --no-sandbox" --output=json --output-path=/tmp/lighthouse.json --quiet
+
+      - name: Lighthouse metrics
+        run: node -e 'const r=require("/tmp/lighthouse.json"); for(const [k,v] of Object.entries(r.categories)) console.log(k, v.score);'
