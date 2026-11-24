@@ -21,12 +21,14 @@ export default function ContatoPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const formattedMsg = `Olá, Dr. Cristiano. Meu nome é ${name}. ${contactReason}.`;
+    const trimmedName = name.trim();
+    if (!trimmedName) return;
+    const formattedMsg = `Olá, Dr. Cristiano. Meu nome é ${trimmedName}. ${contactReason}.`;
     window.open(buildWhatsAppLink(formattedMsg), "_blank", "noopener,noreferrer");
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-white text-[#111111] selection:bg-black selection:text-white">
+    <main id="conteudo-principal" className="min-h-screen overflow-x-hidden bg-white text-[#111111] selection:bg-black selection:text-white">
       <Header />
 
       <section className="relative flex min-h-[88vh] items-center overflow-hidden px-6 pb-20 pt-36 sm:pt-40">
@@ -64,7 +66,7 @@ export default function ContatoPage() {
               <form className="space-y-7 p-6 sm:p-8" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="name" className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-500">Seu nome</label>
-                  <input type="text" id="name" required autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 text-sm outline-none transition-all focus:border-black focus:ring-1 focus:ring-black" placeholder="Digite seu nome" />
+                  <input type="text" id="name" required maxLength={100} autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 text-sm outline-none transition-all focus:border-black focus:ring-1 focus:ring-black" placeholder="Digite seu nome" />
                 </div>
 
                 <fieldset>
@@ -84,7 +86,7 @@ export default function ContatoPage() {
 
                 <div className="rounded-2xl border border-zinc-200 bg-zinc-50/80 p-4 text-[11px] leading-relaxed text-zinc-500">{FIRST_CONTACT_PRIVACY_NOTE}</div>
 
-                <button type="submit" className="btn-primary w-full rounded-2xl py-3.5 text-xs">Abrir conversa no WhatsApp <span className="ml-2" aria-hidden="true">↗</span></button>
+                <button type="submit" disabled={!name.trim()} className="btn-primary disabled:opacity-50 w-full rounded-2xl py-3.5 text-xs">Abrir conversa no WhatsApp <span className="ml-2" aria-hidden="true">↗</span></button>
               </form>
             </motion.div>
           </div>
