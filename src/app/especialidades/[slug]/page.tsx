@@ -14,8 +14,9 @@ export function generateStaticParams() {
   return SPECIALTIES_DATA.filter((s) => isPublicSpecialty(s.id)).map((s) => ({ slug: s.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const specialty = SPECIALTIES_DATA.find((s) => s.slug === params.slug && isPublicSpecialty(s.id));
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const specialty = SPECIALTIES_DATA.find((s) => s.slug === slug && isPublicSpecialty(s.id));
   if (!specialty) return {};
 
   const copy = SPECIALTY_COPY[specialty.id];
@@ -31,8 +32,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function SpecialtyPage({ params }: { params: { slug: string } }) {
-  const baseSpecialty = SPECIALTIES_DATA.find((s) => s.slug === params.slug && isPublicSpecialty(s.id));
+export default async function SpecialtyPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const baseSpecialty = SPECIALTIES_DATA.find((s) => s.slug === slug && isPublicSpecialty(s.id));
   if (!baseSpecialty) notFound();
 
   const copy = SPECIALTY_COPY[baseSpecialty.id];
