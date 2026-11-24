@@ -19,7 +19,7 @@ import CookieBanner from "@/components/CookieBanner";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-white text-[#111111] selection:bg-black selection:text-white">
+    <main id="conteudo-principal" className="relative min-h-screen overflow-x-hidden bg-white text-[#111111] selection:bg-black selection:text-white">
       <Header />
       <Hero />
       <MarqueeBand />
