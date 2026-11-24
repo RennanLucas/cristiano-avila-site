@@ -24,14 +24,14 @@ export default function Hero() {
               </div>
 
               <h1 className="hero-title mb-6 text-[2.75rem] font-semibold leading-[0.94] tracking-[-0.06em] text-black min-[390px]:text-5xl sm:text-6xl lg:text-[5.45rem] xl:text-[6.1rem]">
-                <span className="hero-title-line block">Entender o que</span>
-                <span className="hero-title-line block font-serif font-normal italic text-zinc-700">acontece por dentro.</span>
+                <span className="hero-title-line block">Psicólogo em</span>
+                <span className="hero-title-line block font-serif font-normal italic text-zinc-700">Praia Grande e Santos.</span>
               </h1>
 
-              <p className="mb-8 max-w-xl text-[15px] font-light leading-relaxed text-zinc-600 sm:mb-9 sm:text-lg md:text-xl">Psicoterapia presencial e online com Cristiano Ávila para questões emocionais, comportamentais e relacionais.</p>
+              <p className="mb-8 max-w-xl text-[15px] font-light leading-relaxed text-zinc-600 sm:mb-9 sm:text-lg md:text-xl">Psicoterapia presencial e online com Cristiano Ávila. Um espaço de escuta profissional para questões emocionais, comportamentais e relacionais.</p>
 
               <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
-                <a data-cursor-label="Agendar" href={buildWhatsAppLink("Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.")} target="_blank" rel="noopener noreferrer" className="btn-primary w-full py-3.5 text-center text-sm sm:w-auto">Consultar horários</a>
+                <a data-cursor-label="Agendar" href={buildWhatsAppLink("Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade para uma primeira consulta.")} target="_blank" rel="noopener noreferrer" className="btn-primary w-full py-3.5 text-center text-sm sm:w-auto">Consultar horários pelo WhatsApp</a>
                 <a data-cursor-label="Explorar" href="#especialidades" className="btn-outline w-full py-3.5 text-center text-sm sm:w-auto">Ver formas de atendimento</a>
               </div>
 
