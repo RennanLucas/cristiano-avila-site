@@ -5,7 +5,9 @@ import Link from "next/link";
 
 const preferenceKey = "ca_metrics_preference";
 const containerId = "GTM-KGGKLHNK";
-const allowedPaths = new Set(["/", "/contato", "/sobre", "/unidades", "/especialidades/psicoterapia"]);
+// Enable only after auditing the published GTM container and consent behavior.
+const metricsEnabled = process.env.NEXT_PUBLIC_CLINIC_METRICS_ENABLED === "true";
+const allowedPaths = new Set(["/", "/contato", "/sobre", "/unidades"]);
 
 type ContactEvent = "booking_click" | "phone_click" | "whatsapp_click";
 type DataLayer = { event: string; "gtm.start"?: number }[];
@@ -31,16 +33,17 @@ export default function CookieBanner() {
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    const preference = localStorage.getItem(preferenceKey);
+    let preference: string | null = null;
+    try { preference = localStorage.getItem(preferenceKey); } catch { /* Storage unavailable. */ }
     setAllowed(preference === "allow");
-    setOpen(!preference);
+    setOpen(metricsEnabled && !preference);
     const showPreferences = () => setOpen(true);
     window.addEventListener("clinic-metrics-preferences", showPreferences);
     return () => window.removeEventListener("clinic-metrics-preferences", showPreferences);
   }, []);
 
   useEffect(() => {
-    if (!allowed) return;
+    if (!metricsEnabled || !allowed) return;
 
     const record = (event: ContactEvent) => {
       if (!allowedPaths.has(location.pathname)) return;
@@ -58,12 +61,12 @@ export default function CookieBanner() {
       }
     };
     const trackSubmit = (event: SubmitEvent) => {
-      if (event.target instanceof HTMLFormElement && event.target.dataset.contactAction === "whatsapp_click") {
+      if (event.target instanceof HTMLFormElement && event.target.dataset.contactAction === "whatsapp_click" && event.target.checkValidity() && event.target.querySelector<HTMLInputElement>('#name')?.value.trim()) {
         record("whatsapp_click");
       }
     };
 
-    if (allowedPaths.has(location.pathname)) loadContainer();
+    // Load only on a consented contact event, not on a page view.
     document.addEventListener("click", trackClick, true);
     document.addEventListener("submit", trackSubmit, true);
     return () => {
@@ -73,7 +76,7 @@ export default function CookieBanner() {
   }, [allowed]);
 
   function choose(allow: boolean) {
-    localStorage.setItem(preferenceKey, allow ? "allow" : "deny");
+    try { localStorage.setItem(preferenceKey, allow ? "allow" : "deny"); } catch { /* Keep choice for this visit. */ }
     if (!allow && allowed) {
       window.location.reload();
       return;
@@ -82,10 +85,10 @@ export default function CookieBanner() {
     setOpen(false);
   }
 
-  if (!open) return null;
+  if (!metricsEnabled || !open) return null;
 
   return (
-    <div className="fixed bottom-24 left-3 right-3 z-50 rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl min-[390px]:left-4 min-[390px]:right-4 min-[390px]:p-5 sm:bottom-5 sm:left-6 sm:right-auto sm:max-w-md" role="dialog" aria-label="Preferências de métricas">
+    <div className="fixed bottom-24 left-3 right-3 z-50 rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl min-[390px]:left-4 min-[390px]:right-4 min-[390px]:p-5 sm:bottom-5 sm:left-6 sm:right-auto sm:max-w-md" role="region" aria-label="Preferências de métricas">
       <p className="text-sm font-semibold text-black">Preferências de métricas</p>
       <p className="mt-2 text-xs leading-relaxed text-zinc-600">Com sua autorização, medimos o uso dos botões de contato. Leia a <Link href="/politica-de-privacidade" className="font-medium text-black underline">Política de Privacidade</Link>.</p>
       <div className="mt-3 grid grid-cols-2 gap-2">
