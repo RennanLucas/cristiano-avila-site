@@ -31,12 +31,21 @@ export default function CookieBanner() {
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    const preference = localStorage.getItem(preferenceKey);
-    setAllowed(preference === "allow");
-    setOpen(!preference);
+    const frame = requestAnimationFrame(() => {
+      try {
+        const preference = localStorage.getItem(preferenceKey);
+        setAllowed(preference === "allow");
+        setOpen(preference !== "allow" && preference !== "deny");
+      } catch {
+        setOpen(true);
+      }
+    });
     const showPreferences = () => setOpen(true);
     window.addEventListener("clinic-metrics-preferences", showPreferences);
-    return () => window.removeEventListener("clinic-metrics-preferences", showPreferences);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("clinic-metrics-preferences", showPreferences);
+    };
   }, []);
 
   useEffect(() => {
@@ -73,7 +82,11 @@ export default function CookieBanner() {
   }, [allowed]);
 
   function choose(allow: boolean) {
-    localStorage.setItem(preferenceKey, allow ? "allow" : "deny");
+    try {
+      localStorage.setItem(preferenceKey, allow ? "allow" : "deny");
+    } catch {
+      // Keep this choice active for the current page when storage is unavailable.
+    }
     if (!allow && allowed) {
       window.location.reload();
       return;

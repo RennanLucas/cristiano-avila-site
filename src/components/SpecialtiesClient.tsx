@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 
 export type SpecialtySummary = {
@@ -18,21 +18,18 @@ const CATEGORIES = [
   { id: "online", label: "Atendimento online" },
 ];
 
+function matchesCategory(item: SpecialtySummary, filter: string) {
+  if (filter === "clinica") return ["psicoterapia", "neuropsicologia", "pnl"].includes(item.id);
+  if (filter === "hipnose") return item.id === "hipnoterapia";
+  if (filter === "online") return item.id === "psicologia-sem-fronteiras";
+  return true;
+}
+
 export default function SpecialtiesClient({ items }: { items: SpecialtySummary[] }) {
   const [filter, setFilter] = useState("todos");
-  const filteredData = useMemo(() => items.filter((item) => {
-    if (filter === "todos") return true;
-    if (filter === "clinica") return ["psicoterapia", "neuropsicologia", "pnl"].includes(item.id);
-    if (filter === "hipnose") return item.id === "hipnoterapia";
-    if (filter === "online") return item.id === "psicologia-sem-fronteiras";
-    return true;
-  }), [filter, items]);
+  const filteredData = useMemo(() => items.filter((item) => matchesCategory(item, filter)), [filter, items]);
 
   const [activeId, setActiveId] = useState(items[0]?.id ?? "");
-
-  useEffect(() => {
-    if (!filteredData.some((item) => item.id === activeId)) setActiveId(filteredData[0]?.id ?? "");
-  }, [activeId, filteredData]);
 
   const activeItem = filteredData.find((item) => item.id === activeId) ?? filteredData[0];
   const activeIndex = activeItem ? items.findIndex((item) => item.id === activeItem.id) : 0;
@@ -52,7 +49,12 @@ export default function SpecialtiesClient({ items }: { items: SpecialtySummary[]
         <div className="mb-8 flex max-w-full flex-nowrap gap-1.5 overflow-x-auto rounded-full border border-white/80 bg-white/60 p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:w-fit" role="group" aria-label="Filtrar formas de atendimento">
           {CATEGORIES.map((cat) => {
             const active = filter === cat.id;
-            return <button key={cat.id} type="button" onClick={() => setFilter(cat.id)} aria-pressed={active} className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-colors ${active ? "bg-black text-white" : "text-zinc-600 hover:bg-white hover:text-black"}`}>{cat.label}</button>;
+            return <button key={cat.id} type="button" onClick={() => {
+              setFilter(cat.id);
+              if (!activeItem || !matchesCategory(activeItem, cat.id)) {
+                setActiveId(items.find((item) => matchesCategory(item, cat.id))?.id ?? "");
+              }
+            }} aria-pressed={active} className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-colors ${active ? "bg-black text-white" : "text-zinc-600 hover:bg-white hover:text-black"}`}>{cat.label}</button>;
           })}
         </div>
 
@@ -67,11 +69,11 @@ export default function SpecialtiesClient({ items }: { items: SpecialtySummary[]
                   onMouseEnter={() => setActiveId(item.id)}
                   onFocus={() => setActiveId(item.id)}
                   onClick={() => setActiveId(item.id)}
-                  className={`specialty-row group flex w-full items-center gap-4 py-5 text-left transition-opacity sm:gap-6 sm:py-6 ${active ? "opacity-100" : "opacity-45 hover:opacity-80"}`}
+                  className={`specialty-row group flex w-full items-center gap-4 py-5 text-left transition-opacity sm:gap-6 sm:py-6 ${active ? "opacity-100" : "text-zinc-700 hover:text-black"}`}
                   aria-pressed={active}
                   data-cursor-label="Explorar"
                 >
-                  <span className="w-8 shrink-0 font-mono text-[10px] text-zinc-400">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="w-8 shrink-0 font-mono text-[10px] text-zinc-600">{String(index + 1).padStart(2, "0")}</span>
                   <span className={`min-w-0 flex-1 text-[1.55rem] font-semibold leading-none tracking-[-0.04em] transition-transform duration-200 sm:text-3xl lg:text-[2.35rem] ${active ? "translate-x-1" : ""}`}>{item.title}</span>
                   <span className={`shrink-0 text-lg transition-transform duration-200 ${active ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"}`} aria-hidden="true">↗</span>
                 </button>
@@ -86,12 +88,12 @@ export default function SpecialtiesClient({ items }: { items: SpecialtySummary[]
                 <span className="pointer-events-none absolute -right-5 -top-12 font-serif text-[11rem] italic leading-none text-white/[0.045] sm:text-[15rem]">{String(activeIndex + 1).padStart(2, "0")}</span>
                 <div className="relative z-10 flex h-full min-h-[370px] flex-col justify-between lg:min-h-[470px]">
                   <div>
-                    <div className="flex items-center justify-between gap-4"><span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/40">{activeItem.badge}</span><span className="font-mono text-[10px] text-white/30">{String(activeIndex + 1).padStart(2, "0")}</span></div>
+                    <div className="flex items-center justify-between gap-4"><span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/65">{activeItem.badge}</span><span className="font-mono text-[10px] text-white/65">{String(activeIndex + 1).padStart(2, "0")}</span></div>
                     <h3 className="mt-16 max-w-xl text-4xl font-semibold leading-[0.96] tracking-[-0.05em] text-white sm:text-5xl lg:text-6xl">{activeItem.title}</h3>
                     <p className="mt-7 max-w-xl text-base font-light leading-relaxed text-white/58 sm:text-lg">{activeItem.shortDesc}</p>
                   </div>
                   <div className="mt-12 flex items-end justify-between gap-5 border-t border-white/10 pt-6">
-                    <div><span className="block text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">Conteúdo completo</span><span className="mt-1 block text-xs text-white/55">Como funciona • indicações • formatos</span></div>
+                    <div><span className="block text-[9px] font-semibold uppercase tracking-[0.18em] text-white/65">Conteúdo completo</span><span className="mt-1 block text-xs text-white/55">Como funciona • indicações • formatos</span></div>
                     <Link href={`/especialidades/${activeItem.slug}`} data-cursor-label="Abrir" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-lg text-black transition-transform duration-200 hover:scale-105" aria-label={`Conhecer ${activeItem.title}`}>↗</Link>
                   </div>
                 </div>

@@ -12,7 +12,7 @@ export default function Hero() {
         <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.34] [mask-image:linear-gradient(to_bottom,black,transparent_82%)]" />
         <div className="aurora-orb absolute -left-28 top-24 h-80 w-80 rounded-full bg-fuchsia-200/25 blur-[80px]" />
         <div className="aurora-orb aurora-orb-delayed absolute right-[-7rem] top-10 h-[26rem] w-[26rem] rounded-full bg-amber-100/45 blur-[95px]" />
-        <div className="hero-wordmark pointer-events-none absolute inset-x-0 top-[22%] hidden select-none text-center font-serif text-[13vw] italic leading-none tracking-[-0.08em] text-black/[0.015] xl:block">PRESENÇA</div>
+        <div aria-hidden="true" className="hero-wordmark pointer-events-none absolute inset-x-0 top-[22%] hidden select-none text-center font-serif text-[13vw] italic leading-none tracking-[-0.08em] text-black/[0.015] xl:block">PRESENÇA</div>
         <HeroCinematicNote />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6">
@@ -24,7 +24,7 @@ export default function Hero() {
               </div>
 
               <h1 className="hero-title mb-6 text-[2.75rem] font-semibold leading-[0.94] tracking-[-0.06em] text-black min-[390px]:text-5xl sm:text-6xl lg:text-[clamp(3rem,4.25vw,4.4rem)]">
-                <span className="hero-title-line block">Entender o que</span>
+                <span className="hero-title-line block">Entender o que{" "}</span>
                 <span className="hero-title-line block font-serif font-normal italic text-zinc-700">acontece por dentro.</span>
               </h1>
 

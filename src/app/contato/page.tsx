@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
@@ -17,11 +17,19 @@ const CONTACT_REASONS = [
 
 export default function ContatoPage() {
   const [name, setName] = useState("");
+  const [formReady, setFormReady] = useState(false);
   const [contactReason, setContactReason] = useState(CONTACT_REASONS[0]);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setFormReady(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const formattedMsg = `Olá, Dr. Cristiano. Meu nome é ${name}. ${contactReason}.`;
+    const trimmedName = name.trim();
+    if (!trimmedName) return;
+    const formattedMsg = `Olá, Dr. Cristiano. Meu nome é ${trimmedName}. ${contactReason}.`;
     window.open(buildWhatsAppLink(formattedMsg), "_blank", "noopener,noreferrer");
   };
 
@@ -56,7 +64,7 @@ export default function ContatoPage() {
 
             <motion.div initial={{ opacity: 0.45, x: 14 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.05, ease: [0.16, 1, 0.3, 1] }} className="premium-card overflow-hidden rounded-[30px] bg-white/85">
               <div className="border-b border-zinc-200/80 bg-zinc-950 px-6 py-6 text-white sm:px-8">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/40">Mensagem rápida</span>
+                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/70">Mensagem rápida</span>
                 <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">Já deixe o assunto pronto.</h2>
                 <p className="mt-2 max-w-xl text-xs font-light leading-relaxed text-white/55">Prepare a mensagem e abra o WhatsApp para enviá-la ao consultório.</p>
               </div>
@@ -64,7 +72,7 @@ export default function ContatoPage() {
               <form className="space-y-7 p-6 sm:p-8" data-contact-action="whatsapp_click" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="name" className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-500">Seu nome</label>
-                  <input type="text" id="name" required autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 text-base outline-none transition-all focus:border-black focus:ring-1 focus:ring-black" placeholder="Digite seu nome" />
+                  <input type="text" id="name" disabled={!formReady} required maxLength={100} autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 text-base outline-none transition-all focus:border-black focus:ring-1 focus:ring-black" placeholder="Digite seu nome" />
                 </div>
 
                 <fieldset>
@@ -84,7 +92,7 @@ export default function ContatoPage() {
 
                 <div className="rounded-2xl border border-zinc-200 bg-zinc-50/80 p-4 text-[11px] leading-relaxed text-zinc-500">{FIRST_CONTACT_PRIVACY_NOTE}</div>
 
-                <button type="submit" className="btn-primary w-full rounded-2xl py-3.5 text-xs">Abrir conversa no WhatsApp <span className="ml-2" aria-hidden="true">↗</span></button>
+                <button type="submit" disabled={!formReady || !name.trim()} className="btn-primary disabled:opacity-50 w-full rounded-2xl py-3.5 text-xs">Abrir conversa no WhatsApp <span className="ml-2" aria-hidden="true">↗</span></button>
               </form>
             </motion.div>
           </div>

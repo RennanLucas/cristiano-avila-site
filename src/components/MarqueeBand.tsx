@@ -16,7 +16,7 @@ export default function MarqueeBand() {
     <div className="editorial-marquee border-y border-zinc-200/80 bg-white" aria-label="Informações do atendimento">
       <div className="editorial-marquee-track">
         {line.map((item, index) => (
-          <span key={`${item}-${index}`} className="editorial-marquee-item">
+          <span key={`${item}-${index}`} className="editorial-marquee-item" aria-hidden={index >= ITEMS.length || undefined}>
             <span>{item}</span>
             <span className="editorial-marquee-dot" aria-hidden="true" />
           </span>

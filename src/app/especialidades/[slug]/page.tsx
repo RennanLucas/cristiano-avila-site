@@ -89,7 +89,7 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
               </section>
 
               <section>
-                <span className="editorial-label">Como funciona</span>
+                <span className="editorial-label text-zinc-600">Como funciona</span>
                 <h2 className="mt-4 max-w-4xl text-3xl font-semibold leading-[1.03] tracking-[-0.045em] text-black sm:text-5xl">Como essa frente pode ser trabalhada.</h2>
                 <div className="mt-8 grid gap-6 text-base font-light leading-[1.85] text-zinc-650 sm:text-lg">
                   {specialty.fullDesc.map((paragraph, idx) => <p key={idx} className="max-w-4xl">{paragraph}</p>)}
@@ -123,7 +123,7 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
                   <div className="absolute inset-x-0 bottom-0 p-6 text-white"><p className="text-lg font-semibold">{CLINIC_CONTACT.fullName}</p><p className="mt-1 text-[10px] text-white/55">Psicólogo Clínico • {PROFESSIONAL_REGISTRATION}</p></div>
                 </div>
                 <div className="p-6 sm:p-7">
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Atendimento</span>
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-600">Atendimento</span>
                   <div className="mt-4 space-y-4 border-y border-zinc-200 py-5 text-xs font-light leading-relaxed text-zinc-600">
                     <p><strong className="font-semibold text-black">Formato</strong><br />Presencial e online</p>
                     <p><strong className="font-semibold text-black">Consultórios</strong><br />{currentCities}</p>
@@ -143,7 +143,7 @@ export default function SpecialtyPage({ params }: { params: { slug: string } }) 
           <div className="divide-y divide-zinc-200 border-y border-zinc-200">
             {otherSpecialties.map((item, index) => (
               <Link key={item.id} href={`/especialidades/${item.slug}`} className="group grid gap-3 py-6 transition-colors hover:bg-zinc-50 sm:grid-cols-[54px_1fr_auto] sm:items-center sm:px-3 sm:py-8">
-                <span className="font-mono text-[10px] text-zinc-400">{String(index + 1).padStart(2, "0")}</span>
+                <span className="font-mono text-[10px] text-zinc-600">{String(index + 1).padStart(2, "0")}</span>
                 <div><h3 className="text-2xl font-semibold tracking-[-0.035em] text-black sm:text-3xl">{item.title}</h3><p className="mt-2 max-w-3xl text-sm font-light leading-relaxed text-zinc-500">{item.shortDesc}</p></div>
                 <span className="text-xl text-zinc-300 transition-transform group-hover:translate-x-1 group-hover:text-black">↗</span>
               </Link>

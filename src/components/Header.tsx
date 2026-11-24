@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CLINIC_CONTACT } from "@/data/contact-lite";
@@ -18,21 +18,30 @@ const NAV_LINKS = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const menuToggle = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const root = document.documentElement;
+    const previousOverflow = root.style.overflow;
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setMobileMenuOpen(false);
+    };
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMobileMenuOpen(false);
+      if (event.key !== "Escape") return;
+      setMobileMenuOpen(false);
+      menuToggle.current?.focus();
     };
 
-    const previousOverflow = document.documentElement.style.overflow;
-
-    if (mobileMenuOpen) {
-      document.documentElement.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    }
-
+    root.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    desktop.addEventListener("change", closeOnDesktop);
     return () => {
-      document.documentElement.style.overflow = previousOverflow;
+      root.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      desktop.removeEventListener("change", closeOnDesktop);
     };
   }, [mobileMenuOpen]);
 
@@ -93,6 +102,7 @@ export default function Header() {
           <button
             type="button"
             className="relative z-10 flex h-11 w-11 shrink-0 touch-manipulation select-none items-center justify-center rounded-xl border border-zinc-200/90 bg-white text-black transition-colors duration-150 active:bg-zinc-100 lg:hidden"
+            ref={menuToggle}
             onClick={toggleMobileMenu}
             aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={mobileMenuOpen}
