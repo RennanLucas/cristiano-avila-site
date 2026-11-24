@@ -34,7 +34,7 @@ export default function MobileMotion() {
       "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
     );
 
-    if (!motionAllowed.matches || !("IntersectionObserver" in window)) return;
+    if (!motionAllowed.matches || !("IntersectionObserver" in window) || typeof Element.prototype.animate !== "function") return;
 
     const running = new Set<Animation>();
     const observer = new IntersectionObserver(
