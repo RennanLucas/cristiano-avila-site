@@ -11,9 +11,10 @@ export const dynamicParams = false;
 export function generateStaticParams() {
   return CURRENT_UNITS.map(unit => ({ cidade: unit.id }));
 }
-type Props = { params: { cidade: string } };
-export function generateMetadata({ params }: Props): Metadata {
-  const unit = CURRENT_UNITS.find(item => item.id === params.cidade);
+type Props = { params: Promise<{ cidade: string }> };
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { cidade } = await params;
+  const unit = CURRENT_UNITS.find(item => item.id === cidade);
   if (!unit) return {};
   const title = `Psicólogo em ${unit.city}`;
   const description = `Atendimento psicológico presencial com Cristiano Ávila em ${unit.city}, SP. Conheça o consultório e consulte horários pelo WhatsApp.`;
@@ -21,8 +22,9 @@ export function generateMetadata({ params }: Props): Metadata {
   return { title, description, alternates: { canonical: url }, openGraph: { title, description, url } };
 }
 
-export default function UnitPage({ params }: Props) {
-  const unit = CURRENT_UNITS.find(item => item.id === params.cidade);
+export default async function UnitPage({ params }: Props) {
+  const { cidade } = await params;
+  const unit = CURRENT_UNITS.find(item => item.id === cidade);
   if (!unit) notFound();
   const whatsapp = buildWhatsAppLink(`Olá, gostaria de consultar horários para atendimento presencial em ${unit.city}.`);
   return (
