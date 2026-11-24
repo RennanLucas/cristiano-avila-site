@@ -5,6 +5,7 @@ import "./premium-desktop.css";
 import "./editorial-hard.css";
 import "./mobile-stability.css";
 import "./mobile-motion.css";
+import CookieBanner from "@/components/CookieBanner";
 import JsonLd from "@/components/JsonLd";
 import DesktopExperience from "@/components/DesktopExperience";
 import MobileMotion from "@/components/MobileMotion";
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {children}
         <DesktopExperience />
         <MobileMotion />
+        <CookieBanner />
       </body>
     </html>
   );
