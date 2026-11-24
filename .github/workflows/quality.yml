@@ -6,6 +6,7 @@ on:
       - master
       - 'audit/**'
       - 'fix/auditoria-profissional-2026-11'
+      - 'upgrade/next15-security'
   pull_request:
     branches:
       - master
@@ -30,8 +31,20 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Resolve upgraded lockfile
+        if: github.ref_name == 'upgrade/next15-security' || github.head_ref == 'upgrade/next15-security'
+        run: npm install --package-lock-only --ignore-scripts
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Export generated lockfile
+        if: github.ref_name == 'upgrade/next15-security' || github.head_ref == 'upgrade/next15-security'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: next15-generated-lockfile
+          path: package-lock.json
+          retention-days: 7
 
       - name: TypeScript check
         run: npx tsc --noEmit
