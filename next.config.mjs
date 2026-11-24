@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
+const metricsEnabled = process.env.NEXT_PUBLIC_CLINIC_METRICS_ENABLED === 'true';
+// Keep third-party origins disabled until the container and consent are audited.
+const gtmScript = metricsEnabled ? ' https://www.googletagmanager.com https://www.googleadservices.com https://www.google.com' : '';
+const gtmConnect = metricsEnabled ? ' https://www.googletagmanager.com https://www.google.com https://www.googleadservices.com' : '';
+const gtmImage = metricsEnabled ? ' https://www.googletagmanager.com https://www.google.com https://google.com https://googleads.g.doubleclick.net' : '';
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
@@ -14,11 +19,11 @@ const securityHeaders = [
       "form-action 'self'",
       "frame-ancestors 'self'",
       "object-src 'none'",
-      "script-src 'self' 'unsafe-inline'",
+      "script-src 'self' 'unsafe-inline'" + gtmScript,
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
-      "img-src 'self' data: blob: https://images.unsplash.com",
-      "connect-src 'self'",
+      "img-src 'self' data: blob: https://images.unsplash.com" + gtmImage,
+      "connect-src 'self'" + gtmConnect,
       "frame-src https://www.google.com https://www.google.com.br",
       "media-src 'self'",
       "upgrade-insecure-requests",

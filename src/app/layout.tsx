@@ -9,20 +9,19 @@ import JsonLd from "@/components/JsonLd";
 import CookieBanner from "@/components/CookieBanner";
 import DesktopExperience from "@/components/DesktopExperience";
 import MobileMotion from "@/components/MobileMotion";
-import { CURRENT_CITIES_TEXT } from "@/data/units";
 import { SITE_URL } from "@/lib/site-policy";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", preload: true });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "Cristiano Ávila | Psicólogo Clínico", template: "%s | Cristiano Ávila" },
-  description: `Psicoterapia presencial e online com Cristiano Ávila, Psicólogo Clínico. Consultórios em ${CURRENT_CITIES_TEXT}.`,
+  title: { default: "Cristiano Ávila — Psicólogo Clínico", template: "%s | Cristiano Ávila" },
+  description: "Cristiano Ávila, psicólogo clínico. Psicoterapia presencial e online, com atendimento em Praia Grande, Santos, Atibaia e São Bernardo do Campo.",
   applicationName: "Cristiano Ávila Psicólogo",
   alternates: { canonical: "/" },
   icons: { icon: [{ url: "/favicon-64.png", type: "image/png", sizes: "64x64" }], shortcut: "/favicon-64.png" },
-  openGraph: { title: "Cristiano Ávila | Psicólogo Clínico", description: "Psicoterapia presencial e online para questões emocionais, comportamentais e relacionais.", url: SITE_URL, siteName: "Cristiano Ávila", locale: "pt_BR", type: "website", images: [{ url: "/images/cristiano_avila.jpg", alt: "Cristiano Ávila, psicólogo clínico" }] },
-  twitter: { card: "summary_large_image", title: "Cristiano Ávila | Psicólogo Clínico", description: "Psicoterapia presencial e online.", images: ["/images/cristiano_avila.jpg"] },
+  openGraph: { title: "Cristiano Ávila — Psicólogo Clínico", description: "Psicoterapia presencial e online para questões emocionais, comportamentais e relacionais.", url: SITE_URL, siteName: "Cristiano Ávila", locale: "pt_BR", type: "website", images: [{ url: "/images/cristiano_avila.jpg", alt: "Cristiano Ávila, psicólogo clínico" }] },
+  twitter: { card: "summary_large_image", title: "Cristiano Ávila — Psicólogo Clínico", description: "Psicoterapia presencial e online.", images: ["/images/cristiano_avila.jpg"] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
 };
 

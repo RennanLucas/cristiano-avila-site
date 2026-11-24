@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ARTICLES_DATA, SPECIALTIES_DATA } from "@/data/content";
+import { CURRENT_UNITS } from "@/data/units";
 import { isPublicSpecialty, SITE_URL } from "@/lib/site-policy";
 
 function articleDate(date: string) {
@@ -36,5 +37,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...specialtyPages, ...articlePages];
+  const unitPages: MetadataRoute.Sitemap = CURRENT_UNITS.map(unit => ({ url: `${SITE_URL}/unidades/${unit.id}`, changeFrequency: "monthly", priority: 0.8 }));
+  return [...staticPages, ...unitPages, ...specialtyPages, ...articlePages];
 }
