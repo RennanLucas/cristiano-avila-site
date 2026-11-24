@@ -10,12 +10,20 @@ export default function Locations() {
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 768px)");
-    const syncMapPreference = () => {
-      if (desktop.matches) setShowMap(true);
-    };
+    const syncMapPreference = () => setShowMap(desktop.matches);
     syncMapPreference();
     desktop.addEventListener?.("change", syncMapPreference);
     return () => desktop.removeEventListener?.("change", syncMapPreference);
+  }, []);
+
+  useEffect(() => {
+    const selectLinkedUnit = () => {
+      const unit = CURRENT_UNITS.find((item) => `#${item.id}` === window.location.hash);
+      if (unit) setSelectedUnit(unit);
+    };
+    selectLinkedUnit();
+    window.addEventListener("hashchange", selectLinkedUnit);
+    return () => window.removeEventListener("hashchange", selectLinkedUnit);
   }, []);
 
   const selectUnit = (unit: (typeof CURRENT_UNITS)[number]) => {
@@ -29,10 +37,10 @@ export default function Locations() {
       <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-6">
         <div className="mb-10 grid gap-6 sm:mb-12 lg:mb-16 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.26em] text-white/38">Atendimento presencial</span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.26em] text-white/65">Atendimento presencial</span>
             <h2 className="mt-5 max-w-4xl text-[2.55rem] font-semibold leading-[0.98] tracking-[-0.05em] text-white sm:text-5xl lg:text-7xl">Quatro cidades. <span className="font-serif font-normal italic text-white/52">Um mesmo cuidado.</span></h2>
           </div>
-          <p className="max-w-sm text-sm font-light leading-relaxed text-white/45">Escolha uma cidade para ver endereço, mapa e consultar disponibilidade.</p>
+          <p className="max-w-sm text-sm font-light leading-relaxed text-white/65">Escolha uma cidade para ver endereço, mapa e consultar disponibilidade.</p>
         </div>
 
         <div className="grid min-w-0 overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.035] shadow-[0_40px_120px_rgba(0,0,0,0.34)] sm:rounded-[30px] lg:min-h-[650px] lg:grid-cols-[0.36fr_0.64fr] lg:rounded-[38px]">
@@ -43,9 +51,11 @@ export default function Locations() {
                 return (
                   <button
                     key={unit.id}
+                    id={unit.id}
                     type="button"
+                    aria-pressed={active}
                     onClick={() => selectUnit(unit)}
-                    className={`group flex min-h-[66px] min-w-0 w-full items-center gap-3 rounded-2xl px-3 py-3 text-left transition-all lg:min-h-0 lg:rounded-none lg:border-b lg:border-white/10 lg:px-0 lg:py-6 ${active ? "bg-white text-black lg:bg-transparent lg:text-white" : "border border-white/10 text-white/60 lg:border-x-0 lg:border-t-0 lg:hover:text-white"}`}
+                    className={`group flex scroll-mt-28 focus-visible:outline-white min-h-[66px] min-w-0 w-full items-center gap-3 rounded-2xl px-3 py-3 text-left transition-all lg:min-h-0 lg:rounded-none lg:border-b lg:border-white/10 lg:px-0 lg:py-6 ${active ? "bg-white text-black lg:bg-transparent lg:text-white" : "border border-white/10 text-white/60 lg:border-x-0 lg:border-t-0 lg:hover:text-white"}`}
                     data-cursor-label="Selecionar"
                   >
                     <span className={`shrink-0 font-mono text-[9px] ${active ? "text-black/50 lg:text-white/35" : "text-white/25"}`}>{String(index + 1).padStart(2, "0")}</span>
@@ -81,9 +91,9 @@ export default function Locations() {
 
             <div className="grid min-w-0 gap-7 border-t border-white/10 p-5 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:p-10">
               <div className="min-w-0">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/32">{selectedUnit.availability}</span>
+                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/65">{selectedUnit.availability}</span>
                 <h3 className="mt-3 text-[1.65rem] font-semibold leading-[1.04] tracking-[-0.035em] text-white sm:text-3xl">{selectedUnit.title}</h3>
-                <p className="mt-4 max-w-xl break-words text-sm font-light leading-relaxed text-white/52">{selectedUnit.address}{selectedUnit.complement ? ` • ${selectedUnit.complement}` : ""}{selectedUnit.neighborhood ? ` • ${selectedUnit.neighborhood}` : ""} • {selectedUnit.city}/{selectedUnit.state} • CEP {selectedUnit.zip}</p>
+                <p className="mt-4 max-w-xl break-words text-sm font-light leading-relaxed text-white/70">{selectedUnit.address}{selectedUnit.complement ? ` • ${selectedUnit.complement}` : ""}{selectedUnit.neighborhood ? ` • ${selectedUnit.neighborhood}` : ""} • {selectedUnit.city}/{selectedUnit.state} • CEP {selectedUnit.zip}</p>
               </div>
               <div className="grid grid-cols-2 gap-2 lg:flex lg:max-w-[250px] lg:flex-wrap lg:justify-end">
                 <a data-contact-action="booking_click" data-cursor-label="Agenda" href={buildWhatsAppLink(`Olá, Dr. Cristiano. Gostaria de verificar a disponibilidade de atendimento presencial em ${selectedUnit.city}.`)} target="_blank" rel="noopener noreferrer" className="col-span-2 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-5 py-3 text-center text-xs font-semibold text-black lg:col-span-1">Consultar horários</a>
