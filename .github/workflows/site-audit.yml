@@ -1,0 +1,73 @@
+name: Site audit
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - '.github/workflows/site-audit.yml'
+      - 'tests/site-audit/**'
+
+permissions:
+  contents: read
+
+jobs:
+  browser-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      AUDIT_ORIGIN: http://127.0.0.1:3000
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: TypeScript and production build
+        id: build
+        run: |
+          npx tsc --noEmit
+          npm run build
+      - name: Install isolated audit tools
+        id: tools
+        run: |
+          mkdir -p "$RUNNER_TEMP/site-audit" "$RUNNER_TEMP/audit-evidence"
+          npm install --prefix "$RUNNER_TEMP/site-audit" --no-package-lock playwright@1.65.1 @axe-core/playwright@4.11.1 lighthouse@12.8.2
+          cp tests/site-audit/*.mjs "$RUNNER_TEMP/site-audit/"
+          "$RUNNER_TEMP/site-audit/node_modules/.bin/playwright" install --with-deps chromium firefox webkit
+      - name: Start server
+        id: server
+        run: |
+          npm run start -- --hostname 127.0.0.1 > "$RUNNER_TEMP/site.log" 2>&1 &
+          for attempt in $(seq 1 40); do
+            if curl -fsS "$AUDIT_ORIGIN/" > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/site.log"
+          exit 1
+      - name: Production screenshots before changes
+        run: AUDIT_BASELINE=1 AUDIT_ORIGIN=https://cristiano-avila-site.vercel.app AUDIT_OUTPUT="$RUNNER_TEMP/audit-evidence/before" node "$RUNNER_TEMP/site-audit/browser-audit.mjs"
+      - name: Browser matrix and accessibility
+        if: ${{ !cancelled() && steps.server.outcome == 'success' }}
+        run: AUDIT_OUTPUT="$RUNNER_TEMP/audit-evidence/after" node "$RUNNER_TEMP/site-audit/browser-audit.mjs"
+      - name: Lighthouse for each template
+        if: ${{ !cancelled() && steps.server.outcome == 'success' }}
+        run: AUDIT_OUTPUT="$RUNNER_TEMP/audit-evidence/lighthouse" node "$RUNNER_TEMP/site-audit/lighthouse-audit.mjs"
+      - name: ESLint
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: npx eslint --config tests/site-audit/eslint.config.mjs src
+      - name: Production dependency audit
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: |
+          npm audit --omit=dev --audit-level=high --json > "$RUNNER_TEMP/audit-evidence/npm-audit.json" || audit_status=$?
+          node -e 'const r = require(process.argv[1]); console.log(JSON.stringify(r.metadata || r.error, null, 2));' "$RUNNER_TEMP/audit-evidence/npm-audit.json"
+          exit "${audit_status:-0}"
+      - name: Upload screenshots and reports
+        if: ${{ !cancelled() && steps.tools.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-audit-evidence
+          path: ${{ runner.temp }}/audit-evidence
