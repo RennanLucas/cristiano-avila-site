@@ -15,11 +15,10 @@ import BlogPreview from "@/components/BlogPreview";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 import FloatingDock from "@/components/FloatingDock";
-import CookieBanner from "@/components/CookieBanner";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-white text-[#111111] selection:bg-black selection:text-white">
+    <main id="conteudo-principal" className="relative min-h-screen overflow-x-hidden bg-white text-[#111111] selection:bg-black selection:text-white">
       <Header />
       <Hero />
       <MarqueeBand />
@@ -37,7 +36,6 @@ export default function Home() {
       <CtaSection />
       <Footer />
       <FloatingDock />
-      <CookieBanner />
     </main>
   );
 }

@@ -21,16 +21,12 @@
   }
 
   html.desktop-premium .premium-reveal-section {
-    opacity: 0;
-    transform: translate3d(0, 8px, 0);
-    transition:
-      opacity 180ms cubic-bezier(0.16, 1, 0.3, 1),
-      transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: none;
   }
 
   html.desktop-premium .premium-reveal-section.is-premium-visible {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+    animation: ca-safe-reveal 220ms ease-out;
   }
 
   #inicio {
@@ -350,3 +346,5 @@
     animation: none !important;
   }
 }
+
+@keyframes ca-safe-reveal { from { opacity: 0.92; transform: translate3d(0, 6px, 0); } to { opacity: 1; transform: none; } }
