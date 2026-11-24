@@ -19,7 +19,7 @@ export default function DesktopExperience() {
     const desktop = window.matchMedia("(min-width: 1024px)");
     const finePointer = window.matchMedia("(pointer: fine)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!desktop.matches || reducedMotion.matches) return;
+    if (!desktop.matches || reducedMotion.matches || !("IntersectionObserver" in window)) return;
 
     const root = document.documentElement;
     const cursor = cursorRef.current;
