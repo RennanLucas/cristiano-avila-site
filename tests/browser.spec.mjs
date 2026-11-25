@@ -13,7 +13,7 @@ for (const width of [320, 375, 390, 768, 1024, 1440, 1920]) {
     page.on("pageerror", error => errors.push(error.message));
     await page.goto(origin, { waitUntil: "load" });
     await expect(page.locator("h1")).toBeVisible();
-    await expect(page.locator("h1")).toContainText("Psicólogo em");
+    await expect(page.locator("h1")).toContainText("Entender o que");
     await expect(page.locator("#especialidades")).toBeVisible();
     await expect(page.locator('a[href^="https://wa.me/"]').first()).toBeAttached();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
