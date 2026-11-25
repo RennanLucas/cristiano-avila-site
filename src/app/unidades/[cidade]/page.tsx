@@ -39,7 +39,7 @@ export default async function UnitPage({ params }: Props) {
               <p className="editorial-label">Cristiano Ávila • {PROFESSIONAL_REGISTRATION}</p>
               <h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-6xl">Psicólogo em <span className="font-serif font-normal italic">{unit.city}</span></h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-600">Atendimento psicológico presencial com hora marcada. Consulte a disponibilidade para uma primeira sessão e esclareça dúvidas sobre o atendimento.</p>
-              <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="btn-primary mt-8 inline-block px-6 py-4 text-center">Consultar horários pelo WhatsApp</a>
+              <a data-contact-action="booking_click" href={whatsapp} target="_blank" rel="noopener noreferrer" className="btn-primary mt-8 inline-block px-6 py-4 text-center">Consultar horários pelo WhatsApp</a>
               <p className="mt-4 text-sm text-zinc-600">Evite compartilhar detalhes clínicos sensíveis no primeiro contato.</p>
             </div>
             <div className="premium-card rounded-[28px] border border-zinc-200 bg-zinc-50 p-6 sm:p-10">

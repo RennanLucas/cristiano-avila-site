@@ -11,9 +11,11 @@ for (const path of routes) {
     const html = await response.text();
     assert.match(html, /<h1[\s>]/i);
     assert.match(html, /<html[^>]+lang="pt-BR"/i);
-    assert.match(html, /rel="canonical"/i);
+    const canonical = html.match(/rel="canonical" href="([^"]+)"/i)?.[1];
+    assert.equal(new URL(canonical).href, new URL(path, "https://cristiano-avila-site.vercel.app").href);
     assert.ok(response.headers.get("content-security-policy")?.includes("object-src 'none'"));
     assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+    assert.match(response.headers.get("strict-transport-security") ?? "", /max-age=63072000/);
   });
 }
 
@@ -33,4 +35,14 @@ test("home links to WhatsApp and remains free of advertising tags", async () => 
   const html = await (await fetch(new URL("/", origin))).text();
   assert.match(html, /https:\/\/wa\.me\/5511980611571/);
   assert.doesNotMatch(html, /<script[^>]+src="https:\/\/(?:www\.)?(?:googletagmanager|googleadservices)\.com/i);
+});
+
+
+test("robots points to the official sitemap and old URLs redirect", async () => {
+  const response = await fetch(new URL("/robots.txt", origin));
+  assert.equal(response.status, 200);
+  assert.match(await response.text(), /^Sitemap: https:\/\/cristiano-avila-site\.vercel\.app\/sitemap\.xml$/m);
+  const redirect = await fetch(new URL("/sobre-2", origin), { redirect: "manual" });
+  assert.equal(redirect.status, 308);
+  assert.equal(redirect.headers.get("location"), "/sobre");
 });

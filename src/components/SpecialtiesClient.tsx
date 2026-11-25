@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 
 export type SpecialtySummary = {
@@ -30,10 +30,6 @@ export default function SpecialtiesClient({ items }: { items: SpecialtySummary[]
 
   const [activeId, setActiveId] = useState(items[0]?.id ?? "");
 
-  useEffect(() => {
-    if (!filteredData.some((item) => item.id === activeId)) setActiveId(filteredData[0]?.id ?? "");
-  }, [activeId, filteredData]);
-
   const activeItem = filteredData.find((item) => item.id === activeId) ?? filteredData[0];
   const activeIndex = activeItem ? items.findIndex((item) => item.id === activeItem.id) : 0;
 
@@ -52,7 +48,7 @@ export default function SpecialtiesClient({ items }: { items: SpecialtySummary[]
         <div className="mb-8 flex max-w-full flex-nowrap gap-1.5 overflow-x-auto rounded-full border border-white/80 bg-white/60 p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:w-fit" role="group" aria-label="Filtrar formas de atendimento">
           {CATEGORIES.map((cat) => {
             const active = filter === cat.id;
-            return <button key={cat.id} type="button" onClick={() => setFilter(cat.id)} aria-pressed={active} className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-colors ${active ? "bg-black text-white" : "text-zinc-600 hover:bg-white hover:text-black"}`}>{cat.label}</button>;
+            return <button key={cat.id} type="button" onClick={() => { setFilter(cat.id); if (!active) setActiveId(""); }} aria-pressed={active} className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-colors ${active ? "bg-black text-white" : "text-zinc-600 hover:bg-white hover:text-black"}`}>{cat.label}</button>;
           })}
         </div>
 

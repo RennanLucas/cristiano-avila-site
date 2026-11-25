@@ -5,11 +5,10 @@ on:
     branches:
       - master
       - 'audit/**'
-      - 'fix/integracao-final-site'
-      - 'upgrade/next15-integrado'
+      - 'fix/**'
+      - 'upgrade/**'
   pull_request:
-    branches:
-      - master
+    branches: [master]
 
 permissions:
   contents: read
@@ -18,47 +17,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_CLINIC_METRICS_ENABLED: "true"
+      TEST_CLINIC_METRICS_ENABLED: "true"
+      TEST_LOCAL_HTTP: "true"
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
-      - name: Generate reproducible migration lockfile
-        run: npm install --package-lock-only --ignore-scripts
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Export migration lockfile
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: next15-generated-lockfile
-          path: package-lock.json
-          retention-days: 7
-
-      - name: TypeScript check
-        run: npx tsc --noEmit
-
-      - name: Production build
-        run: npm run build
-
-      - name: Audit production dependencies
-        run: npm audit --omit=dev --audit-level=high
-        continue-on-error: true
-
-      - name: Install browser test tooling
-        run: npm install --no-save --package-lock=false @playwright/test@1.65.1
-
-      - name: Install Chromium and WebKit
-        run: npx playwright install --with-deps chromium webkit
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+      - run: npm audit
+      - run: npx playwright install --with-deps chromium webkit firefox
 
       - name: Start production server
         run: |
@@ -70,14 +49,15 @@ jobs:
           cat /tmp/site.log
           exit 1
 
-      - name: HTTP smoke tests
-        run: npm run test:smoke
+      - run: npm run test:smoke
+      - run: npm run test:browser
 
-      - name: Browser checks
-        run: npx playwright test --config=playwright.config.mjs
+      - name: Lighthouse mobile and desktop
+        run: |
+          npx --yes lighthouse@12.8.2 http://localhost:3000 --chrome-flags="--headless --no-sandbox" --output=json --output-path=./lighthouse-mobile.json --quiet
+          npx --yes lighthouse@12.8.2 http://localhost:3000 --preset=desktop --chrome-flags="--headless --no-sandbox" --output=json --output-path=./lighthouse-desktop.json --quiet
 
-      - name: Lighthouse mobile
-        run: npx --yes lighthouse@12.8.2 http://localhost:3000 --chrome-flags="--headless --no-sandbox" --output=json --output-path=/tmp/lighthouse.json --quiet
-
-      - name: Lighthouse metrics
-        run: node -e 'const r=require("/tmp/lighthouse.json"); for(const [k,v] of Object.entries(r.categories)) console.log(k, v.score);'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lighthouse-reports
+          path: lighthouse-*.json

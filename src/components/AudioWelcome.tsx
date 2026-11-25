@@ -101,7 +101,7 @@ export default function AudioWelcome() {
       </div>
 
       <p className="text-[11px] text-textMuted mt-3 text-center font-light">
-        "Compreender como sua mente funciona é o primeiro passo para recuperar sua autonomia."
+        “Compreender como sua mente funciona é o primeiro passo para recuperar sua autonomia.”
       </p>
     </div>
   );

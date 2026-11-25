@@ -45,8 +45,10 @@ export default function DesktopExperience() {
       };
     });
 
-    setRailItems(items);
-    if (items[0]) setActiveSectionId(items[0].id);
+    const railFrame = window.requestAnimationFrame(() => {
+      setRailItems(items);
+      setActiveSectionId(items[0]?.id ?? "");
+    });
 
     const updateHeaderActive = (sectionId: string) => {
       headerSectionLinks.forEach((link) => {
@@ -141,6 +143,7 @@ export default function DesktopExperience() {
     }
 
     return () => {
+      window.cancelAnimationFrame(railFrame);
       revealObserver.disconnect();
       activeObserver.disconnect();
       hero?.removeEventListener("pointermove", updateHeroPointer);

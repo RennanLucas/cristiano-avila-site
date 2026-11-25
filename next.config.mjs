@@ -1,9 +1,12 @@
+import { fileURLToPath } from "node:url";
+
 /** @type {import('next').NextConfig} */
 const metricsEnabled = process.env.NEXT_PUBLIC_CLINIC_METRICS_ENABLED === 'true';
-// Keep third-party origins disabled until the container and consent are audited.
-const gtmScript = metricsEnabled ? ' https://www.googletagmanager.com https://www.googleadservices.com https://www.google.com' : '';
-const gtmConnect = metricsEnabled ? ' https://www.googletagmanager.com https://www.google.com https://www.googleadservices.com' : '';
-const gtmImage = metricsEnabled ? ' https://www.googletagmanager.com https://www.google.com https://google.com https://googleads.g.doubleclick.net' : '';
+const gtmOrigin = 'https://www.googletagmanager.com';
+const analyticsOrigins = ['https://www.google-analytics.com', 'https://region1.google-analytics.com'];
+const metricsScript = metricsEnabled ? ` ${gtmOrigin}` : '';
+const metricsNetwork = metricsEnabled ? ` ${[gtmOrigin, ...analyticsOrigins].join(' ')}` : '';
+const localHttpTest = process.env.TEST_LOCAL_HTTP === 'true' && !process.env.VERCEL;
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
@@ -19,19 +22,20 @@ const securityHeaders = [
       "form-action 'self'",
       "frame-ancestors 'self'",
       "object-src 'none'",
-      "script-src 'self' 'unsafe-inline'" + gtmScript,
+      "script-src 'self' 'unsafe-inline'" + metricsScript,
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
-      "img-src 'self' data: blob: https://images.unsplash.com" + gtmImage,
-      "connect-src 'self'" + gtmConnect,
+      "img-src 'self' data: blob: https://images.unsplash.com" + metricsNetwork,
+      "connect-src 'self'" + metricsNetwork,
       "frame-src https://www.google.com https://www.google.com.br",
       "media-src 'self'",
-      "upgrade-insecure-requests",
+      ...(localHttpTest ? [] : ["upgrade-insecure-requests"]),
     ].join('; '),
   },
 ];
 
 const nextConfig = {
+  outputFileTracingRoot: fileURLToPath(new URL('.', import.meta.url)),
   reactStrictMode: true,
   poweredByHeader: false,
   images: {

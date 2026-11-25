@@ -7,16 +7,32 @@ const preferenceKey = "ca_metrics_preference";
 const containerId = "GTM-KGGKLHNK";
 // Enable only after auditing the published GTM container and consent behavior.
 const metricsEnabled = process.env.NEXT_PUBLIC_CLINIC_METRICS_ENABLED === "true";
-const allowedPaths = new Set(["/", "/contato", "/sobre", "/unidades"]);
+const allowedPaths = new Set(["/", "/contato", "/sobre", "/unidades", "/especialidades/psicoterapia"]);
+const unitPath = /^\/unidades\/(praia-grande|santos|atibaia|sao-bernardo)$/;
 
 type ContactEvent = "booking_click" | "phone_click" | "whatsapp_click";
-type DataLayer = { event: string; "gtm.start"?: number }[];
+type ConsentSettings = {
+  analytics_storage: "granted";
+  ad_storage: "denied";
+  ad_user_data: "denied";
+  ad_personalization: "denied";
+};
+type DataLayer = (IArguments | { event: string; "gtm.start"?: number })[];
 
 function loadContainer() {
   const browser = window as Window & { dataLayer?: DataLayer };
   const dataLayer = (browser.dataLayer ??= []);
 
   if (!document.getElementById(containerId)) {
+    const setConsent: (command: "consent", mode: "default", settings: ConsentSettings) => void = function () {
+      dataLayer.push(arguments);
+    };
+    setConsent("consent", "default", {
+      analytics_storage: "granted",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+    });
     dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
     const script = document.createElement("script");
     script.id = containerId;
@@ -33,20 +49,25 @@ export default function CookieBanner() {
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    let preference: string | null = null;
-    try { preference = localStorage.getItem(preferenceKey); } catch { /* Storage unavailable. */ }
-    setAllowed(preference === "allow");
-    setOpen(metricsEnabled && !preference);
+    const restore = window.setTimeout(() => {
+      let preference: string | null = null;
+      try { preference = localStorage.getItem(preferenceKey); } catch { /* Storage unavailable. */ }
+      setAllowed(preference === "allow");
+      setOpen(metricsEnabled && !preference);
+    }, 0);
     const showPreferences = () => setOpen(true);
     window.addEventListener("clinic-metrics-preferences", showPreferences);
-    return () => window.removeEventListener("clinic-metrics-preferences", showPreferences);
+    return () => {
+      window.clearTimeout(restore);
+      window.removeEventListener("clinic-metrics-preferences", showPreferences);
+    };
   }, []);
 
   useEffect(() => {
     if (!metricsEnabled || !allowed) return;
 
     const record = (event: ContactEvent) => {
-      if (!allowedPaths.has(location.pathname)) return;
+      if (!allowedPaths.has(location.pathname) && !unitPath.test(location.pathname)) return;
       loadContainer().push({ event });
     };
     const trackClick = (event: MouseEvent) => {
@@ -76,10 +97,24 @@ export default function CookieBanner() {
   }, [allowed]);
 
   function choose(allow: boolean) {
-    try { localStorage.setItem(preferenceKey, allow ? "allow" : "deny"); } catch { /* Keep choice for this visit. */ }
+    let saved = false;
+    try {
+      localStorage.setItem(preferenceKey, allow ? "allow" : "deny");
+      saved = true;
+    } catch { /* Keep choice for this visit. */ }
+
     if (!allow && allowed) {
-      window.location.reload();
-      return;
+      const host = location.hostname;
+      for (const entry of document.cookie.split(";")) {
+        const name = entry.split("=")[0].trim();
+        if (!/^_ga(?:_[A-Z0-9]+)?$/i.test(name)) continue;
+        document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
+        document.cookie = `${name}=; Max-Age=0; Path=/; Domain=${host}; SameSite=Lax; Secure`;
+      }
+      if (saved) {
+        window.location.reload();
+        return;
+      }
     }
     setAllowed(allow);
     setOpen(false);
