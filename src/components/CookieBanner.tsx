@@ -44,6 +44,16 @@ function loadContainer() {
   return dataLayer;
 }
 
+function clearClinicCookies() {
+  for (const name of ["_ga", "_ga_1WZB39L9RX"]) {
+    for (const domain of ["", `; Domain=.${location.hostname}`]) {
+      const expired = `${name}=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; Path=/; SameSite=Lax${domain}`;
+      document.cookie = `${expired}; Secure`;
+      document.cookie = expired;
+    }
+  }
+}
+
 export default function CookieBanner() {
   const [open, setOpen] = useState(false);
   const [allowed, setAllowed] = useState(false);
@@ -52,6 +62,7 @@ export default function CookieBanner() {
     const restore = window.setTimeout(() => {
       let preference: string | null = null;
       try { preference = localStorage.getItem(preferenceKey); } catch { /* Storage unavailable. */ }
+      if (metricsEnabled && preference === "deny") clearClinicCookies();
       setAllowed(preference === "allow");
       setOpen(metricsEnabled && !preference);
     }, 0);
@@ -104,16 +115,7 @@ export default function CookieBanner() {
     } catch { /* Keep choice for this visit. */ }
 
     if (!allow && allowed) {
-      for (const entry of document.cookie.split(";")) {
-        const name = entry.split("=")[0].trim();
-        if (!/^_ga(?:_[A-Z0-9]+)?$/i.test(name)) continue;
-
-        for (const domain of ["", `; Domain=${location.hostname}`]) {
-          const expired = `${name}=; Max-Age=0; Path=/; SameSite=Lax${domain}`;
-          document.cookie = `${expired}; Secure`;
-          if (location.protocol === "http:") document.cookie = expired;
-        }
-      }
+      clearClinicCookies();
       if (saved) {
         window.location.reload();
         return;

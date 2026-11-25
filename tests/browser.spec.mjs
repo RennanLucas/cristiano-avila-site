@@ -107,5 +107,5 @@ test("metrics require consent and record only the expected contact events", asyn
   const count = requests.length;
   await page.getByRole("link", { name: "Consultar horários pelo WhatsApp" }).click();
   expect(requests).toHaveLength(count);
-  expect((await context.cookies()).filter(cookie => /^_ga(?:_|$)/.test(cookie.name))).toEqual([]);
+  await expect.poll(async () => (await context.cookies()).filter(cookie => /^_ga(?:_|$)/.test(cookie.name)).length).toBe(0);
 });
