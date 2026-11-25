@@ -5,16 +5,34 @@ import Link from "next/link";
 
 const preferenceKey = "ca_metrics_preference";
 const containerId = "GTM-KGGKLHNK";
+// Enable only after auditing the published GTM container and consent behavior.
+const metricsEnabled = process.env.NEXT_PUBLIC_CLINIC_METRICS_ENABLED === "true";
 const allowedPaths = new Set(["/", "/contato", "/sobre", "/unidades", "/especialidades/psicoterapia"]);
+const unitPath = /^\/unidades\/(praia-grande|santos|atibaia|sao-bernardo)$/;
 
 type ContactEvent = "booking_click" | "phone_click" | "whatsapp_click";
-type DataLayer = { event: string; "gtm.start"?: number }[];
+type ConsentSettings = {
+  analytics_storage: "granted";
+  ad_storage: "denied";
+  ad_user_data: "denied";
+  ad_personalization: "denied";
+};
+type DataLayer = (IArguments | { event: string; "gtm.start"?: number })[];
 
 function loadContainer() {
   const browser = window as Window & { dataLayer?: DataLayer };
   const dataLayer = (browser.dataLayer ??= []);
 
   if (!document.getElementById(containerId)) {
+    const setConsent: (command: "consent", mode: "default", settings: ConsentSettings) => void = function () {
+      dataLayer.push(arguments);
+    };
+    setConsent("consent", "default", {
+      analytics_storage: "granted",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+    });
     dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
     const script = document.createElement("script");
     script.id = containerId;
@@ -26,24 +44,41 @@ function loadContainer() {
   return dataLayer;
 }
 
+function clearClinicCookies() {
+  for (const name of ["_ga", "_ga_1WZB39L9RX"]) {
+    for (const domain of ["", `; Domain=.${location.hostname}`]) {
+      const expired = `${name}=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; Path=/; SameSite=Lax${domain}`;
+      document.cookie = `${expired}; Secure`;
+      document.cookie = expired;
+    }
+  }
+}
+
 export default function CookieBanner() {
   const [open, setOpen] = useState(false);
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    const preference = localStorage.getItem(preferenceKey);
-    setAllowed(preference === "allow");
-    setOpen(!preference);
+    const restore = window.setTimeout(() => {
+      let preference: string | null = null;
+      try { preference = localStorage.getItem(preferenceKey); } catch { /* Storage unavailable. */ }
+      if (metricsEnabled && preference === "deny") clearClinicCookies();
+      setAllowed(preference === "allow");
+      setOpen(metricsEnabled && !preference);
+    }, 0);
     const showPreferences = () => setOpen(true);
     window.addEventListener("clinic-metrics-preferences", showPreferences);
-    return () => window.removeEventListener("clinic-metrics-preferences", showPreferences);
+    return () => {
+      window.clearTimeout(restore);
+      window.removeEventListener("clinic-metrics-preferences", showPreferences);
+    };
   }, []);
 
   useEffect(() => {
-    if (!allowed) return;
+    if (!metricsEnabled || !allowed) return;
 
     const record = (event: ContactEvent) => {
-      if (!allowedPaths.has(location.pathname)) return;
+      if (!allowedPaths.has(location.pathname) && !unitPath.test(location.pathname)) return;
       loadContainer().push({ event });
     };
     const trackClick = (event: MouseEvent) => {
@@ -58,12 +93,12 @@ export default function CookieBanner() {
       }
     };
     const trackSubmit = (event: SubmitEvent) => {
-      if (event.target instanceof HTMLFormElement && event.target.dataset.contactAction === "whatsapp_click") {
+      if (event.target instanceof HTMLFormElement && event.target.dataset.contactAction === "whatsapp_click" && event.target.checkValidity() && event.target.querySelector<HTMLInputElement>('#name')?.value.trim()) {
         record("whatsapp_click");
       }
     };
 
-    if (allowedPaths.has(location.pathname)) loadContainer();
+    // Load only on a consented contact event, not on a page view.
     document.addEventListener("click", trackClick, true);
     document.addEventListener("submit", trackSubmit, true);
     return () => {
@@ -73,16 +108,24 @@ export default function CookieBanner() {
   }, [allowed]);
 
   function choose(allow: boolean) {
-    localStorage.setItem(preferenceKey, allow ? "allow" : "deny");
+    let saved = false;
+    try {
+      localStorage.setItem(preferenceKey, allow ? "allow" : "deny");
+      saved = true;
+    } catch { /* Keep choice for this visit. */ }
+
     if (!allow && allowed) {
-      window.location.reload();
-      return;
+      clearClinicCookies();
+      if (saved) {
+        window.location.reload();
+        return;
+      }
     }
     setAllowed(allow);
     setOpen(false);
   }
 
-  if (!open) return null;
+  if (!metricsEnabled || !open) return null;
 
   return (
     <div className="fixed bottom-4 left-3 right-3 z-50 rounded-2xl border border-zinc-200 bg-white p-3 shadow-2xl sm:bottom-5 sm:left-auto sm:right-6 sm:max-w-sm sm:p-4" role="region" aria-label="Preferências de métricas">

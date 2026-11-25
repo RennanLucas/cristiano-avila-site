@@ -49,7 +49,7 @@ export default function JsonLd() {
           name: `Consultório Cristiano Ávila - ${unit.city}`,
           description: `Atendimento psicológico presencial em ${unit.city}, ${unit.state}.`,
           telephone: CLINIC_CONTACT.phone,
-          url: `${SITE_URL}/unidades#${unit.id}`,
+          url: `${SITE_URL}/unidades/${unit.id}`,
           address: {
             "@type": "PostalAddress",
             streetAddress: usefulComplement ? `${unit.address}, ${usefulComplement}` : unit.address,

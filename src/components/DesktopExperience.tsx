@@ -19,7 +19,7 @@ export default function DesktopExperience() {
     const desktop = window.matchMedia("(min-width: 1024px)");
     const finePointer = window.matchMedia("(pointer: fine)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!desktop.matches || reducedMotion.matches) return;
+    if (!desktop.matches || reducedMotion.matches || !("IntersectionObserver" in window)) return;
 
     const root = document.documentElement;
     const cursor = cursorRef.current;
@@ -45,8 +45,10 @@ export default function DesktopExperience() {
       };
     });
 
-    setRailItems(items);
-    if (items[0]) setActiveSectionId(items[0].id);
+    const railFrame = window.requestAnimationFrame(() => {
+      setRailItems(items);
+      setActiveSectionId(items[0]?.id ?? "");
+    });
 
     const updateHeaderActive = (sectionId: string) => {
       headerSectionLinks.forEach((link) => {
@@ -141,6 +143,7 @@ export default function DesktopExperience() {
     }
 
     return () => {
+      window.cancelAnimationFrame(railFrame);
       revealObserver.disconnect();
       activeObserver.disconnect();
       hero?.removeEventListener("pointermove", updateHeroPointer);

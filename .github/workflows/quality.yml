@@ -5,9 +5,10 @@ on:
     branches:
       - master
       - 'audit/**'
+      - 'fix/**'
+      - 'upgrade/**'
   pull_request:
-    branches:
-      - master
+    branches: [master]
 
 permissions:
   contents: read
@@ -15,23 +16,48 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_CLINIC_METRICS_ENABLED: "true"
+      TEST_CLINIC_METRICS_ENABLED: "true"
+      TEST_LOCAL_HTTP: "true"
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          node-version: 20
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+      - run: npm audit
+      - run: npx playwright install --with-deps chromium webkit firefox
 
-      - name: TypeScript check
-        run: npx tsc --noEmit
+      - name: Start production server
+        run: |
+          npm run start > /tmp/site.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl -fsS http://localhost:3000/ > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/site.log
+          exit 1
 
-      - name: Production build
-        run: npm run build
+      - run: npm run test:smoke
+      - run: npm run test:browser
+
+      - name: Lighthouse mobile and desktop
+        run: |
+          npx --yes lighthouse@13.6.0 http://localhost:3000 --chrome-flags="--headless --no-sandbox" --output=json --output-path=./lighthouse-mobile.json --quiet
+          npx --yes lighthouse@13.6.0 http://localhost:3000 --preset=desktop --chrome-flags="--headless --no-sandbox" --output=json --output-path=./lighthouse-desktop.json --quiet
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lighthouse-reports
+          path: lighthouse-*.json
