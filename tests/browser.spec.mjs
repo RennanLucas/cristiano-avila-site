@@ -36,21 +36,28 @@ test("local pages and contact validation", async ({ page }) => {
 
 test("metrics require consent and record only the expected contact events", async ({ page, context }) => {
   test.skip(process.env.TEST_CLINIC_METRICS_ENABLED !== "true", "Metrics disabled in this build");
-  const csp = [];
+  const advertisingResponses = [];
   const requests = [];
   const hits = [];
   const expected = ["booking_click", "phone_click", "whatsapp_click"];
   const hitsFor = event => hits.filter(hit => `${hit.url}&${hit.body}`.includes(`en=${event}`));
 
   await page.addInitScript(() => {
+    window.blockedByCsp = [];
+    document.addEventListener("securitypolicyviolation", event => {
+      window.blockedByCsp.push(event.blockedURI);
+    });
     document.addEventListener("click", event => {
       const href = event.target instanceof Element && event.target.closest("a")?.getAttribute("href");
       if (href && /^(tel:|https:\/\/wa\.me\/)/.test(href)) event.preventDefault();
     });
     window.open = () => null;
   });
-  page.on("console", message => {
-    if (/content security policy/i.test(message.text())) csp.push(message.text());
+  context.on("response", response => {
+    const host = new URL(response.url()).hostname;
+    if (/(^|\.)(doubleclick\.net|googleadservices\.com|googlesyndication\.com)$/.test(host)) {
+      advertisingResponses.push(host);
+    }
   });
   context.on("request", request => {
     if (/googletagmanager\.com\/(gtm\.js|gtag\/js)|google-analytics\.com\/.*collect/.test(request.url())) {
@@ -88,7 +95,9 @@ test("metrics require consent and record only the expected contact events", asyn
   }
   expect(hits.filter(hit => /Nome|5511980611571|wa\.me|form_submit|page_view|link_url/.test(decodeURIComponent(hit.url + hit.body)))).toEqual([]);
   expect(hits.every(hit => new URL(hit.url).searchParams.get("tid") === "G-1WZB39L9RX")).toBe(true);
-  expect(csp.filter(message => /google-analytics|googletagmanager/.test(message))).toEqual([]);
+  const blocked = await page.evaluate(() => window.blockedByCsp);
+  expect(blocked.filter(url => /^https:\/\/(?:www\.googletagmanager\.com|(?:www|region1)\.google-analytics\.com)(?:\/|$)/.test(url))).toEqual([]);
+  expect(advertisingResponses).toEqual([]);
 
   await page.getByRole("button", { name: "Preferências de métricas" }).click();
   await Promise.all([

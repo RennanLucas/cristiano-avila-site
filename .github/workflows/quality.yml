@@ -54,8 +54,8 @@ jobs:
 
       - name: Lighthouse mobile and desktop
         run: |
-          npx --yes lighthouse@12.8.2 http://localhost:3000 --chrome-flags="--headless --no-sandbox" --output=json --output-path=./lighthouse-mobile.json --quiet
-          npx --yes lighthouse@12.8.2 http://localhost:3000 --preset=desktop --chrome-flags="--headless --no-sandbox" --output=json --output-path=./lighthouse-desktop.json --quiet
+          npx --yes lighthouse@13.6.0 http://localhost:3000 --chrome-flags="--headless --no-sandbox" --output=json --output-path=./lighthouse-mobile.json --quiet
+          npx --yes lighthouse@13.6.0 http://localhost:3000 --preset=desktop --chrome-flags="--headless --no-sandbox" --output=json --output-path=./lighthouse-desktop.json --quiet
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:

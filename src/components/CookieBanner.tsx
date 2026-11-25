@@ -104,12 +104,15 @@ export default function CookieBanner() {
     } catch { /* Keep choice for this visit. */ }
 
     if (!allow && allowed) {
-      const host = location.hostname;
       for (const entry of document.cookie.split(";")) {
         const name = entry.split("=")[0].trim();
         if (!/^_ga(?:_[A-Z0-9]+)?$/i.test(name)) continue;
-        document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
-        document.cookie = `${name}=; Max-Age=0; Path=/; Domain=${host}; SameSite=Lax; Secure`;
+
+        for (const domain of ["", `; Domain=${location.hostname}`]) {
+          const expired = `${name}=; Max-Age=0; Path=/; SameSite=Lax${domain}`;
+          document.cookie = `${expired}; Secure`;
+          if (location.protocol === "http:") document.cookie = expired;
+        }
       }
       if (saved) {
         window.location.reload();
