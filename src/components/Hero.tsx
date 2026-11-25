@@ -12,18 +12,18 @@ export default function Hero() {
         <div className="pointer-events-none absolute inset-0 soft-grid opacity-[0.34] [mask-image:linear-gradient(to_bottom,black,transparent_82%)]" />
         <div className="aurora-orb absolute -left-28 top-24 h-80 w-80 rounded-full bg-fuchsia-200/25 blur-[80px]" />
         <div className="aurora-orb aurora-orb-delayed absolute right-[-7rem] top-10 h-[26rem] w-[26rem] rounded-full bg-amber-100/45 blur-[95px]" />
-        <div className="hero-wordmark pointer-events-none absolute inset-x-0 top-[22%] hidden select-none text-center font-serif text-[13vw] italic leading-none tracking-[-0.08em] text-black/[0.035] lg:block">PRESENÇA</div>
+        <div className="hero-wordmark pointer-events-none absolute inset-x-0 top-[22%] hidden select-none text-center font-serif text-[13vw] italic leading-none tracking-[-0.08em] text-black/[0.015] xl:block">PRESENÇA</div>
         <HeroCinematicNote />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6">
-          <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8 xl:gap-12">
-            <div className="hero-copy max-w-3xl lg:pb-10">
+          <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-8 xl:gap-12">
+            <div className="hero-copy min-w-0 max-w-3xl lg:pb-6">
               <div className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-white/80 bg-white/72 px-3.5 py-1.5 text-[10px] font-medium text-zinc-700 shadow-[0_10px_32px_rgba(0,0,0,0.07)] sm:mb-7 sm:text-xs md:backdrop-blur-xl">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-900" />
                 <span className="truncate">Psicologia clínica • {PROFESSIONAL_REGISTRATION}</span>
               </div>
 
-              <h1 className="hero-title mb-6 text-[2.75rem] font-semibold leading-[0.94] tracking-[-0.06em] text-black min-[390px]:text-5xl sm:text-6xl lg:text-[5.45rem] xl:text-[6.1rem]">
+              <h1 className="hero-title mb-6 text-[2.75rem] font-semibold leading-[0.94] tracking-[-0.06em] text-black min-[390px]:text-5xl sm:text-6xl lg:text-[clamp(3rem,4.25vw,4.4rem)]">
                 <span className="hero-title-line block">Entender o que</span>
                 <span className="hero-title-line block font-serif font-normal italic text-zinc-700">acontece por dentro.</span>
               </h1>
@@ -54,8 +54,8 @@ export default function Hero() {
                 </div>
               </div>
 
-              <div className="floating-card absolute -left-3 top-[17%] hidden rounded-2xl px-4 py-3 premium-glass sm:block lg:-left-16"><span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Consultas</span><strong className="mt-1 block text-sm font-semibold text-black">Presencial & online</strong></div>
-              <div className="floating-card floating-card-delayed absolute -right-2 bottom-[18%] hidden rounded-2xl px-4 py-3 premium-dark text-white sm:block lg:-right-8"><span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-white/45">Formação complementar</span><strong className="mt-1 block text-sm font-semibold">Hipnoterapia OMNI</strong></div>
+              <div className="floating-card absolute -left-3 top-[17%] hidden rounded-2xl px-4 py-3 premium-glass sm:block lg:left-4 xl:-left-4"><span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-400">Consultas</span><strong className="mt-1 block text-sm font-semibold text-black">Presencial & online</strong></div>
+              <div className="floating-card floating-card-delayed absolute -right-2 bottom-[18%] hidden rounded-2xl px-4 py-3 premium-dark text-white sm:block lg:right-4 xl:-right-3"><span className="block text-[9px] font-semibold uppercase tracking-[0.16em] text-white/45">Formação complementar</span><strong className="mt-1 block text-sm font-semibold">Hipnoterapia OMNI</strong></div>
             </div>
           </div>
 

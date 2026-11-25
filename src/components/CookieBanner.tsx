@@ -123,10 +123,10 @@ export default function CookieBanner() {
   if (!metricsEnabled || !open) return null;
 
   return (
-    <div className="fixed bottom-24 left-3 right-3 z-50 rounded-2xl border border-zinc-200 bg-white p-4 shadow-2xl min-[390px]:left-4 min-[390px]:right-4 min-[390px]:p-5 sm:bottom-5 sm:left-6 sm:right-auto sm:max-w-md" role="region" aria-label="Preferências de métricas">
+    <div className="fixed bottom-4 left-3 right-3 z-50 rounded-2xl border border-zinc-200 bg-white p-3 shadow-2xl sm:bottom-5 sm:left-auto sm:right-6 sm:max-w-sm sm:p-4" role="region" aria-label="Preferências de métricas">
       <p className="text-sm font-semibold text-black">Preferências de métricas</p>
-      <p className="mt-2 text-xs leading-relaxed text-zinc-600">Com sua autorização, medimos o uso dos botões de contato. Leia a <Link href="/politica-de-privacidade" className="font-medium text-black underline">Política de Privacidade</Link>.</p>
-      <div className="mt-3 grid grid-cols-2 gap-2">
+      <p className="mt-1.5 text-xs leading-snug text-zinc-600">Com sua autorização, medimos o uso dos botões de contato. Leia a <Link href="/politica-de-privacidade" className="font-medium text-black underline">Política de Privacidade</Link>.</p>
+      <div className="mt-2 grid grid-cols-2 gap-2">
         <button type="button" onClick={() => choose(false)} className="min-h-11 rounded-xl border border-zinc-300 px-2 text-xs font-semibold text-black">Recusar métricas</button>
         <button type="button" onClick={() => choose(true)} className="min-h-11 rounded-xl border border-zinc-300 px-2 text-xs font-semibold text-black">Permitir métricas</button>
       </div>
